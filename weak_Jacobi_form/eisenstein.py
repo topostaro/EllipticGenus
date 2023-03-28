@@ -35,6 +35,3 @@ def eisenstein(k: int):
         1 + 240*q + 2160*q^2 + 6720*q^3 + 17520*q^4 + 30240*q^5 + 60480*q^6 + O(q^7)
     """
     return R(lambda n: _eisenstein_coefficient(k, n), valuation=0)
-
-
-print(eisenstein(4))
