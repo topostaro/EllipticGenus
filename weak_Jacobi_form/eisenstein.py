@@ -1,5 +1,8 @@
 from sage.all import *
 
+R0 = LaurentPolynomialRing(QQ, "y")
+R = LazyLaurentSeriesRing(R0, "q")
+
 # modified version only for negative integers
 def zeta(s: int):
     return -bernoulli(-s + 1) / (-s + 1)
