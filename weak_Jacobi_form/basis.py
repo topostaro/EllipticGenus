@@ -27,6 +27,12 @@ def _function_t1(y):
     $$
     where
     $q = e^{2 \pi i \tau}, y = e^{2 \pi i z}$
+
+    INPUT:
+    - `y` -- variable of the function which should be in `LaurentPolynomialRing(QQ, "y")`.
+
+    OUTPUT:
+    the function t_1 defined above.
     """
 
     # Return the pair of solutions of the equation "x^2 + x == n" or None.
@@ -61,6 +67,12 @@ def _function_t2(y):
     $$
     t_2(y, q) = \sum_{n = -\infty}^\infty y^n q^{1/2(n^2 + n)}
     $$
+
+    INPUT:
+    - `y` -- variable of the function which should be in `LaurentPolynomialRing(QQ, "y")`.
+
+    OUTPUT:
+    the function t_2 defined above.
     """
 
     # Return the pair of solutions of the equation "x^2 + x == n" or None.
@@ -95,6 +107,12 @@ def _function_t3(y):
     $$
     t_3(y, q) = \sum_{n = -\infty}^\infty y^n q^{n^2}
     $$
+
+    INPUT:
+    - `y` -- variable of the function which should be in `LaurentPolynomialRing(QQ, "y")`.
+
+    OUTPUT:
+    the function t_3 defined above.
     """
     return _R(
         lambda n: 1
@@ -119,6 +137,12 @@ def _function_t4(y):
     $$
     t_4(y, q) = \sum_{n = -\infty}^\infty (-1)^n y^n q^{n^2}
     $$
+
+    INPUT:
+    - `y` -- variable of the function which should be in `LaurentPolynomialRing(QQ, "y")`.
+
+    OUTPUT:
+    the function t_4 defined above.
     """
     return _R(
         lambda n: 1
@@ -155,7 +179,13 @@ def _phi_tilde_m2_1():
 # nを2と3に分解するプログラム
 def _decompose(n):
     r"""
-    Return the list of all possible decompositions of n into sums of 2 and 3.
+    Return the list of all possible decompositions of `n` into sums of 2 and 3.
+
+    INPUT:
+    - `n` -- an integer expected to be positive for meaningful calculations.
+
+    OUTPUT:
+    The list of pairs of coefficient of possible decompositions of `n` into sums of 2 and 3.
 
     EXAMPLES::
 
@@ -182,6 +212,12 @@ def _decompose(n):
 def basis(index: int) -> list:
     r"""
     Return a basis of the space of weak Jacobi forms of weight 0 and index k.
+
+    INPUT:
+    - `index` -- index of weak Jacobi forms expected to be positive.
+
+    OUTPUT:
+    the list consisting of series in a basis of weight 0 and index k.
 
     EXAMPLES::
 
