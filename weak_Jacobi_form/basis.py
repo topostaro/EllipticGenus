@@ -67,6 +67,7 @@ def _function_t1(y):
     OUTPUT:
 
     the function `t_1` defined above.
+    
     """
 
     # Return the pair of solutions of the equation "x^2 + x == n" or None.
@@ -109,6 +110,7 @@ def _function_t2(y):
     OUTPUT:
 
     the function `t_2` defined above.
+
     """
 
     # Return the pair of solutions of the equation "x^2 + x == n" or None.
@@ -151,6 +153,7 @@ def _function_t3(y):
     OUTPUT:
 
     the function `t_3` defined above.
+
     """
     return _R(
         lambda n: 1
@@ -183,6 +186,7 @@ def _function_t4(y):
     OUTPUT:
 
     the function `t_4` defined above.
+
     """
     return _R(
         lambda n: 1
@@ -198,6 +202,7 @@ def _phi_tilde_0_1():
     r"""
 
     Return a weak Jacobi form of weight `0` and index `1`.
+
     """
     f = 4 * (_function_t2(_y) / _function_t2(1)) ** 2 * _y
 
@@ -212,6 +217,7 @@ def _phi_tilde_m2_1():
     r"""
 
     Return a weak Jacobi form of weight `-2` and index `1`.
+
     """
     h = _function_t3(1) * _function_t4(1)
     e3 = 1 / 2 * _function_t2(1) * _R(lambda n: h.coefficient(2 * n), valuation=0)
@@ -222,6 +228,7 @@ def _phi_tilde_0_3o2():
     r"""
 
     Return a weak Jacobi form of weight `0` and index `3/2` multiplied by `y^{1/2}`.
+
     """
     return _function_t1(_y**2) / _function_t1(_y) * _y
 
@@ -250,6 +257,7 @@ def _decompose(n):
         {(2, 0)}
         sage: _decompose(8)
         {(4, 0), (1, 2)}
+
     """
     if n <= 0:
         return []
