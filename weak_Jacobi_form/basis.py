@@ -176,6 +176,13 @@ def _phi_tilde_m2_1():
     return _function_t1(_y) ** 2 / e3**2 * _y
 
 
+def _phi_tilde_0_3o2():
+    r"""
+    Return a weak Jacobi form of weight 0 and index 3/2 multiplied by $y^{1/2}$.
+    """
+    return _function_t1(_y**2) / _function_t1(_y) * _y
+
+
 # nを2と3に分解するプログラム
 def _decompose(n):
     r"""
@@ -209,15 +216,15 @@ def _decompose(n):
 
 
 # 整数indexの基底を返す関数
-def basis(index: int) -> list:
+def basis_integral(index: int) -> list:
     r"""
-    Return a basis of the space of weak Jacobi forms of weight 0 and index k.
+    Return a basis of the space of weak Jacobi forms of weight `0` and index `index`.
 
     INPUT:
-    - `index` -- index of weak Jacobi forms expected to be positive.
+    - `index` -- integral index of weak Jacobi forms expected to be positive.
 
     OUTPUT:
-    the list consisting of series in a basis of weight 0 and index k.
+    the list consisting of series in a basis of weight 0 and index `index`.
 
     EXAMPLES::
 
@@ -234,3 +241,22 @@ def basis(index: int) -> list:
             result.append(e * phi)
 
     return result
+
+
+def basis_half_integral(double_index: int) -> list:
+    r"""
+    Return a basis of the space of weak Jacobi forms of weight `0` and index `double_index / 2` for even `double_index`,
+    otherwise return a list of a basis multiplied by by $y^{1/2}$.
+
+    INPUT:
+    - `double_index` -- double of index of weak Jacobi forms expected to be greater than 3.
+
+    OUTPUT:
+    If `double_index` is even, the list consisting of series in a basis of weight `0` and index `double_index`.
+    Otherwise, the list consisting of series in a basis of weight `0` and index `double_index` multiplied by $y^{1/2}$.
+    """
+    if double_index % 2 == 0:
+        return basis_integral(int(double_index / 2))
+    else:
+        index = int((double_index - 3) / 2)
+        return list(map(lambda f: f * _phi_tilde_0_3o2(), basis_integral(index)))
