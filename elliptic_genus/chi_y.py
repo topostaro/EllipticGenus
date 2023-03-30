@@ -1,8 +1,15 @@
-from sage.all import PolynomialRing, LaurentPolynomialRing, LazyLaurentSeriesRing, QQ
+from sage.all import (
+    PolynomialRing,
+    LaurentPolynomialRing,
+    LazyLaurentSeriesRing,
+    QQ,
+    Partitions,
+    prod,
+)
 from utils import *
 
 # chern rootごとのchi_yの積因子の係数
-def chi_y_factor_coeff(dim: int) -> list:
+def _chi_y_factor_coeff(dim: int) -> list:
     R0 = PolynomialRing(QQ, "x", dim)
     x = R0.gens()  # Chern根の変数
 
@@ -26,24 +33,27 @@ def chi_y_factor_coeff(dim: int) -> list:
         QQ(cy_fac_0.coefficients()[0].constant_coefficient())
         + QQ(cy_fac_0.coefficients()[1].constant_coefficient()) * y
     ] + [
-        QQ(cy_fac_0.coefficients()[0].coefficient(x[0] ^ i))
-        + QQ(cy_fac_0.coefficients()[1].coefficient(x[0] ^ i)) * y
+        QQ(cy_fac_0.coefficients()[0].coefficient(x[0] ** i))
+        + QQ(cy_fac_0.coefficients()[1].coefficient(x[0] ** i)) * y
         for i in range(1, dim + 1)
     ]
     return result
 
 
-def chi_y_coeff(dim: int) -> dict:
-    cy_fac_coeff = chi_y_factor_coeff(dim)
+def _chi_y_coeff(dim: int) -> dict:
+    cy_fac_coeff = _chi_y_factor_coeff(dim)
     return {
-        part: prod(cy_fac_coeff[part[i]] for i in range(len(part))) * cy_fac_coeff[0]
-        ^ (dim - len(part))
+        part: prod(cy_fac_coeff[part[i]] for i in range(len(part)))
+        * cy_fac_coeff[0] ** (dim - len(part))
         for part in Partitions(dim)
     }
 
 
 def chi_y(dim: int):
-    coeff = chi_y_coeff(dim)
+    coeff = _chi_y_coeff(dim)
     return sum(
         coeff[part] * chernnum_from_partition(dim, part) for part in Partitions(dim)
     )
+
+
+print(chi_y(3))

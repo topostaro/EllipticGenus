@@ -38,8 +38,8 @@ def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhom
     return f.map_coefficients(lambda g: g.map_coefficients(homogeneous_for_coeff(m)))
 
 
-m = SymmetricFunctions(QQ).m()
-e = SymmetricFunctions(QQ).e()
+_m = SymmetricFunctions(QQ).m()
+_e = SymmetricFunctions(QQ).e()
 # partition [i_1, .., i_n]をmonomial symmetric polynomialの指数と捉えて、それを基本対称式に変換する関数
 def chernnum_from_partition(dim: int, part):
     S0 = PolynomialRing(QQ, "c", dim + 1)
@@ -54,5 +54,5 @@ def chernnum_from_partition(dim: int, part):
                 result = result * c[deg]
         return result
 
-    ls = list(e(m(part)))
+    ls = list(_e(_m(part)))
     return sum(c * monomial(degs) for degs, c in ls)
