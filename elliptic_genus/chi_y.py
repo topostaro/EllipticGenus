@@ -1,3 +1,20 @@
+r"""
+Computation of chi_y genus for complex manifolds
+================================================
+
+This module implements a computation of Eisenstein series.
+
+EXAMPLES::
+
+
+AUTHORS:
+
+- KENTA KOBAYASHI (2023-03-30): initial version
+
+REFERENCES:
+
+"""
+
 from sage.all import (
     PolynomialRing,
     LaurentPolynomialRing,
