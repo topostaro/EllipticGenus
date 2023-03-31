@@ -1,3 +1,39 @@
+r"""
+Computation of Eisenstein series
+================================================
+
+This module implements a computation of Eisenstein series.
+
+EXAMPLES::
+
+    sage: from sage.WeakJacobiForm.weak_Jacobi_form.eisenstein import eisenstein
+    sage: eisenstein(4)
+    1 + 240*q + 2160*q^2 + 6720*q^3 + 17520*q^4 + 30240*q^5 + 60480*q^6 + O(q^7)
+    sage: eisenstein(6)
+    1 - 504*q - 16632*q^2 - 122976*q^3 - 532728*q^4 - 1575504*q^5 - 4058208*q^6 + O(q^7)
+    sage: eisenstein(8)
+    1 + 480*q + 61920*q^2 + 1050240*q^3 + 7926240*q^4 + 37500480*q^5 + 135480960*q^6 + O(q^7)
+
+AUTHORS:
+
+- KENTA KOBAYASHI (2023-03-30): initial version
+
+REFERENCES:
+
+.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh ̈auser Boston, Inc., Boston, MA, 1985.
+
+"""
+
+# ****************************************************************************
+#       Copyright (C) 2023 KENTA KOBAYASHI <your email>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#                  https://www.gnu.org/licenses/
+# ****************************************************************************
+
 from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ, bernoulli, sigma
 
 # Base rings for calculations

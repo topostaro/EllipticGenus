@@ -20,11 +20,9 @@ AUTHORS:
 
 REFERENCES:
 
-.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics.
-Birkh ̈auser Boston, Inc., Boston, MA, 1985.
+.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh ̈auser Boston, Inc., Boston, MA, 1985.
 
-.. [BL2000] \Lev A. Borisov and Anatoly Libgober. Elliptic genera of toric varieties and applications to mirror
-symmetry. Invent. Math., 140(2):453-485, 2000.
+.. [BL2000] \Lev A. Borisov and Anatoly Libgober. Elliptic genera of toric varieties and applications to mirror symmetry. Invent. Math., 140(2):453-485, 2000.
 
 """
 
