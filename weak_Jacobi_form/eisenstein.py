@@ -20,7 +20,7 @@ AUTHORS:
 
 REFERENCES:
 
-.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh ̈auser Boston, Inc., Boston, MA, 1985.
+.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh äuser Boston, Inc., Boston, MA, 1985.
 
 """
 
