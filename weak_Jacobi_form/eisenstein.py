@@ -25,7 +25,7 @@ REFERENCES:
 """
 
 # ****************************************************************************
-#       Copyright (C) 2023 KENTA KOBAYASHI <your email>
+#       Copyright (C) 2023 KENTA KOBAYASHI <kenta.topos@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

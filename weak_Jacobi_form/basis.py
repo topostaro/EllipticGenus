@@ -20,14 +20,14 @@ AUTHORS:
 
 REFERENCES:
 
-.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh ̈auser Boston, Inc., Boston, MA, 1985.
+.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh äuser Boston, Inc., Boston, MA, 1985.
 
 .. [BL2000] \Lev A. Borisov and Anatoly Libgober. Elliptic genera of toric varieties and applications to mirror symmetry. Invent. Math., 140(2):453-485, 2000.
 
 """
 
 # ****************************************************************************
-#       Copyright (C) 2023 KENTA KOBAYASHI <your email>
+#       Copyright (C) 2023 KENTA KOBAYASHI <kenta.topos@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ _q = _R.gen()
 def _function_t1(y):
     r"""
 
-    Return a function which is proposal to the Jacobi theta function `\theta_1`.
+    Return a function which is proportional to the Jacobi theta function `\theta_1`.
 
     .. MATH::
 
@@ -95,7 +95,7 @@ def _function_t1(y):
 def _function_t2(y):
     r"""
 
-    Return a function which is proposal to the Jacobi theta function `\theta_2`.
+    Return a function which is proportional to the Jacobi theta function `\theta_2`.
 
     .. MATH::
 
@@ -138,7 +138,7 @@ def _function_t2(y):
 def _function_t3(y):
     r"""
 
-    Return a function which is proposal to the Jacobi theta function `\theta_3`.
+    Return a function which is proportional to the Jacobi theta function `\theta_3`.
 
     .. MATH::
 
@@ -171,7 +171,7 @@ def _function_t3(y):
 def _function_t4(y):
     r"""
 
-    Return a function which is proposal to the Jacobi theta function $`\theta_4`.
+    Return a function which is proportional to the Jacobi theta function $`\theta_4`.
 
      .. MATH::
 
