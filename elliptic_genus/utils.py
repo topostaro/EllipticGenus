@@ -1,3 +1,7 @@
+r"""
+Module contains common functions used in intermediate calculations
+"""
+
 import math
 from sage.all import (
     PolynomialRing,
@@ -13,6 +17,26 @@ _z = _L.gen()
 
 
 def todd_cut(x, m):  # mでカットオフ
+    r"""
+
+    Return the truncation of `\frac{x}{1 - e^{-x}}` at degree ``m``.
+
+    INPUT:
+
+    - ``x`` -- the variable of the todd genus for a line bundle.
+
+    - ``m`` -- an integer.
+
+    OUTPUT:
+
+    the truncation of todd class `\frac{x}{1 - e^{-x}}` at degree ``m``.
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.elliptic_genus.utils import todd_cut
+        sage: todd_cut(_Z, 5)
+
+    """
     t = _L(_z / (1 - exp(-_z)), degree=m + 1).polynomial()
     return t(x)
 
