@@ -6,6 +6,12 @@ This module implements a computation of elliptic genera, where the  coefficients
 
 EXAMPLES:
 
+    sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import elliptic_genus
+    sage: elliptic_genus(4, 0)
+    (1/240*c2^2 - 1/720*c4) + (-1/60*c2^2 + 31/180*c4)*y + (1/40*c2^2 + 79/120*c4)*y^2 + (-1/60*c2^2 + 31/180*c4)*y^3 + (1/240*c2^2 - 1/720*c4)*y^4 + O(q)
+    sage: elliptic_genus(5, 2)
+    1/24*c5*y + 11/24*c5*y^2 + 11/24*c5*y^3 + 1/24*c5*y^4 + (-1/24*c5*y^-1 - 9/4*c5*y + 55/24*c5*y^2 + 55/24*c5*y^3 - 9/4*c5*y^4 - 1/24*c5*y^6)*q + (-11/24*c5*y^-2 + 9/4*c5*y^-1 - 197/12*c5*y + 117/8*c5*y^2 + 117/8*c5*y^3 - 197/12*c5*y^4 + 9/4*c5*y^6 - 11/24*c5*y^7)*q^2 + O(q^3)
+
 AUTHORS:
 
 - KENTA KOBAYASHI (2023-04-03): initial version
