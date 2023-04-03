@@ -2,6 +2,17 @@ r"""
 Module contains common functions used in intermediate calculations
 """
 
+
+# ****************************************************************************
+#       Copyright (C) 2023 KENTA KOBAYASHI <kenta.topos@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#                  https://www.gnu.org/licenses/
+# ****************************************************************************
+
 import math
 from sage.all import (
     PolynomialRing,
@@ -25,7 +36,7 @@ def todd_cut(x, m):  # mでカットオフ
 
     - ``x`` -- the variable of the todd genus for a line bundle.
 
-    - ``m`` -- an integer.
+    - ``m`` -- integer.
 
     OUTPUT:
 
@@ -34,7 +45,9 @@ def todd_cut(x, m):  # mでカットオフ
     EXAMPLE:
 
         sage: from sage.WeakJacobiForm.elliptic_genus.utils import todd_cut
-        sage: todd_cut(_Z, 5)
+        sage: R.<z> = LazyLaurentSeriesRing(QQ)
+        sage: todd_cut(z, 5)
+        1 + 1/2*z + 1/12*z^2 - 1/720*z^4
 
     """
     t = _L(_z / (1 - exp(-_z)), degree=m + 1).polynomial()
@@ -42,23 +55,122 @@ def todd_cut(x, m):  # mでカットオフ
 
 
 def exp_cut(x, m):  # mでカットオフ
+    r"""
+
+    Return the truncation of `e^x` at degree ``m``.
+
+    INPUT:
+
+    - ``x`` -- the variable of the exponential function.
+
+    - ``m`` -- integer.
+
+    OUTPUT:
+
+    the truncation of todd class `e^x}` at degree ``m``.
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.elliptic_genus.utils import exp_cut
+        sage: R.<z> = LazyLaurentSeriesRing(QQ)
+        sage: exp_cut(z, 5)
+        1 + z + 1/2*z^2 + 1/6*z^3 + 1/24*z^4 + 1/120*z^5
+
+    """
     e = _L(exp(_z), degree=m + 1).polynomial()
     return e(x)
 
 
 def cutoff_for_coeff(m):  # xの式に対するcutoff
+    r"""
+
+    Return a function which returns the truncation of its argument at degree ``m``.
+
+    INPUT:
+
+    - ``m`` -- integer.
+
+    OUTPUT:
+
+    a function which returns the truncation of the argument function at degree ``m``
+
+
+    """
     return lambda f: sum(c * mono for c, mono in f if mono.total_degree() <= m)
 
 
 def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
+    r"""
+
+    Return the truncation of the argument truncating only the coefficients of the coefficients at degree``m``.
+
+    INPUT:
+
+    - ``f`` -- a polynomial with coefficients of polynomials with coefficients of polynomials.
+
+    - ``m`` -- integer.
+
+    OUTPUT:
+
+    the truncation of the argument truncating only the coefficients of the coefficients.
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.elliptic_genus.utils import cutoff
+        sage: R0.<x0, x1> = PolynomialRing(QQ)
+        sage: R1.<y> = LaurentPolynomialRing(R0)
+        sage: R.<z>  = LazyLaurentSeriesRing(R1)
+        sage: f = (1 + x0 + x1)^5 * y^6 * z^7
+        sage: cutoff(f, 4)
+        ((5*x0^4 + 20*x0^3*x1 + 30*x0^2*x1^2 + 20*x0*x1^3 + 5*x1^4 + 10*x0^3 + 30*x0^2*x1 + 30*x0*x1^2 + 10*x1^3 + 10*x0^2 + 20*x0*x1 + 10*x1^2 + 5*x0 + 5*x1 + 1)*y^6)*z^7
+
+    """
     return f.map_coefficients(lambda g: g.map_coefficients(cutoff_for_coeff(m)))
 
 
 def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
+    r"""
+
+    Return a function which returns the homogeneous part of its argument at degree ``m``.
+
+    INPUT:
+
+    - ``m`` -- integer.
+
+    OUTPUT:
+
+    a function which returns the homogeneous part of the argument function at degree ``m``
+
+    """
     return lambda f: sum(c * mono for c, mono in f if mono.total_degree() == m)
 
 
 def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhomogeneous part
+    r"""
+
+    Return the homogeneous part of the coefficients of the coefficients at degree ``m``.
+
+    INPUT:
+
+    - ``f`` -- a polynomial with coefficients of polynomials with coefficients of polynomials.
+
+    - ``m`` -- integer.
+
+    OUTPUT:
+
+    the homogeneous part of the coefficients of the coefficients at degree ``m``.
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.elliptic_genus.utils import homogeneous_part
+        sage: R0.<x0, x1> = PolynomialRing(QQ)
+        sage: R1.<y> = LaurentPolynomialRing(R0)
+        sage: R.<z>  = LazyLaurentSeriesRing(R1)
+        sage: f = (1 + x0 + x1)^5 * y^6 * z^7
+        sage: homogeneous_part(f, 4)
+        ((5*x0^4 + 20*x0^3*x1 + 30*x0^2*x1^2 + 20*x0*x1^3 + 5*x1^4)*y^6)*z^7
+
+    """
     return f.map_coefficients(lambda g: g.map_coefficients(homogeneous_for_coeff(m)))
 
 
@@ -66,6 +178,29 @@ _m = SymmetricFunctions(QQ).m()
 _e = SymmetricFunctions(QQ).e()
 # partition [i_1, .., i_n]をmonomial symmetric polynomialの指数と捉えて、それを基本対称式に変換する関数
 def chernnum_from_partition(dim: int, part):
+    r"""
+
+    Return the combination of elementary symmetric functions equals to the monomial expressed by the argument partition.
+
+    INPUT:
+
+    - ``dim`` -- integer -- the dimension of the considering manifold
+
+    - ``part`` -- partition of ``dim`` -- the multidegree of a monomial.
+
+    OUTPUT:
+
+    the combination of elementary symmetric functions equals to the monomial with multidegree ``part``.
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.elliptic_genus.utils import chernnum_from_partition
+        sage: chernnum_from_partition(5, [5])
+        -5*c2*c3 + 5*c5
+        sage: chernnum_from_partition(3, [2,1])
+        -3*c3
+
+    """
     S0 = PolynomialRing(QQ, "c", dim + 1)
     c = S0.gens()  # Chern根の変数
 
