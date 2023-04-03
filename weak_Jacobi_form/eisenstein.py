@@ -48,7 +48,7 @@ def _zeta(s: int):
 
     INPUT:
 
-    - ``s`` -- a negative integer
+    - ``s`` -- negative integer
 
     OUTPUT:
 
@@ -68,8 +68,8 @@ def _eisenstein_coefficient(k: int, n: int):
 
     INPUT:
 
-    - ``k`` -- an integer representing the index of considering Eisenstein series.
-    - ``n`` -- an integer representing the degree.
+    - ``k`` -- integer -- the index of considering Eisenstein series.
+    - ``n`` -- integer -- the degree.
 
     OUTPUT:
 
@@ -88,7 +88,7 @@ def eisenstein(k: int):
 
     INPUT:
 
-    - ``k`` -- an integer representing the index of considering Eisenstein series.
+    - ``k`` -- integer -- the index of considering Eisenstein series.
 
     OUTPUT:
 

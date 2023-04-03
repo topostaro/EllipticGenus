@@ -244,7 +244,7 @@ def _decompose(n):
 
     INPUT:
 
-    - ``n`` -- an integer expected to be positive for meaningful calculations.
+    - ``n`` -- integer -- expected to be positive for meaningful calculations.
 
     OUTPUT:
 
@@ -284,7 +284,7 @@ def basis_integral(index: int) -> list:
 
     INPUT:
 
-    - ``index`` -- integral index of weak Jacobi forms expected to be positive.
+    - ``index`` -- integer -- the index of weak Jacobi forms expected to be positive.
 
     OUTPUT:
 
@@ -320,7 +320,7 @@ def basis_half_integral(double_index: int) -> list:
 
     INPUT:
 
-    - `double_index` -- double of index of weak Jacobi forms expected to be greater than 1.
+    - `double_index` -- integer -- the double of index of weak Jacobi forms expected to be greater than 1.
 
     OUTPUT:
 
