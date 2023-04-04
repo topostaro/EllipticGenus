@@ -1,9 +1,64 @@
+r"""
+Class representing a parabolic subgroup representing a parabolic subgroup of a reductive algebraic group
+================================================
+
+This module contains a class representing a parabolic subgroup representing a parabolic subgroup of a reductive algebraic group.
+The class provides methods to compute its simple roots, positive roots, and the weight set of its highest weight representations.
+
+EXAMPLE:
+
+    sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
+    sage: P
+    sage: P.dynkin_diagram()
+    sage: P.positive_roots()
+    sage: P.weight_muliplicities((1, 2, 0))
+
+AUTHORS:
+
+- KENTA KOBAYASHI (2023-04-04): initial version
+
+REFERENCES:
+
+
+"""
+
+
+# ****************************************************************************
+#       Copyright (C) 2023 KENTA KOBAYASHI <kenta.topos@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#                  https://www.gnu.org/licenses/
+# ****************************************************************************
+
 from sage.all import matrix, vector, WeylCharacterRing
 
 # 最高ウェイト表現のウェイトを最高ウェイトとの差で表す関数。
 def root_difference_multiplicities(character_ring, highest_weight) -> dict:
     r"""
-    Return
+
+    Return the dictionary which represents the weights of the highest weight representation in the character ring.
+
+    INPUT:
+
+    - ``character_ring`` -- WeylCharacterRing
+
+    - ``highest_weight`` -- weight of the ``character_ring``
+
+    OUTPUT:
+
+    the dictionary, where the keys are tuples of integers and the values are the multiplicities of the weight which is the sum of ``highest_weight`` and simple roots with the coefficients of their keys.
+
+
+    EXAMPLE:
+
+        sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import root_difference_multiplicities
+        sage: root_difference_multiplicities(WeylCharacterRing("A1"), (2,1))
+        {(0,): 1, (-1,): 1}
+
     """
     weight_muliplicities = character_ring(highest_weight).weight_multiplicities()
     A = matrix([vector(sr) for sr in character_ring.simple_roots()]).transpose()
