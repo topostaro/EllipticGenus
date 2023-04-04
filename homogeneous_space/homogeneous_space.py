@@ -1,10 +1,10 @@
-from sage.all import *
+from sage.all import PolynomialRing
 from parabolic import ParabolicSubgroup
 from interfaces import *
 
 
 class HomogeneousSpace(IVariety):
-    def __init__(self, parabolic_subgroup) -> None:
+    def __init__(self, parabolic_subgroup: ParabolicSubgroup) -> None:
         self.parabolic_subgroup = parabolic_subgroup
 
         # コホモロジー環を含む環

@@ -1,32 +1,103 @@
+r"""
+Abstract classes of variety and vector bundles and some operations for them
+================================================
+
+This module contains abstract classes:
+    - ``IVariety`` -- an interface of varieties,
+    - ``IVectorBundle`` -- an interface of vector bundles.
+These are specialized in computing Chern characters and Todd classes from Chern classes.
+
+EXAMPLE:
+
+
+AUTHORS:
+
+- KENTA KOBAYASHI (2023-04-04): initial version
+
+REFERENCES:
+
+
+"""
+
+
+# ****************************************************************************
+#       Copyright (C) 2023 KENTA KOBAYASHI <kenta.topos@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#                  https://www.gnu.org/licenses/
+# ****************************************************************************
+
+
 from sage.all import *
 from abc import ABC, abstractmethod
 from parabolic import ParabolicSubgroup
 
 
 class IVectorBundle(ABC):
+    r"""
+
+    Dummy definition for type annotations
+
+    """
     pass
 
 
 class IVariety(ABC):
+    r"""
+
+    Abstract class of varieties
+
+    """
+
     @abstractmethod
     def dimension(self) -> int:
+        r"""
+        Return the dimension of this variety
+        """
         pass
 
     @abstractmethod
     def tangent_bundle(self) -> IVectorBundle:
+        r"""
+        Return the tangent bundle of this variety
+        """
         pass
 
     def cotangent_bundle(self) -> IVectorBundle:
+        r"""
+        Return the cotangent bundle of this variety
+        """
         return self.tangent_bundle().dual()
 
     @abstractmethod
     def integration(self, f) -> int:
+        r"""
+        Return the integration value of the cohomology class ``f`` on this variety
+
+        INPUT:
+
+        - ``f`` -- a cohomology class
+
+        OUTPUT:
+
+        the integration of ``f`` on this variety
+
+        """
         pass
 
     def chern_classes(self) -> list:
+        r"""
+        Return the degreewise list of Chern classes of the tangent bundle of this variety
+        """
         return self.tangent_bundle().chern_classes()
 
     def todd_classes(self) -> list:
+        r"""
+        Return the todd classes of the tangent bundle of this variety
+        """
         return self.tangent_bundle().todd_classes()
 
 
@@ -36,26 +107,54 @@ singular.lib("chern.lib")
 
 
 class IVectorBundle(ABC):
+    r"""
+
+    Abstract class of vector bundle
+
+    """
+
     @abstractmethod
     def base(self) -> IVariety:
+        r"""
+        Return the base space of this vector bundle
+        """
         pass
 
     @abstractmethod
     def rank(self) -> int:
+        r"""
+        Return the rank of this vector bundle
+        """
         pass
 
     @abstractmethod
     def chern_classes(self) -> list:
+        r"""
+        Return the degreewise list of Chern classes of this vector bundle
+        """
         pass
 
     # 演算子のオーバーロード
     def __add__(self, other) -> IVectorBundle:
+        r"""
+
+        Return the direct sum of vector bundles
+
+        """
         return direct_sum(self, other)
 
     def __mul__(self, other) -> IVectorBundle:
+        r"""
+
+        Return the tensor product of vector bundles
+
+        """
         return tensor_product(self, other)
 
     def chern_character(self) -> list:
+        r"""
+        Return the list of homogeneous parts of Chern characters of this vector bundle
+        """
         len_cc = len(self.chern_classes()) - 1
 
         ring_for_ch = PolynomialRing(
@@ -82,9 +181,15 @@ class IVectorBundle(ABC):
         ]
 
     def chern_character_total(self):
+        r"""
+        Return the Chern characters of this vector bundle
+        """
         return sum(c for c in self.chern_character())
 
     def todd_classes(self) -> list:
+        r"""
+        Return the list of homogeneous parts of Todd classes of this vector bundle
+        """
         len_cc = len(self.chern_classes()) - 1
 
         ring_for_td = PolynomialRing(
@@ -106,6 +211,9 @@ class IVectorBundle(ABC):
         return [todd_classes[i](chern_classes) for i in ((0.0).self.base().dimension())]
 
     def dual(self) -> IVectorBundle:
+        r"""
+        Return the dual vector bundle of this vector bundle
+        """
         vector_bundle = self
 
         class VB(IVectorBundle):
@@ -124,37 +232,48 @@ class IVectorBundle(ABC):
 
         return VB()
 
-    def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
-        if vector_bundle1.base() != vector_bundle2.base():
-            raise TypeError("Not match bases of vector bundles")
 
-        rank = vector_bundle1.rank() + vector_bundle2.rank()
-        base = vector_bundle1.base()
+def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
+    r"""
 
-        cc = sum(c1 for c1 in vector_bundle1.chern_classes()) * sum(
-            c2 for c2 in vector_bundle2.chern_classes()
-        )
-        chern_classes = [
-            homogeneous_part(cc, i) for i in ((0.0).vector_bundle1.base().dimension())
-        ]
+    Return the direct sum of vector bundles
 
-        class VB(IVectorBundle):
-            def rank(self) -> int:
-                return rank
+    """
+    if vector_bundle1.base() != vector_bundle2.base():
+        raise TypeError("Not match bases of vector bundles")
 
-            def base(self) -> IVariety:
-                return base
+    rank = vector_bundle1.rank() + vector_bundle2.rank()
+    base = vector_bundle1.base()
 
-            def chern_classes(self) -> list:
-                return chern_classes
+    cc = sum(c1 for c1 in vector_bundle1.chern_classes()) * sum(
+        c2 for c2 in vector_bundle2.chern_classes()
+    )
+    chern_classes = [
+        homogeneous_part(cc, i) for i in ((0.0).vector_bundle1.base().dimension())
+    ]
 
-            def __repr__(self) -> str:
-                return f"the direct sum of {vector_bundle1} and {vector_bundle2}"
+    class VB(IVectorBundle):
+        def rank(self) -> int:
+            return rank
 
-        return VB()
+        def base(self) -> IVariety:
+            return base
+
+        def chern_classes(self) -> list:
+            return chern_classes
+
+        def __repr__(self) -> str:
+            return f"the direct sum of {vector_bundle1} and {vector_bundle2}"
+
+    return VB()
 
 
 def tensor_product(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
+    r"""
+
+    Return the tensor product of vector bundles
+
+    """
     if vector_bundle1.base() != vector_bundle2.base():
         raise TypeError("Not match bases of vector bundles")
 
