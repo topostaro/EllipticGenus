@@ -31,9 +31,8 @@ REFERENCES:
 # ****************************************************************************
 
 
-from sage.all import *
+from sage.all import singular, PolynomialRing, TermOrder, QQ
 from abc import ABC, abstractmethod
-from parabolic import ParabolicSubgroup
 
 
 class IVectorBundle(ABC):
@@ -90,7 +89,7 @@ class IVariety(ABC):
 
     def chern_classes(self) -> list:
         r"""
-        Return the degreewise list of Chern classes of the tangent bundle of this variety
+        Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
         """
         return self.tangent_bundle().chern_classes()
 
@@ -159,11 +158,11 @@ class IVectorBundle(ABC):
 
         ring_for_ch = PolynomialRing(
             QQ,
-            [f"c{i}_E" for i in ((1.0).len_cc)],
-            order=TermOrder("wdeglex", tuple((1.0).len_cc)),
+            [f"c{i}_E" for i in (range(1, len_cc + 1))],
+            order=TermOrder("wdeglex", tuple(range(1, len_cc + 1))),
         )
 
-        # Using Singular, calclate universal formula of chern character
+        # Using Singular, calculate universal formula of chern character
         singular.lib("chern.lib")
         r = singular.ring(0, f"(c(1..{len_cc}))", "dp")
         l = singular.list(f"c(1..{len_cc})")
@@ -177,7 +176,8 @@ class IVectorBundle(ABC):
         chern_classes = self.chern_classes()[1:]
 
         return [
-            chern_character[i](chern_classes) for i in ((0.0).self.base().dimension())
+            chern_character[i](chern_classes)
+            for i in (range(0, self.base().dimension() + 1))
         ]
 
     def chern_character_total(self):
@@ -194,8 +194,8 @@ class IVectorBundle(ABC):
 
         ring_for_td = PolynomialRing(
             QQ,
-            [f"c{i}_M" for i in ((1.0).len_cc)],
-            order=TermOrder("wdeglex", tuple((1.0).len_cc)),
+            [f"c{i}_M" for i in (range(1, len_cc + 1))],
+            order=TermOrder("wdeglex", tuple(range(1, len_cc + 1))),
         )
 
         # Using Singular, calculate universal formula of Todd classes
@@ -208,7 +208,10 @@ class IVectorBundle(ABC):
 
         chern_classes = self.chern_classes()[1:]
 
-        return [todd_classes[i](chern_classes) for i in ((0.0).self.base().dimension())]
+        return [
+            todd_classes[i](chern_classes)
+            for i in (range(0, self.base().dimension() + 1))
+        ]
 
     def dual(self) -> IVectorBundle:
         r"""
@@ -225,7 +228,7 @@ class IVectorBundle(ABC):
 
             def chern_classes(self) -> list:
                 chern_classes = vector_bundle.chern_classes()
-                return [(-1) ^ i * chern_classes[i] for i in range(len(chern_classes))]
+                return [(-1) ** i * chern_classes[i] for i in range(len(chern_classes))]
 
             def __repr__(self) -> str:
                 return f"the dual vector bundle of {vector_bundle}"
@@ -248,8 +251,15 @@ def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
     cc = sum(c1 for c1 in vector_bundle1.chern_classes()) * sum(
         c2 for c2 in vector_bundle2.chern_classes()
     )
+
+    # `degree`次部分を取り出す関数
+    homogeneous_part = lambda F, degree: sum(
+        c * m for c, m in F if m.total_degree() == degree
+    )
+
     chern_classes = [
-        homogeneous_part(cc, i) for i in ((0.0).vector_bundle1.base().dimension())
+        homogeneous_part(cc, i)
+        for i in (range(0, vector_bundle1.base().dimension() + 1))
     ]
 
     class VB(IVectorBundle):
@@ -285,7 +295,8 @@ def tensor_product(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle)
 
     ring_for_Es = PolynomialRing(
         QQ,
-        [f"c{i}_E1" for i in ((1.0).len_cc1)] + [f"c{i}_E2" for i in ((1.0).len_cc2)],
+        [f"c{i}_E1" for i in (range(1, len_cc1 + 1))]
+        + [f"c{i}_E2" for i in (range(1, len_cc2 + 1))],
     )
 
     r = singular.ring(0, f"(c(1..{len_cc1}), C(1..{len_cc2}))", "dp")
