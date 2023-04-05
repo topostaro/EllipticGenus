@@ -1,11 +1,8 @@
 r"""
-Abstract classes of variety and vector bundles and some operations for them
+Computation of Euler characteristic of complex vector bundles
 ================================================
 
-This module contains abstract classes:
-    - ``IVariety`` -- an interface of varieties,
-    - ``IVectorBundle`` -- an interface of vector bundles.
-These are specialized in computing Chern characters and Todd classes from Chern classes.
+This module implements a computation of Euler characteristic of complex vector bundles.
 
 EXAMPLE:
 
@@ -34,12 +31,31 @@ from homogeneous_space.interfaces import IVariety, IVectorBundle
 
 
 def euler_characteristic(variety: IVariety, vector_bundle: IVectorBundle) -> int:
+    r"""
+
+    Return the Euler characteristic of ``vector_bundle`` on ``variety``
+
+    INPUT:
+
+    - ``variety`` -- object of ``IVariety`` -- the base space.
+
+    - ``vector_bundle`` -- object of ``IVectorBundle``
+
+    OUTPUT:
+
+    the Euler characteristic of ``vector_bundle`` on ``variety``, that is computed as the integration of the multiplication of the Chern character of ``vector_bundle`` and the Todd genus of ``variety``.
+
+    ..MATH::
+
+    \chi (X, E) = \int_X ch(E) td(X)
+
+    """
     chern_character = vector_bundle.chern_character()
     todd_classes = variety.todd_classes()
 
     return variety.integration(
         sum(
             chern_character[i] * todd_classes[variety.dimension() - i]
-            for i in ((0.0).variety.dimension())
+            for i in range(0, variety.dimension() + 1)
         )
     )

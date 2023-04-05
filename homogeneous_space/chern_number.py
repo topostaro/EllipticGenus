@@ -1,11 +1,8 @@
 r"""
-Abstract classes of variety and vector bundles and some operations for them
+Computation of Chern numbers of varieties
 ================================================
 
-This module contains abstract classes:
-    - ``IVariety`` -- an interface of varieties,
-    - ``IVectorBundle`` -- an interface of vector bundles.
-These are specialized in computing Chern characters and Todd classes from Chern classes.
+This module implements a computation of Chern numbers of varieties.
 
 EXAMPLE:
 
@@ -40,6 +37,21 @@ homogeneous_part = lambda F, degree: sum(
 
 
 def chern_number(variety: IVariety, degrees: list) -> int:
+    r"""
+
+    Return the Chern number of ``variety`` with degree ``degree``
+
+    INPUT:
+
+    - ``variety`` -- ``IVariety``
+
+    - ``degree`` -- list of integers -- this list represents the integrant. For example, ``[1,1,3]`` represents `c_1 c_1 c_3`.
+
+    OUTPUT:
+
+    the Chern number of ``variety`` with degree ``degree``
+
+    """
     if sum(d for d in degrees) != variety.dimension():
         return 0
     else:
