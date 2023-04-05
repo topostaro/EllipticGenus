@@ -27,7 +27,7 @@ REFERENCES:
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-from homogeneous_space.interfaces import IVariety, IVectorBundle
+from sage.EllipticGenus.homogeneous_space.interfaces import IVariety, IVectorBundle
 
 
 def euler_characteristic(variety: IVariety, vector_bundle: IVectorBundle) -> int:
@@ -48,6 +48,16 @@ def euler_characteristic(variety: IVariety, vector_bundle: IVectorBundle) -> int
     ..MATH::
 
     \chi (X, E) = \int_X ch(E) td(X)
+
+    EXAMPLE:
+        sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+        sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+        sage: from sage.EllipticGenus.homogeneous_space.euler_characteristic import euler_characteristic
+        sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+        sage: X = HomogeneousSpace(P)
+        sage: E = IrreducibleEquivariantVectorBundle(X,(3, 0, 0, 0, 0))
+        sage: euler_characteristic(X, E)
+        35
 
     """
     chern_character = vector_bundle.chern_character()
