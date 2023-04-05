@@ -7,12 +7,23 @@ The class provides methods to compute its simple roots, positive roots, and the 
 
 EXAMPLE:
 
-    sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
     sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
     sage: P
+    the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
     sage: P.dynkin_diagram()
+    X---O---O
+    1   2   3
+    A3 with node 1 marked
     sage: P.positive_roots()
+    [(0, 1, -1, 0), (0, 0, 1, -1), (0, 1, 0, -1)]
     sage: P.weight_multiplicities((1, 2, 0))
+    {(3, 1, 1, 0): 1,
+     (3, 1, 0, 1): 1,
+     (3, 2, 0, 0): 1,
+     (3, 0, 1, 1): 1,
+     (3, 0, 2, 0): 1,
+     (3, 0, 0, 2): 1}
 
 AUTHORS:
 
@@ -55,9 +66,9 @@ def root_difference_multiplicities(character_ring, highest_weight) -> dict:
 
     EXAMPLE:
 
-        sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import root_difference_multiplicities
+        sage: from sage.EllipticGenus.homogeneous_space.parabolic import root_difference_multiplicities
         sage: root_difference_multiplicities(WeylCharacterRing("A1"), (2,1))
-        {(0,): 1, (-1,): 1}
+        {(-1,): 1, (0,): 1}
 
     """
     weight_multiplicities = character_ring(highest_weight).weight_multiplicities()
@@ -102,9 +113,10 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P
+            the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
 
         """
         self.G = G
@@ -123,9 +135,13 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.dynkin_diagram()
+            X---O---O
+            1   2   3
+            A3 with node 1 marked
+
         """
         return self.G.marked_nodes(self.crossed_out_nodes).dynkin_diagram()
 
@@ -145,15 +161,16 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.simple_roots()
+            [(0, 1, -1, 0), (0, 0, 1, -1)]
 
         """
 
         return [
             self.R_G.simple_roots()[i]
-            for i in set((1.0).self.G.rank()) - set(self.crossed_out_nodes)
+            for i in set(range(1, self.G.rank() + 1)) - set(self.crossed_out_nodes)
         ]
 
     def positive_roots(self):
@@ -163,9 +180,10 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.positive_roots()
+            [(0, 1, -1, 0), (0, 0, 1, -1), (0, 1, 0, -1)]
 
         """
 
@@ -197,9 +215,15 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.WeakJacobiForm.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
-            sage: P.weight_muliplicities((1, 2, 0))
+            sage: P.weight_multiplicities((1, 2, 0))
+            {(3, 1, 1, 0): 1,
+             (3, 1, 0, 1): 1,
+             (3, 2, 0, 0): 1,
+             (3, 0, 1, 1): 1,
+             (3, 0, 2, 0): 1,
+             (3, 0, 0, 2): 1}
 
         """
         # GとLのディンキン図の頂点のずれを補正する関数
@@ -213,7 +237,8 @@ class ParabolicSubgroup:
             fw for fw in self.R_L.fundamental_weights()
         ]  # conversion from 1-index to 0-index
         weight_for_L = [
-            weight[i - 1] for i in set((1.0).len(weight)) - set(self.crossed_out_nodes)
+            weight[i - 1]
+            for i in set(range(1, len(weight) + 1)) - set(self.crossed_out_nodes)
         ]
         weight_for_L = sum(weight_for_L[i] * fws_L[i] for i in range(self.L.rank()))
 
@@ -226,7 +251,7 @@ class ParabolicSubgroup:
         for k, v in mul_set.items():
             w = weight_for_G + sum(
                 k[i - 1] * self.R_G.simple_roots()[correct_index(i)]
-                for i in ((1.0).self.L.rank())
+                for i in range(1, self.L.rank() + 1)
             )
             result[w] = v
 
