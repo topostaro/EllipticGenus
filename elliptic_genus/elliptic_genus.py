@@ -6,7 +6,7 @@ This module implements a computation of elliptic genera, where the  coefficients
 
 EXAMPLES:
 
-    sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import elliptic_genus
+    sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import elliptic_genus
     sage: elliptic_genus(4, 0)
     (1/240*c2^2 - 1/720*c4) + (-1/60*c2^2 + 31/180*c4)*y + (1/40*c2^2 + 79/120*c4)*y^2 + (-1/60*c2^2 + 31/180*c4)*y^3 + (1/240*c2^2 - 1/720*c4)*y^4 + O(q)
     sage: elliptic_genus(5, 2)
@@ -42,7 +42,7 @@ from sage.all import (
     Partitions,
     prod,
 )
-from sage.WeakJacobiForm.elliptic_genus.utils import *
+from sage.EllipticGenus.elliptic_genus.utils import *
 
 # qのk次までに必要な係数の計算
 def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
@@ -70,7 +70,7 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
 
     EXAMPLE:
 
-        sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import ell_factor_coeff_degreewise
+        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_factor_coeff_degreewise
         sage: ell_factor_coeff_degreewise(5, 2)
         [-3*y^-1 + 9 - 9*y + 3*y^2,
          -9/2*y^-1 + 9/2 + 9/2*y - 9/2*y^2,
@@ -157,7 +157,7 @@ def ell_factor_coeff(dim: int, k: int) -> list:
 
     EXAMPLE:
 
-        sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import ell_factor_coeff
+        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_factor_coeff
         sage: ell_factor_coeff(5, 2)
         [(1 - y) + (-y^-1 + 3 - 3*y + y^2)*q + (-3*y^-1 + 9 - 9*y + 3*y^2)*q^2,
          (1/2 + 1/2*y) + (-3/2*y^-1 + 3/2 + 3/2*y - 3/2*y^2)*q + (-9/2*y^-1 + 9/2 + 9/2*y - 9/2*y^2)*q^2,
@@ -205,7 +205,7 @@ def ell_coeff(dim: int, k: int) -> dict:
 
     EXAMPLE:
 
-        sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import ell_coeff
+        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_coeff
         sage: ell_coeff(5, 2)
         {[1, 1, 1, 1, 1]: 1/32 + 5/32*y + 5/16*y^2 + 5/16*y^3 + 5/32*y^4 + 1/32*y^5 + (-15/32*y^-1 - 45/32 - 15/32*y + 75/32*y^2 + 75/32*y^3 - 15/32*y^4 - 45/32*y^5 - 15/32*y^6)*q + (45/16*y^-2 + 45/32*y^-1 - 495/32 - 405/32*y + 765/32*y^2 + 765/32*y^3 - 405/32*y^4 - 495/32*y^5 + 45/32*y^6 + 45/16*y^7)*q^2 + O(q^3),
          [2, 1, 1, 1]: 1/96 + 1/96*y - 1/48*y^2 - 1/48*y^3 + 1/96*y^4 + 1/96*y^5 + (-23/96*y^-1 - 1/96 + 15/32*y - 7/32*y^2 - 7/32*y^3 + 15/32*y^4 - 1/96*y^5 - 23/96*y^6)*q + (83/48*y^-2 - 113/32*y^-1 - 77/32 + 779/96*y - 125/32*y^2 - 125/32*y^3 + 779/96*y^4 - 77/32*y^5 - 113/32*y^6 + 83/48*y^7)*q^2 + O(q^3),
@@ -254,7 +254,7 @@ def elliptic_genus(dim: int, k: int):
 
     EXAMPLE:
 
-        sage: from sage.WeakJacobiForm.elliptic_genus.elliptic_genus import elliptic_genus
+        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import elliptic_genus
         sage: elliptic_genus(5, 2)
         1/24*c5*y + 11/24*c5*y^2 + 11/24*c5*y^3 + 1/24*c5*y^4 + (-1/24*c5*y^-1 - 9/4*c5*y + 55/24*c5*y^2 + 55/24*c5*y^3 - 9/4*c5*y^4 - 1/24*c5*y^6)*q + (-11/24*c5*y^-2 + 9/4*c5*y^-1 - 197/12*c5*y + 117/8*c5*y^2 + 117/8*c5*y^3 - 197/12*c5*y^4 + 9/4*c5*y^6 - 11/24*c5*y^7)*q^2 + O(q^3)
 

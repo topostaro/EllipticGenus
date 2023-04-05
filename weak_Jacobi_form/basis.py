@@ -7,7 +7,7 @@ and indices that are either integral or half-integral.
 
 EXAMPLES::
 
-    sage: from sage.WeakJacobiForm.weak_Jacobi_form.basis import basis_integral, basis_half_integral
+    sage: from sage.EllipticGenus.weak_Jacobi_form.basis import basis_integral, basis_half_integral
     sage: basis_integral(2)
     [(y^-2 + 20*y^-1 + 102 + 20*y + y^2) + (20*y^-3 + 72*y^-2 - 1044*y^-1 + 1904 - 1044*y + 72*y^2 + 20*y^3)*q + (102*y^-4 - 1044*y^-3 + 7392*y^-2 - 23532*y^-1 + 34164 - 23532*y + 7392*y^2 - 1044*y^3 + 102*y^4)*q^2 + (20*y^-5 + 1904*y^-4 - 23532*y^-3 + 115552*y^-2 - 283688*y^-1 + 379488 - 283688*y + 115552*y^2 - 23532*y^3 + 1904*y^4 + 20*y^5)*q^3 + (y^-6 - 1044*y^-5 + 34164*y^-4 - 283688*y^-3 + 1107711*y^-2 - 2402244*y^-1 + 3090200 - 2402244*y + 1107711*y^2 - 283688*y^3 + 34164*y^4 - 1044*y^5 + y^6)*q^4 + (72*y^-6 - 23532*y^-5 + 379488*y^-4 - 2402244*y^-3 + 8066472*y^-2 - 16135248*y^-1 + 20229984 - 16135248*y + 8066472*y^2 - 2402244*y^3 + 379488*y^4 - 23532*y^5 + 72*y^6)*q^5 + (20*y^-7 + 7392*y^-6 - 283688*y^-5 + 3090200*y^-4 - 16135248*y^-3 + 48552352*y^-2 - 91617180*y^-1 + 112772304 - 91617180*y + 48552352*y^2 - 16135248*y^3 + 3090200*y^4 - 283688*y^5 + 7392*y^6 + 20*y^7)*q^6 + O(q^7),
     (y^-2 - 4*y^-1 + 6 - 4*y + y^2) + (-4*y^-3 + 264*y^-2 - 1020*y^-1 + 1520 - 1020*y + 264*y^2 - 4*y^3)*q + (6*y^-4 - 1020*y^-3 + 8160*y^-2 - 23556*y^-1 + 32820 - 23556*y + 8160*y^2 - 1020*y^3 + 6*y^4)*q^2 + (-4*y^-5 + 1520*y^-4 - 23556*y^-3 + 117856*y^-2 - 283640*y^-1 + 375648 - 283640*y + 117856*y^2 - 23556*y^3 + 1520*y^4 - 4*y^5)*q^3 + (y^-6 - 1020*y^-5 + 32820*y^-4 - 283640*y^-3 + 1113855*y^-2 - 2402316*y^-1 + 3080600 - 2402316*y + 1113855*y^2 - 283640*y^3 + 32820*y^4 - 1020*y^5 + y^6)*q^4 + (264*y^-6 - 23556*y^-5 + 375648*y^-4 - 2402316*y^-3 + 8081256*y^-2 - 16135152*y^-1 + 20207712 - 16135152*y + 8081256*y^2 - 2402316*y^3 + 375648*y^4 - 23556*y^5 + 264*y^6)*q^5 + (-4*y^-7 + 8160*y^-6 - 283640*y^-5 + 3080600*y^-4 - 16135152*y^-3 + 48585376*y^-2 - 91617300*y^-1 + 112723920 - 91617300*y + 48585376*y^2 - 16135152*y^3 + 3080600*y^4 - 283640*y^5 + 8160*y^6 - 4*y^7)*q^6 + O(q^7)]
@@ -38,7 +38,7 @@ REFERENCES:
 
 import math
 from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ
-from sage.WeakJacobiForm.weak_Jacobi_form.eisenstein import eisenstein
+from sage.EllipticGenus.weak_Jacobi_form.eisenstein import eisenstein
 
 _R0 = LaurentPolynomialRing(QQ, "y")
 _y = _R0.gen()
@@ -253,7 +253,7 @@ def _decompose(n):
 
     EXAMPLES::
 
-        sage: from sage.WeakJacobiForm.weak_Jacobi_form.basis import _decompose
+        sage: from sage.EllipticGenus.weak_Jacobi_form.basis import _decompose
         sage: _decompose(1)
         set()
         sage: _decompose(4)
@@ -292,7 +292,7 @@ def basis_integral(index: int) -> list:
 
     EXAMPLES::
 
-        sage: from sage.WeakJacobiForm.weak_Jacobi_form.basis import basis_integral
+        sage: from sage.EllipticGenus.weak_Jacobi_form.basis import basis_integral
         sage: basis_integral(1)
         [(y^-1 + 10 + y) + (10*y^-2 - 64*y^-1 + 108 - 64*y + 10*y^2)*q + (y^-3 + 108*y^-2 - 513*y^-1 + 808 - 513*y + 108*y^2 + y^3)*q^2 + (-64*y^-3 + 808*y^-2 - 2752*y^-1 + 4016 - 2752*y + 808*y^2 - 64*y^3)*q^3 + (10*y^-4 - 513*y^-3 + 4016*y^-2 - 11775*y^-1 + 16524 - 11775*y + 4016*y^2 - 513*y^3 + 10*y^4)*q^4 + (108*y^-4 - 2752*y^-3 + 16524*y^-2 - 43200*y^-1 + 58640 - 43200*y + 16524*y^2 - 2752*y^3 + 108*y^4)*q^5 + (y^-5 + 808*y^-4 - 11775*y^-3 + 58640*y^-2 - 141826*y^-1 + 188304 - 141826*y + 58640*y^2 - 11775*y^3 + 808*y^4 + y^5)*q^6 + O(q^7)]
         sage: basis_integral(3)
@@ -331,7 +331,7 @@ def basis_half_integral(double_index: int) -> list:
 
     For the case ``double_index`` is even, the output is equal to ``basis_integral(int(double_index / 2))``
 
-        sage: from sage.WeakJacobiForm.weak_Jacobi_form.basis import basis_half_integral
+        sage: from sage.EllipticGenus.weak_Jacobi_form.basis import basis_half_integral
         sage: basis_half_integral(4)
         [(y^-2 + 20*y^-1 + 102 + 20*y + y^2) + (20*y^-3 + 72*y^-2 - 1044*y^-1 + 1904 - 1044*y + 72*y^2 + 20*y^3)*q + (102*y^-4 - 1044*y^-3 + 7392*y^-2 - 23532*y^-1 + 34164 - 23532*y + 7392*y^2 - 1044*y^3 + 102*y^4)*q^2 + (20*y^-5 + 1904*y^-4 - 23532*y^-3 + 115552*y^-2 - 283688*y^-1 + 379488 - 283688*y + 115552*y^2 - 23532*y^3 + 1904*y^4 + 20*y^5)*q^3 + (y^-6 - 1044*y^-5 + 34164*y^-4 - 283688*y^-3 + 1107711*y^-2 - 2402244*y^-1 + 3090200 - 2402244*y + 1107711*y^2 - 283688*y^3 + 34164*y^4 - 1044*y^5 + y^6)*q^4 + (72*y^-6 - 23532*y^-5 + 379488*y^-4 - 2402244*y^-3 + 8066472*y^-2 - 16135248*y^-1 + 20229984 - 16135248*y + 8066472*y^2 - 2402244*y^3 + 379488*y^4 - 23532*y^5 + 72*y^6)*q^5 + (20*y^-7 + 7392*y^-6 - 283688*y^-5 + 3090200*y^-4 - 16135248*y^-3 + 48552352*y^-2 - 91617180*y^-1 + 112772304 - 91617180*y + 48552352*y^2 - 16135248*y^3 + 3090200*y^4 - 283688*y^5 + 7392*y^6 + 20*y^7)*q^6 + O(q^7),
         (y^-2 - 4*y^-1 + 6 - 4*y + y^2) + (-4*y^-3 + 264*y^-2 - 1020*y^-1 + 1520 - 1020*y + 264*y^2 - 4*y^3)*q + (6*y^-4 - 1020*y^-3 + 8160*y^-2 - 23556*y^-1 + 32820 - 23556*y + 8160*y^2 - 1020*y^3 + 6*y^4)*q^2 + (-4*y^-5 + 1520*y^-4 - 23556*y^-3 + 117856*y^-2 - 283640*y^-1 + 375648 - 283640*y + 117856*y^2 - 23556*y^3 + 1520*y^4 - 4*y^5)*q^3 + (y^-6 - 1020*y^-5 + 32820*y^-4 - 283640*y^-3 + 1113855*y^-2 - 2402316*y^-1 + 3080600 - 2402316*y + 1113855*y^2 - 283640*y^3 + 32820*y^4 - 1020*y^5 + y^6)*q^4 + (264*y^-6 - 23556*y^-5 + 375648*y^-4 - 2402316*y^-3 + 8081256*y^-2 - 16135152*y^-1 + 20207712 - 16135152*y + 8081256*y^2 - 2402316*y^3 + 375648*y^4 - 23556*y^5 + 264*y^6)*q^5 + (-4*y^-7 + 8160*y^-6 - 283640*y^-5 + 3080600*y^-4 - 16135152*y^-3 + 48585376*y^-2 - 91617300*y^-1 + 112723920 - 91617300*y + 48585376*y^2 - 16135152*y^3 + 3080600*y^4 - 283640*y^5 + 8160*y^6 - 4*y^7)*q^6 + O(q^7)]
