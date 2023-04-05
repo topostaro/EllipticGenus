@@ -12,7 +12,7 @@ EXAMPLE:
     sage: P
     sage: P.dynkin_diagram()
     sage: P.positive_roots()
-    sage: P.weight_muliplicities((1, 2, 0))
+    sage: P.weight_multiplicities((1, 2, 0))
 
 AUTHORS:
 
@@ -60,12 +60,12 @@ def root_difference_multiplicities(character_ring, highest_weight) -> dict:
         {(0,): 1, (-1,): 1}
 
     """
-    weight_muliplicities = character_ring(highest_weight).weight_multiplicities()
+    weight_multiplicities = character_ring(highest_weight).weight_multiplicities()
     A = matrix([vector(sr) for sr in character_ring.simple_roots()]).transpose()
 
     result = {}
 
-    for k, v in weight_muliplicities.items():
+    for k, v in weight_multiplicities.items():
         Y = vector(k) - vector(highest_weight)
         result[tuple(A.solve_right(Y))] = v
 
@@ -186,7 +186,7 @@ class ParabolicSubgroup:
         return [L(pr) for pr in roots]
 
     # 引数の`weight`は基本ウェイトを基底にして表示したもの
-    def weight_muliplicities(self, weight) -> dict:
+    def weight_multiplicities(self, weight) -> dict:
         r"""
 
         Return the dictionary, where the keys are weights and the values are their multiplicities

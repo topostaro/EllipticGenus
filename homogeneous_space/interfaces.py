@@ -130,7 +130,7 @@ class IVectorBundle(ABC):
     @abstractmethod
     def chern_classes(self) -> list:
         r"""
-        Return the degreewise list of Chern classes of this vector bundle
+        Return the list of homogeneous parts of Chern classes of this vector bundle
         """
         pass
 
