@@ -31,9 +31,15 @@ REFERENCES:
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-from sage.all import PolynomialRing
-from parabolic import ParabolicSubgroup
-from interfaces import *
+from random import random
+from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup
+from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+from sage.EllipticGenus.homogeneous_space.interfaces import IVariety, IVectorBundle
+
+# `degree`次部分を取り出す関数
+homogeneous_part = lambda F, degree: sum(
+    c * m for c, m in F if m.total_degree() == degree
+)
 
 
 class HomogeneousSpace(IVariety):
@@ -54,20 +60,26 @@ class HomogeneousSpace(IVariety):
 
 
         EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: X
+            a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1]
 
         """
         self.parabolic_subgroup = parabolic_subgroup
 
         # コホモロジー環を含む環
         self.ring = PolynomialRing(
-            QQ, "x", parabolic_subgroup.ambient_space_dimension()
+            QQ, "x", parabolic_subgroup.ambient_space().dimension()
         )
         self.x = self.ring.gens()
 
         self.tangent_weights = [
             sum(
                 r[l] * self.x[l]
-                for l in range(parabolic_subgroup.ambient_space_dimension())
+                for l in range(parabolic_subgroup.ambient_space().dimension())
             )
             for r in set(parabolic_subgroup.R_G.positive_roots())
             - set(parabolic_subgroup.positive_roots())
@@ -80,6 +92,15 @@ class HomogeneousSpace(IVariety):
     def dimension(self) -> int:
         r"""
         Return the dimension of this variety
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: X.dimension()
+            4
+
         """
         return self.dim
 
@@ -98,10 +119,24 @@ class HomogeneousSpace(IVariety):
     def chern_classes(self):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
+
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: X.chern_classes()
+            [1,
+             4*x0 - x1 - x2 - x3 - x4,
+             6*x0^2 - 3*x0*x1 - 3*x0*x2 + x1*x2 - 3*x0*x3 + x1*x3 + x2*x3 - 3*x0*x4 + x1*x4 + x2*x4 + x3*x4,
+             4*x0^3 - 3*x0^2*x1 - 3*x0^2*x2 + 2*x0*x1*x2 - 3*x0^2*x3 + 2*x0*x1*x3 + 2*x0*x2*x3 - x1*x2*x3 - 3*x0^2*x4 + 2*x0*x1*x4 + 2*x0*x2*x4 - x1*x2*x4 + 2*x0*x3*x4 - x1*x3*x4 - x2*x3*x4,
+             x0^4 - x0^3*x1 - x0^3*x2 + x0^2*x1*x2 - x0^3*x3 + x0^2*x1*x3 + x0^2*x2*x3 - x0*x1*x2*x3 - x0^3*x4 + x0^2*x1*x4 + x0^2*x2*x4 - x0*x1*x2*x4 + x0^2*x3*x4 - x0*x1*x3*x4 - x0*x2*x3*x4 + x1*x2*x3*x4]
+
         """
         return [
             homogeneous_part(prod(1 + x for x in self.tangent_weights), i)
-            for i in ((0.0).self.dim)
+            for i in (range(0, self.dim + 1))
         ]
 
     def numerical_integration_by_localization(self, f):
@@ -117,10 +152,19 @@ class HomogeneousSpace(IVariety):
 
         the numerical computation of the integration of the  equivariant cohomology class ``f``.
 
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: X.numerical_integration_by_localization(X.chern_classes()[X.dimension()])
+            5
+
         """
+
         random_x = [
             RealField(1000)(random())
-            for i in range(self.parabolic_subgroup.ambient_space_dimension())
+            for i in range(self.parabolic_subgroup.ambient_space().dimension())
         ]
         orbit_of_random_x = [
             (w.inverse() * vector(RealField(1000), random_x)).list()
@@ -170,6 +214,14 @@ class EquivariantVectorBundle(IVectorBundle):
 
         - ``weight_multiplicities`` -- dictionary from weights to their multiplicities
 
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
+            an equivariant vector bundle on a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1] associated to {(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1}
+
         """
         self.homogeneous_space = homogeneous_space
         self.weight_multiplicities = weight_multiplicities
@@ -181,34 +233,66 @@ class EquivariantVectorBundle(IVectorBundle):
     def rank(self) -> int:
         r"""
         Return the rank of this vector bundle
+
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
+            sage: E.rank()
+            11
+
         """
         return self.rk
 
     def base(self) -> HomogeneousSpace:
         r"""
         Return the base space of this vector bundle
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
+            sage: E.base()
+            a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1]
         """
         return self.homogeneous_space
 
     def chern_classes(self):
         r"""
         Return the list of homogeneous parts of Chern classes of this vector bundle
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = EquivariantVectorBundle(X,{(2, 0, 0, 0, 0): 1, (3, 0, 0, 0, 0): 1})
+            sage: E.chern_classes()
+            [1, 5*x0, 6*x0^2, 0, 0]
+
         """
 
         def class_from_weight(weight):
             return sum(
                 weight[i] * self.homogeneous_space.x[i]
                 for i in range(
-                    self.homogeneous_space.parabolic_subgroup.ambient_space_dimension()
+                    self.homogeneous_space.parabolic_subgroup.ambient_space().dimension()
                 )
             )
 
         cc = prod(
-            (1 + class_from_weight(vector(w))) ^ i
+            (1 + class_from_weight(vector(w))) ** i
             for w, i in self.weight_multiplicities.items()
         )
 
-        return [homogeneous_part(cc, i) for i in ((0.0).self.homogeneous_space.dim)]
+        return [
+            homogeneous_part(cc, i) for i in (range(0, self.homogeneous_space.dim + 1))
+        ]
 
 
 class IrreducibleEquivariantVectorBundle(EquivariantVectorBundle):
@@ -222,6 +306,16 @@ class IrreducibleEquivariantVectorBundle(EquivariantVectorBundle):
         INPUT:
 
         - ``weight`` -- list of integers -- this represents the coefficients of the fundamental weights
+
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = IrreducibleEquivariantVectorBundle(X,(0, 1, 0, 0, 0))
+            sage: E.rank()
+            4
 
         """
         self.weight = weight
