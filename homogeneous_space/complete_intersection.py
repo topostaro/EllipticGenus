@@ -30,11 +30,11 @@ REFERENCES:
 # ****************************************************************************
 
 from sage.all import prod, vector
-from homogeneous_space.homogeneous_space import (
+from sage.EllipticGenus.homogeneous_space.homogeneous_space import (
     EquivariantVectorBundle,
     HomogeneousSpace,
 )
-from homogeneous_space.interfaces import IVariety, IVectorBundle
+from sage.EllipticGenus.homogeneous_space.interfaces import IVariety, IVectorBundle
 
 homogeneous_part = lambda F, degree: sum(
     c * m for c, m in F if m.total_degree() == degree
@@ -65,6 +65,14 @@ class CompleteIntersection(IVariety):
 
 
         EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
+            sage: CompleteIntersection(X, E)
+            a complete intersection of a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1] and an equivariant vector bundle on a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1] associated to (5, 0, 0, 0, 0)
 
         """
         self.homogeneous_space = homogeneous_space
@@ -77,12 +85,24 @@ class CompleteIntersection(IVariety):
     def dimension(self) -> int:
         r"""
         Return the dimension of this variety
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
+            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic.dimension()
+            3
         """
         return self.dim
 
     def tangent_bundle(self):
         r"""
         Return the tangent bundle of this variety
+
         """
         ci = self
 
@@ -101,25 +121,39 @@ class CompleteIntersection(IVariety):
     def chern_classes(self):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
+            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic.chern_classes()
+            [1,
+             -x0 - x1 - x2 - x3 - x4,
+             11*x0^2 + 2*x0*x1 + 2*x0*x2 + x1*x2 + 2*x0*x3 + x1*x3 + x2*x3 + 2*x0*x4 + x1*x4 + x2*x4 + x3*x4,
+             -51*x0^3 - 13*x0^2*x1 - 13*x0^2*x2 - 3*x0*x1*x2 - 13*x0^2*x3 - 3*x0*x1*x3 - 3*x0*x2*x3 - x1*x2*x3 - 13*x0^2*x4 - 3*x0*x1*x4 - 3*x0*x2*x4 - x1*x2*x4 - 3*x0*x3*x4 - x1*x3*x4 - x2*x3*x4]
         """
 
         def class_from_weight(weight):
             return sum(
                 weight[i] * self.homogeneous_space.x[i]
                 for i in range(
-                    self.homogeneous_space.parabolic_subgroup.ambient_space_dimension()
+                    self.homogeneous_space.parabolic_subgroup.ambient_space().dimension()
                 )
             )
 
         def geometric_sequence(n, x):
-            return sum(x ^ i for i in ((0.0).n))
+            return sum(x**i for i in range(0, n + 1))
 
         cc = prod(1 + x for x in self.homogeneous_space.tangent_weights) * prod(
-            geometric_sequence(self.dim, -class_from_weight(vector(w))) ^ i
+            geometric_sequence(self.dim, -class_from_weight(vector(w))) ** i
             for w, i in self.vector_bundle.weight_multiplicities.items()
         )
 
-        return [homogeneous_part(cc, i) for i in ((0.0).self.dim)]
+        return [homogeneous_part(cc, i) for i in range(0, self.dim + 1)]
 
     def numerical_integration_by_localization(self, f):
         r"""
@@ -133,6 +167,18 @@ class CompleteIntersection(IVariety):
         OUTPUT:
 
         the numerical computation of the integration of the  equivariant cohomology class ``f``.
+
+
+        EXAMPLE:
+            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
+            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic.numerical_integration_by_localization(quintic.chern_classes()[3])
+            -200
 
         """
         top_of_f = homogeneous_part(f, self.dim)
