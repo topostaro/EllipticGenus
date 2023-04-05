@@ -9,14 +9,24 @@ This module contains classes:
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
 EXAMPLE:
+    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
+    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+    sage: X = HomogeneousSpace(P)
+    sage: X
+    a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1]
+    sage: E = EquivariantVectorBundle(X,{(2, 0, 0, 0, 0): 1, (3, 0, 0, 0, 0): 1})
+    sage: E.chern_classes()
+    [1, 5*x0, 6*x0^2, 0, 0]
 
 
 AUTHORS:
 
 - KENTA KOBAYASHI (2023-04-04): initial version
 
-REFERENCES:
-
+.. [BE1989] Robert J. Baston and Michael G. Eastwood, The Penrose transform, Oxford Mathematical Monographs,
+The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
+theory, Oxford Science Publications.
 
 """
 

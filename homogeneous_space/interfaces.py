@@ -7,8 +7,6 @@ This module contains abstract classes:
     - ``IVectorBundle`` -- an interface of vector bundles.
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
-EXAMPLE:
-
 
 AUTHORS:
 
@@ -16,6 +14,7 @@ AUTHORS:
 
 REFERENCES:
 
+.. [Hir1978] Friedrich Hirzebruch, Topological methods in algebraic geometry, Springer (1978)
 
 """
 

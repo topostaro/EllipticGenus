@@ -7,6 +7,15 @@ This module contains a class:
 This is specialized in computing Chern characters and Todd classes from Chern classes.
 
 EXAMPLE:
+    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+    sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+    sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+    sage: X = HomogeneousSpace(P)
+    sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
+    sage: quintic = CompleteIntersection(X, E)
+    sage: quintic.numerical_integration_by_localization(quintic.chern_classes()[3])
+    -200
 
 
 AUTHORS:
@@ -14,6 +23,9 @@ AUTHORS:
 - KENTA KOBAYASHI (2023-04-04): initial version
 
 REFERENCES:
+
+.. [IMOU2022] Atsushi Ito, Makoto Miura, Shinnosuke Okawa, and Kazushi Ueda. Calabi--yau complete intersec-
+tions in exceptional grassmannians, 2022.
 
 
 """

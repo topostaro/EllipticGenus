@@ -5,6 +5,14 @@ Computation of Euler characteristic of complex vector bundles
 This module implements a computation of Euler characteristic of complex vector bundles.
 
 EXAMPLE:
+    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+    sage: from sage.EllipticGenus.homogeneous_space.euler_characteristic import euler_characteristic
+    sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+    sage: X = HomogeneousSpace(P)
+    sage: E = IrreducibleEquivariantVectorBundle(X,(3, 0, 0, 0, 0))
+    sage: euler_characteristic(X, E)
+    35
 
 
 AUTHORS:
@@ -12,6 +20,8 @@ AUTHORS:
 - KENTA KOBAYASHI (2023-04-04): initial version
 
 REFERENCES:
+
+.. [Hir1978] Friedrich Hirzebruch, Topological methods in algebraic geometry, Springer (1978)
 
 
 """

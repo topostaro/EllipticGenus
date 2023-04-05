@@ -31,6 +31,10 @@ AUTHORS:
 
 REFERENCES:
 
+.. [BE1989] Robert J. Baston and Michael G. Eastwood, The Penrose transform, Oxford Mathematical Monographs,
+The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
+theory, Oxford Science Publications.
+
 
 """
 
