@@ -260,7 +260,7 @@ def elliptic_genus_chernnum(dim: int, k: int):
         sage: elliptic_genus_chernnum(1, 2)
 
     """
-    if dim == 1:
+    if dim == 0:
         return 1
     else:
         coeff = ell_coeff(dim, k)
