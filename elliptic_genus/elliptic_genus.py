@@ -264,3 +264,45 @@ def elliptic_genus_chernnum(dim: int, k: int):
     return sum(
         coeff[part] * chernnum_from_partition(dim, part) for part in Partitions(dim)
     )
+
+
+from sage.EllipticGenus.homogeneous_space.interfaces import IVariety
+from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
+
+
+def elliptic_genus(variety: IVariety, k: int):
+    r"""
+
+    EXAMPLE:
+        sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+        sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+        sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+        sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
+        sage: X = HomogeneousSpace(P)
+        sage: E = IrreducibleEquivariantVectorBundle(X,(4, 0, 0, 0, 0))
+        sage: Y = CompleteIntersection(X, E)
+        sage: {part: chern_number(Y, part) for part in Partitions(Y.dimension())}
+        {[1, 1]: 0, [2]: 24}
+        sage: elliptic_genus(Y, 2)
+        2 + 20*y + 2*y^2 + (20*y^-1 - 128 + 216*y - 128*y^2 + 20*y^3)*q + (2*y^-2 + 216*y^-1 - 1026 + 1616*y - 1026*y^2 + 216*y^3 + 2*y^4)*q^2 + O(q^3)
+
+    """
+    chernnum = {
+        part: chern_number(variety, part) for part in Partitions(variety.dimension())
+    }
+
+    m = SymmetricFunctions(QQ).m()
+    e = SymmetricFunctions(QQ).e()
+
+    def from_partition(part):
+        ls = list(e(m(part)))
+        result = 0
+
+        for degs, c in ls:
+            result += c * chernnum[degs]
+        return result
+
+    coeff = ell_coeff(variety.dimension(), k)
+    return sum(
+        coeff[part] * from_partition(part) for part in Partitions(variety.dimension())
+    )
