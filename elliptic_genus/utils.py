@@ -196,9 +196,9 @@ def chernnum_from_partition(dim: int, part):
 
         sage: from sage.EllipticGenus.elliptic_genus.utils import chernnum_from_partition
         sage: chernnum_from_partition(5, [5])
-        -5*c2*c3 + 5*c5
+        c1^5 - 5*c1^3*c2 + 5*c1*c2^2 + 5*c1^2*c3 - 5*c2*c3 - 5*c1*c4 + 5*c5
         sage: chernnum_from_partition(3, [2,1])
-        -3*c3
+        c1*c2 - 3*c3
 
     """
     S0 = PolynomialRing(QQ, "c", dim + 1)
@@ -207,7 +207,7 @@ def chernnum_from_partition(dim: int, part):
     def monomial(degs):
         result = 1
         for deg in degs:
-            if (deg > dim) or deg == 1:
+            if deg > dim:
                 return 0
             else:
                 result = result * c[deg]
