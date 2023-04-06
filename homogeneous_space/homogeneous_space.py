@@ -22,7 +22,8 @@ EXAMPLE:
 
 AUTHORS:
 
-- KENTA KOBAYASHI (2023-04-04): initial version
+- KENTA KOBAYASHI, AKIHITO NAKAMURA and KAZUSHI UEDA (2023-04-04): initial version
+
 
 .. [BE1989] Robert J. Baston and Michael G. Eastwood, The Penrose transform, Oxford Mathematical Monographs,
 The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
