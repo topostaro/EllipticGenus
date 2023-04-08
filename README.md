@@ -101,7 +101,7 @@ sage: Quintic = CompleteIntersection(Proj4, L)
 sage: elliptic_genus(Quintic, 2)
 ```
 
-3. Compute the $\int c_3$ of the quintic 3-fold.
+3. Compute the Chern number $\int c_3$ of the quintic 3-fold.
 
 ```
 sage: chern_number(Quintic, [3])
