@@ -1,18 +1,18 @@
 # EllipticGenus
 
-A Sagemath package for computing elliptic genera of homogeneous spaces and complete intersections in them, and representing elliptice genera of any complex manifold by using Chern numbers.
+A SageMath package for computing elliptic genera of homogeneous spaces and complete intersections in them, and representing elliptic genera of any complex manifold by using Chern numbers.
 
 ##  Structure of this module
 
-- ellptic_genus
+- elliptic_genus
 
-    This module implements the core functions of computing elliptic genera. 
+    This module implements the core functions of computing elliptic genera of almost complex manifolds.
 
     - elliptic_genus.py
 
-        - `elliptic_genus(variety, k)` computes the elliptic genera of `variety` up to degree `k`. The argument `variety` should be an object of `IVariety`, equivalently, the object must contain the data of Chern numbers.
+        - `elliptic_genus(variety, k)` computes the elliptic genera of `variety` with the terms of `q`-variable up to degree `k`. The argument `variety` should be an object of `IVariety`, equivalently, the object must contain the data of Chern numbers.
 
-        - `elliptic_genus_chernnum(dim, k)` outputs the elliptic genus of varieties of dimension `dim` up to degree `k` represented symbolically by Chern numbers.
+        - `elliptic_genus_chernnum(dim, k)` computes the elliptic genus of a variety of dimension `dim` with the terms of `q`-variable up to degree `k` represented symbolically by Chern numbers.
 
     - utils.py
 
@@ -26,11 +26,11 @@ A Sagemath package for computing elliptic genera of homogeneous spaces and compl
 
         - `basis_integral(index)` returns a basis of the space of weak Jacobi forms of weight 0 and index `index`. `index` should be a non-negative integer.
 
-        - `basis_half_integral(double_index)` returns a basis of the space of weak Jacobi forms of weight 0 and index `double_index / 2` for even `double_index`, otherwise return a list of a basis of the space of weak Jacobi forms of weight 0 and index `double_index / 2` multiplied by by $y^{1/2}$.
+        - `basis_half_integral(double_index)` returns a basis of the space of weak Jacobi forms of weight 0 and index `double_index / 2` for even `double_index`, otherwise return a list of a basis of the space of weak Jacobi forms of weight 0 and index `double_index / 2` multiplied by $y^{1/2}$.
 
     - eisenstein.py
 
-        - `eisenstein(k)` computes the normalized Eisenstein series of index `k`.
+        - `eisenstein(k)` computes the normalized Eisenstein series of weight `k`.
 
 - homogeneous_space
 
@@ -44,7 +44,7 @@ A Sagemath package for computing elliptic genera of homogeneous spaces and compl
 
         - The abstract class `IVariety` represents a variety which has the methods providing Chern classes and their integrations.
 
-        - The abstract class `IVectorBundle` represents a vector bundle has the methods providing Chern classes. The operators `+` and `*` are overloaded by the following functions `direct_sum` and `tensor_product` respectively.
+        - The abstract class `IVectorBundle` represents a vector bundle which has the methods providing Chern classes. The operators `+` and `*` are overloaded by the following functions `direct_sum` and `tensor_product` respectively.
 
         - `direct_sum(vector_bundle1, vector_bundle2)` returns the direct sum of vector bundles as an object implementing `IVectorBundle`.
 
