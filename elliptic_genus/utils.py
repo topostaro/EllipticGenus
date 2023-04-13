@@ -29,7 +29,6 @@ _z = _L.gen()
 
 def todd_cut(x, m):  # mでカットオフ
     r"""
-
     Return the truncation of `\frac{x}{1 - e^{-x}}` at degree ``m``.
 
     INPUT:
@@ -67,7 +66,7 @@ def exp_cut(x, m):  # mでカットオフ
 
     OUTPUT:
 
-    the truncation of todd class `e^x}` at degree ``m``.
+    the truncation of todd class `e^x` at degree ``m``.
 
     EXAMPLE:
 
@@ -84,7 +83,8 @@ def exp_cut(x, m):  # mでカットオフ
 def cutoff_for_coeff(m):  # xの式に対するcutoff
     r"""
 
-    Return a function which returns the truncation of its argument at degree ``m``.
+    Return a function which returns the truncation of its argument
+    at degree ``m``.
 
     INPUT:
 
@@ -92,7 +92,14 @@ def cutoff_for_coeff(m):  # xの式に対するcutoff
 
     OUTPUT:
 
-    a function which returns the truncation of the argument function at degree ``m``
+    a function which returns the truncation of the argument function at degree ``m``.
+
+    EXAMPLE:
+
+        sage: from sage.EllipticGenus.elliptic_genus.utils import cutoff_for_coeff
+        sage: R0.<x0, x1> = PolynomialRing(QQ)
+        sage: cutoff_for_coeff(2)(x0 + x0 * x1 - 2 * x1^4)
+        x0*x1 + x0
 
 
     """
@@ -102,7 +109,8 @@ def cutoff_for_coeff(m):  # xの式に対するcutoff
 def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
     r"""
 
-    Return the truncation of the argument truncating only the coefficients of the coefficients at degree``m``.
+    Return the truncation of the argument truncating only the coefficients
+    of the coefficients at degree``m``.
 
     INPUT:
 
@@ -112,7 +120,8 @@ def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
 
     OUTPUT:
 
-    the truncation of the argument truncating only the coefficients of the coefficients.
+    the truncation of the argument truncating only the coefficients
+    of the coefficients.
 
     EXAMPLE:
 
@@ -131,7 +140,8 @@ def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
 def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
     r"""
 
-    Return a function which returns the homogeneous part of its argument at degree ``m``.
+    Return a function which returns the homogeneous part of its argument
+    at degree ``m``.
 
     INPUT:
 
@@ -139,7 +149,15 @@ def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
 
     OUTPUT:
 
-    a function which returns the homogeneous part of the argument function at degree ``m``
+    a function which returns the homogeneous part of the argument function
+    at degree ``m``.
+
+    EXAMPLE:
+
+        sage: from sage.EllipticGenus.elliptic_genus.utils import homogeneous_for_coeff
+        sage: R0.<x0, x1> = PolynomialRing(QQ)
+        sage: homogeneous_for_coeff(2)(x0 + x0 * x1 - 2 * x1^4)
+        x0*x1
 
     """
     return lambda f: sum(c * mono for c, mono in f if mono.total_degree() == m)
@@ -148,7 +166,8 @@ def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
 def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhomogeneous part
     r"""
 
-    Return the homogeneous part of the coefficients of the coefficients at degree ``m``.
+    Return the homogeneous part of the coefficients of the coefficients
+    at degree ``m``.
 
     INPUT:
 
@@ -174,17 +193,24 @@ def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhom
     return f.map_coefficients(lambda g: g.map_coefficients(homogeneous_for_coeff(m)))
 
 
-_m = SymmetricFunctions(QQ).m()
-_e = SymmetricFunctions(QQ).e()
 # partition [i_1, .., i_n]をmonomial symmetric polynomialの指数と捉えて、それを基本対称式に変換する関数
 def chernnum_from_partition(dim: int, part):
     r"""
 
-    Return the combination of elementary symmetric functions equals to the monomial expressed by the argument partition.
+    Return the combination of elementary symmetric functions equals to
+    the monomial expressed by the argument partition.
+
+    This function is used to convert Chern roots' monomials into
+    polynomials of Chern classes. Here, the monomial of degree ``dim``
+    is represented as a partition ``part`` of ``dim``. Since Chern classes
+    are equal to the elementary symmetric functions of Chern roots,
+    we rewrite the monomial represented by ``part`` into the expression using
+    the elementary symmetric functions and then replace
+    the i-th elementary symmetric functions  with ``c_i``.
 
     INPUT:
 
-    - ``dim`` -- integer -- the dimension of the considering manifold
+    - ``dim`` -- integer -- the dimension of the considering manifold.
 
     - ``part`` -- partition of ``dim`` -- the multidegree of a monomial.
 
@@ -201,6 +227,10 @@ def chernnum_from_partition(dim: int, part):
         c1*c2 - 3*c3
 
     """
+
+    m = SymmetricFunctions(QQ).m()
+    e = SymmetricFunctions(QQ).e()
+
     S0 = PolynomialRing(QQ, "c", dim + 1)
     c = S0.gens()  # Chern根の変数
 
@@ -213,5 +243,5 @@ def chernnum_from_partition(dim: int, part):
                 result = result * c[deg]
         return result
 
-    ls = list(_e(_m(part)))
+    ls = list(e(m(part)))
     return sum(c * monomial(degs) for degs, c in ls)
