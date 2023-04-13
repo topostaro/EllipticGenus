@@ -2,7 +2,8 @@ r"""
 Computation of elliptic genera of manifolds by using Chern numbers
 ================================================
 
-This module implements a computation of elliptic genera, where the  coefficients are expressed by Chern numbers.
+This module implements a computation of elliptic genera, where the 
+coefficients are expressed by Chern numbers.
 
 EXAMPLES:
 
@@ -44,11 +45,12 @@ from sage.all import (
 )
 from sage.EllipticGenus.elliptic_genus.utils import *
 
+
 # qのk次までに必要な係数の計算
 def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
     r"""
-
-    Return the list which n-th component is the coefficients of `x^n q^k` of the following expression.
+    Return the list which n-th component is the coefficients of
+    `x^n q^k` of the following expression.
 
     ..MATH::
 
@@ -66,7 +68,8 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
 
     OUTPUT:
 
-    the list which n-th component is the coefficients of `x^n q^k` of the above expression.
+    the list which n-th component is the coefficients of `x^n q^k` of
+    the above expression.
 
     EXAMPLE:
 
@@ -134,12 +137,14 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
 # k次までの和
 def ell_factor_coeff(dim: int, k: int) -> list:
     r"""
-
-    Return the list which n-th component is the coefficients of `x^n` of the following expression after taking the truncation of the terms of q variable up to degree ``k``.
+    Return the list which n-th component is the coefficients of `x^n`
+    of the following expression after taking the truncation of the
+    terms of q variable up to degree ``k``.
 
     ..MATH::
 
-    \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}{(1 - q^ne^{-x})(1 - q^ne^x)}
+    \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}
+    {(1 - q^ne^{-x})(1 - q^ne^x)}
     \cdot
     (1 - ye^{-x})
     \cdot
@@ -153,7 +158,9 @@ def ell_factor_coeff(dim: int, k: int) -> list:
 
     OUTPUT:
 
-    the list which n-th component is the coefficients of `x^n` of the following expression after taking the truncation of the terms of q variable up to degree ``k``.
+    the list which n-th component is the coefficients of `x^n` of the
+    following expression after taking the truncation of the terms of
+    q variable up to degree ``k``.
 
     EXAMPLE:
 
@@ -190,8 +197,19 @@ def ell_factor_coeff(dim: int, k: int) -> list:
 
 def ell_coeff(dim: int, k: int) -> dict:
     r"""
+    Return a dictionary where the keys represent partitions of dim,
+    and the values correspond to the coefficients of the elliptic genus
+    for the monomial of the chern roots `x_i` with a multidegree matching the key.
 
-    Return the dictionary which keys are partitions of ``dim`` and values are the coefficient ``x`` variable monomial with the multidegree of the key.
+    ..MATH::
+
+    \prod_{i = 1}^{dim} \prod_{n=1}^\infty
+    \frac{(1 - yq^ne^{-x_i})(1 - y^{-1}q^ne^{x_i})}
+    {(1 - q^ne^{-x_i})(1 - q^ne^{x_i})}
+    \cdot
+    (1 - ye^{-x_i})
+    \cdot
+    \frac{x_i}{1 - e^{-x_i}}
 
     INPUT:
 
@@ -201,7 +219,9 @@ def ell_coeff(dim: int, k: int) -> dict:
 
     OUTPUT:
 
-    the dictionary which keys are partitions of ``dim`` and values are the coefficient ``x`` variable monomial with the multidegree of the key.
+    the dictionary where the keys represent partitions of dim,
+    and the values correspond to the coefficients of the elliptic genus
+    for the monomial of the chern roots `x_i` with a multidegree matching the key.
 
     EXAMPLE:
 
@@ -237,9 +257,10 @@ def ell_coeff(dim: int, k: int) -> dict:
 
 def elliptic_genus_chernnum(dim: int, k: int):
     r"""
-
-    Return the elliptic genus of the manifold of dimension ``dim`` with the terms of q variable up to degree ``k``,
-    where the  coefficients are expressed by Chern numbers.
+    Return the elliptic genus of the manifold of dimension ``dim``
+    with the terms of q variable up to degree ``k``,
+    where the  coefficients are expressed by Chern numbers
+    multiplied by `y^{dim/2}`.
 
     INPUT:
 
@@ -249,8 +270,10 @@ def elliptic_genus_chernnum(dim: int, k: int):
 
     OUTPUT:
 
-    the elliptic genus of the manifold of dimension ``dim`` with the terms of q variable up to degree ``k``,
-    where the  coefficients are expressed by Chern numbers.
+    the elliptic genus of the manifold of dimension ``dim`` with
+    the terms of q variable up to degree ``k``,
+    where the  coefficients are expressed by Chern numbers
+    multiplied by `y^{dim/2}`.
 
     EXAMPLE:
 
@@ -275,6 +298,21 @@ from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
 
 def elliptic_genus(variety: IVariety, k: int):
     r"""
+    Return the elliptic genus of the argument ``variety``
+    with the terms of q variable up to degree ``k``
+    multiplied by `y^{dim/2}`.
+
+    INPUT:
+
+    - ``variety`` -- object of ``IVariety`` -- this function returns the elliptic genus of ``variety``
+
+    - ``k`` -- integer
+
+    OUTPUT:
+
+    the elliptic genus of the argument ``variety``
+    with the terms of q variable up to degree ``k``
+    multiplied by `y^{dim/2}`.
 
     EXAMPLE:
         sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
