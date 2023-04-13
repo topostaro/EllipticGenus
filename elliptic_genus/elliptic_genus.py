@@ -159,7 +159,7 @@ def ell_factor_coeff(dim: int, k: int) -> list:
     OUTPUT:
 
     the list which n-th component is the coefficients of `x^n` of the
-    following expression after taking the truncation of the terms of
+    above expression after taking the truncation of the terms of
     q variable up to degree ``k``.
 
     EXAMPLE:
