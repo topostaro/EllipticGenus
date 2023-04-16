@@ -344,17 +344,19 @@ def basis_integral(weight: int, index: int) -> list:
 def basis_half_integral(weight: int, double_index: int) -> list:
     r"""
 
-    Return a basis of the space of weak Jacobi forms of weight `0` and index ``double_index / 2`` for even ``double_index``,
+    Return a basis of the space of weak Jacobi forms of weight ``weight`` and index ``double_index / 2`` for even ``double_index``,
     otherwise return a list of a basis multiplied by by `y^{1/2}`.
 
     INPUT:
 
-    - `double_index` -- integer -- the double of index of weak Jacobi forms expected to be greater than 1.
+    - ``weight`` -- integer -- the weight of weak Jacobi forms expected to be even.
+
+    - ``double_index`` -- integer -- the double of index of weak Jacobi forms expected to be greater than 1.
 
     OUTPUT:
 
-    If `double_index` is even, the list consisting of series in a basis of weight `0` and index `double_index`.
-    Otherwise, the list consisting of series in a basis of weight `0` and index `double_index` multiplied by $y^{1/2}$.
+    If ``double_index`` is even, the list consisting of series in a basis of weight ``weight`` and index ``double_index``.
+    Otherwise, the list consisting of series in a basis of weight ``weight`` and index ``double_index`` multiplied by `y^{1/2}`.
 
     EXAMPLE:
 
