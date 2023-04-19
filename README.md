@@ -98,6 +98,7 @@ sage: Quintic = CompleteIntersection(Proj4, L)
 ```
 sage: from elliptic_genus.elliptic_genus import elliptic_genus
 sage: elliptic_genus(Quintic, 2)
+-100*y - 100*y^2 + (100*y^-1 - 100*y - 100*y^2 + 100*y^4)*q + (100*y^-2 + 100*y^-1 - 200*y - 200*y^2 + 100*y^4 + 100*y^5)*q^2 + O(q^3)
 ```
 
 3. Compute the Chern number $\int c_3$ of the quintic 3-fold.
@@ -105,10 +106,12 @@ sage: elliptic_genus(Quintic, 2)
 ```
 sage: from homogeneous_space.chern_number import chern_number
 sage: chern_number(Quintic, [3])
+-200
 ```
 4. Compute the Euler characteristic of the tangent bundle of the quintic 3-fold.
 
 ```
 sage: from homogeneous_space.euler_characteristic import euler_characteristic 
-sage: euler_characteristic(Quintic, Quintic.tangent())
+sage: euler_characteristic(Quintic, Quintic.tangent_bundle())
+-100
 ```
