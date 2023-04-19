@@ -330,6 +330,11 @@ def elliptic_genus(variety: IVariety, k: int):
         sage: Proj2 = HomogeneousSpace(P1)
         sage: elliptic_genus(Proj2, 2)
         1 + y + y^2 + (-8*y^-1 + 8 + 8*y^2 - 8*y^3)*q + (10*y^-2 - 54*y^-1 + 54 - 20*y + 54*y^2 - 54*y^3 + 10*y^4)*q^2 + O(q^3)
+        sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+        sage: Proj4 = HomogeneousSpace(P)
+        sage: L = IrreducibleEquivariantVectorBundle(Proj4, (5, 0, 0, 0, 0))
+        sage: Quintic = CompleteIntersection(Proj4, L)
+        sage: elliptic_genus(Quintic, 3)
 
     """
     chernnum = {
