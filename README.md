@@ -85,6 +85,9 @@ We give an example to show how to use this package. We compute the elliptic genu
 1. First, construct quintic 3-fold.
 
 ```
+sage: from homogeneous_space.parabolic import ParabolicSubgroup
+sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+sage: from homogeneous_space.complete_intersection import CompleteIntersection
 sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
 sage: Proj4 = HomogeneousSpace(P)
 sage: L = IrreducibleEquivariantVectorBundle(Proj4, (5, 0, 0, 0, 0))
@@ -93,16 +96,19 @@ sage: Quintic = CompleteIntersection(Proj4, L)
 2. Compute the elliptic genus.
 
 ```
+sage: from elliptic_genus.elliptic_genus import elliptic_genus
 sage: elliptic_genus(Quintic, 2)
 ```
 
 3. Compute the Chern number $\int c_3$ of the quintic 3-fold.
 
 ```
+sage: from homogeneous_space.chern_number import chern_number
 sage: chern_number(Quintic, [3])
 ```
 4. Compute the Euler characteristic of the tangent bundle of the quintic 3-fold.
 
 ```
+sage: from homogeneous_space.euler_characteristic import euler_characteristic 
 sage: euler_characteristic(Quintic, Quintic.tangent())
 ```
