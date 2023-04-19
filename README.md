@@ -72,15 +72,10 @@ A SageMath package for computing elliptic genera of homogeneous spaces and compl
 
 ## Installation
 
-1. Clone this repository to `SAGEROOT/src/sage/`.
+This package can be installed using pip in SageMath.
 
 ```
-git clone https://github.com/topostaro/EllipticGenus.git
-```
-2. Rebuild the SageMath sources.
-
-```
-./sage -br
+sage --pip install git+https://github.com/topostaro/EllipticGenus.git
 ```
 
 ## Usage
