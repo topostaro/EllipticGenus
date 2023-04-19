@@ -43,7 +43,7 @@ def todd_cut(x, m):  # mでカットオフ
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import todd_cut
+        sage: from elliptic_genus.utils import todd_cut
         sage: R.<z> = LazyLaurentSeriesRing(QQ)
         sage: todd_cut(z, 5)
         1 + 1/2*z + 1/12*z^2 - 1/720*z^4
@@ -70,7 +70,7 @@ def exp_cut(x, m):  # mでカットオフ
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import exp_cut
+        sage: from elliptic_genus.utils import exp_cut
         sage: R.<z> = LazyLaurentSeriesRing(QQ)
         sage: exp_cut(z, 5)
         1 + z + 1/2*z^2 + 1/6*z^3 + 1/24*z^4 + 1/120*z^5
@@ -96,7 +96,7 @@ def cutoff_for_coeff(m):  # xの式に対するcutoff
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import cutoff_for_coeff
+        sage: from elliptic_genus.utils import cutoff_for_coeff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
         sage: cutoff_for_coeff(2)(x0 + x0 * x1 - 2 * x1^4)
         x0*x1 + x0
@@ -125,7 +125,7 @@ def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import cutoff
+        sage: from elliptic_genus.utils import cutoff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
         sage: R1.<y> = LaurentPolynomialRing(R0)
         sage: R.<z>  = LazyLaurentSeriesRing(R1)
@@ -154,7 +154,7 @@ def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import homogeneous_for_coeff
+        sage: from elliptic_genus.utils import homogeneous_for_coeff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
         sage: homogeneous_for_coeff(2)(x0 + x0 * x1 - 2 * x1^4)
         x0*x1
@@ -181,7 +181,7 @@ def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhom
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import homogeneous_part
+        sage: from elliptic_genus.utils import homogeneous_part
         sage: R0.<x0, x1> = PolynomialRing(QQ)
         sage: R1.<y> = LaurentPolynomialRing(R0)
         sage: R.<z>  = LazyLaurentSeriesRing(R1)
@@ -220,7 +220,7 @@ def chernnum_from_partition(dim: int, part):
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.utils import chernnum_from_partition
+        sage: from elliptic_genus.utils import chernnum_from_partition
         sage: chernnum_from_partition(5, [5])
         c1^5 - 5*c1^3*c2 + 5*c1*c2^2 + 5*c1^2*c3 - 5*c2*c3 - 5*c1*c4 + 5*c5
         sage: chernnum_from_partition(3, [2,1])

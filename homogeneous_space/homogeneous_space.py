@@ -9,8 +9,8 @@ This module contains classes:
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
 EXAMPLE:
-    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
-    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
+    sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
     sage: X = HomogeneousSpace(P)
     sage: X
@@ -44,8 +44,8 @@ theory, Oxford Science Publications.
 
 from random import random
 from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup
-from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-from sage.EllipticGenus.homogeneous_space.interfaces import IVariety, IVectorBundle
+from homogeneous_space.parabolic import ParabolicSubgroup
+from homogeneous_space.interfaces import IVariety, IVectorBundle
 
 # `degree`次部分を取り出す関数
 homogeneous_part = lambda F, degree: sum(
@@ -71,8 +71,8 @@ class HomogeneousSpace(IVariety):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: X
@@ -105,8 +105,8 @@ class HomogeneousSpace(IVariety):
         Return the dimension of this variety
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: X.dimension()
@@ -133,8 +133,8 @@ class HomogeneousSpace(IVariety):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: X.chern_classes()
@@ -164,8 +164,8 @@ class HomogeneousSpace(IVariety):
         the numerical computation of the integration of the  equivariant cohomology class ``f``.
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: X.numerical_integration_by_localization(X.chern_classes()[X.dimension()])
@@ -226,8 +226,8 @@ class EquivariantVectorBundle(IVectorBundle):
         - ``weight_multiplicities`` -- dictionary from weights to their multiplicities
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
@@ -247,8 +247,8 @@ class EquivariantVectorBundle(IVectorBundle):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
@@ -263,8 +263,8 @@ class EquivariantVectorBundle(IVectorBundle):
         Return the base space of this vector bundle
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = EquivariantVectorBundle(X,{(3, 2, 0, 0, 0): 1, (3, 1, 1, 0, 0): 1, (3, 0, 2, 0, 0): 1, (3, 1, 0, 1, 0): 1, (3, 0, 1, 1, 0): 1, (3, 1, 0, 0, 1): 1, (3, 0, 0, 2, 0): 1, (3, 0, 1, 0, 1): 1, (3, 0, 0, 1, 1): 1, (3, 0, 0, 0, 2): 1, (4, 0, 0, 0, 0): 1,})
@@ -278,8 +278,8 @@ class EquivariantVectorBundle(IVectorBundle):
         Return the list of homogeneous parts of Chern classes of this vector bundle
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = EquivariantVectorBundle(X,{(2, 0, 0, 0, 0): 1, (3, 0, 0, 0, 0): 1})
@@ -320,8 +320,8 @@ class IrreducibleEquivariantVectorBundle(EquivariantVectorBundle):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(0, 1, 0, 0, 0))

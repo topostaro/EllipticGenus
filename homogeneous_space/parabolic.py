@@ -7,7 +7,7 @@ The class provides methods to compute its simple roots, positive roots, and the 
 
 EXAMPLE:
 
-    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
     sage: P
     the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
@@ -51,6 +51,7 @@ theory, Oxford Science Publications.
 
 from sage.all import matrix, vector, WeylCharacterRing
 
+
 # 最高ウェイト表現のウェイトを最高ウェイトとの差で表す関数。
 def root_difference_multiplicities(character_ring, highest_weight) -> dict:
     r"""
@@ -70,7 +71,7 @@ def root_difference_multiplicities(character_ring, highest_weight) -> dict:
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.homogeneous_space.parabolic import root_difference_multiplicities
+        sage: from homogeneous_space.parabolic import root_difference_multiplicities
         sage: root_difference_multiplicities(WeylCharacterRing("A1"), (2,1))
         {(-1,): 1, (0,): 1}
 
@@ -117,7 +118,7 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P
             the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
@@ -139,7 +140,7 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.dynkin_diagram()
             X---O---O
@@ -165,7 +166,7 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.simple_roots()
             [(0, 1, -1, 0), (0, 0, 1, -1)]
@@ -184,7 +185,7 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.positive_roots()
             [(0, 1, -1, 0), (0, 0, 1, -1), (0, 1, 0, -1)]
@@ -219,7 +220,7 @@ class ParabolicSubgroup:
 
         EXAMPLE:
 
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
             sage: P.weight_multiplicities((1, 2, 0))
             {(3, 1, 1, 0): 1,
@@ -230,6 +231,7 @@ class ParabolicSubgroup:
              (3, 0, 0, 2): 1}
 
         """
+
         # GとLのディンキン図の頂点のずれを補正する関数
         def correct_index(index: int) -> int:
             for i in range(len(self.crossed_out_nodes)):

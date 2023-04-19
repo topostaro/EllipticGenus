@@ -7,9 +7,9 @@ This module contains a class:
 This is specialized in computing Chern characters and Todd classes from Chern classes.
 
 EXAMPLE:
-    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-    sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+    sage: from homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+    sage: from homogeneous_space.complete_intersection import CompleteIntersection
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
     sage: X = HomogeneousSpace(P)
     sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
@@ -42,11 +42,11 @@ tions in exceptional grassmannians, 2022.
 # ****************************************************************************
 
 from sage.all import prod, vector
-from sage.EllipticGenus.homogeneous_space.homogeneous_space import (
+from homogeneous_space.homogeneous_space import (
     EquivariantVectorBundle,
     HomogeneousSpace,
 )
-from sage.EllipticGenus.homogeneous_space.interfaces import IVariety, IVectorBundle
+from homogeneous_space.interfaces import IVariety, IVectorBundle
 
 homogeneous_part = lambda F, degree: sum(
     c * m for c, m in F if m.total_degree() == degree
@@ -77,9 +77,9 @@ class CompleteIntersection(IVariety):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from homogeneous_space.complete_intersection import CompleteIntersection
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
@@ -99,9 +99,9 @@ class CompleteIntersection(IVariety):
         Return the dimension of this variety
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from homogeneous_space.complete_intersection import CompleteIntersection
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
@@ -135,9 +135,9 @@ class CompleteIntersection(IVariety):
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from homogeneous_space.complete_intersection import CompleteIntersection
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
@@ -182,9 +182,9 @@ class CompleteIntersection(IVariety):
 
 
         EXAMPLE:
-            sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-            sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-            sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+            sage: from homogeneous_space.complete_intersection import CompleteIntersection
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))

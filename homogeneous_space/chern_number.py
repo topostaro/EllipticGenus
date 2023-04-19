@@ -5,10 +5,10 @@ Computation of Chern numbers of varieties
 This module implements a computation of Chern numbers of varieties.
 
 EXAMPLE:
-    sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-    sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-    sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
-    sage: from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
+    sage: from homogeneous_space.parabolic import ParabolicSubgroup
+    sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+    sage: from homogeneous_space.complete_intersection import CompleteIntersection
+    sage: from homogeneous_space.chern_number import chern_number
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
     sage: X = HomogeneousSpace(P)
     sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
@@ -40,7 +40,7 @@ REFERENCES:
 # ****************************************************************************
 
 from sage.all import prod
-from sage.EllipticGenus.homogeneous_space.interfaces import IVariety
+from homogeneous_space.interfaces import IVariety
 
 # `degree`次部分を取り出す関数
 homogeneous_part = lambda F, degree: sum(
@@ -64,10 +64,10 @@ def chern_number(variety: IVariety, degrees: list) -> int:
     the Chern number of ``variety`` with degree ``degree``
 
     EXAMPLE:
-        sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-        sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-        sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
-        sage: from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
+        sage: from homogeneous_space.parabolic import ParabolicSubgroup
+        sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+        sage: from homogeneous_space.complete_intersection import CompleteIntersection
+        sage: from homogeneous_space.chern_number import chern_number
         sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
         sage: X = HomogeneousSpace(P)
         sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))

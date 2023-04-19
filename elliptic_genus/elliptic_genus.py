@@ -7,7 +7,7 @@ coefficients are expressed by Chern numbers.
 
 EXAMPLES:
 
-    sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import elliptic_genus_chernnum
+    sage: from elliptic_genus.elliptic_genus import elliptic_genus_chernnum
     sage: elliptic_genus_chernnum(4, 0)
     (-1/720*c1^4 + 1/180*c1^2*c2 + 1/240*c2^2 + 1/720*c1*c3 - 1/720*c4) + (1/180*c1^4 - 1/45*c1^2*c2 - 1/60*c2^2 + 7/90*c1*c3 + 31/180*c4)*y + (-1/120*c1^4 + 1/30*c1^2*c2 + 1/40*c2^2 - 19/120*c1*c3 + 79/120*c4)*y^2 + (1/180*c1^4 - 1/45*c1^2*c2 - 1/60*c2^2 + 7/90*c1*c3 + 31/180*c4)*y^3 + (-1/720*c1^4 + 1/180*c1^2*c2 + 1/240*c2^2 + 1/720*c1*c3 - 1/720*c4)*y^4 + O(q)
     sage: elliptic_genus_chernnum(5, 2)
@@ -43,7 +43,7 @@ from sage.all import (
     Partitions,
     prod,
 )
-from sage.EllipticGenus.elliptic_genus.utils import *
+from elliptic_genus.utils import *
 
 
 # qのk次までに必要な係数の計算
@@ -73,7 +73,7 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_factor_coeff_degreewise
+        sage: from elliptic_genus.elliptic_genus import ell_factor_coeff_degreewise
         sage: ell_factor_coeff_degreewise(5, 2)
         [-3*y^-1 + 9 - 9*y + 3*y^2,
          -9/2*y^-1 + 9/2 + 9/2*y - 9/2*y^2,
@@ -164,7 +164,7 @@ def ell_factor_coeff(dim: int, k: int) -> list:
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_factor_coeff
+        sage: from elliptic_genus.elliptic_genus import ell_factor_coeff
         sage: ell_factor_coeff(5, 2)
         [(1 - y) + (-y^-1 + 3 - 3*y + y^2)*q + (-3*y^-1 + 9 - 9*y + 3*y^2)*q^2,
          (1/2 + 1/2*y) + (-3/2*y^-1 + 3/2 + 3/2*y - 3/2*y^2)*q + (-9/2*y^-1 + 9/2 + 9/2*y - 9/2*y^2)*q^2,
@@ -225,7 +225,7 @@ def ell_coeff(dim: int, k: int) -> dict:
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import ell_coeff
+        sage: from elliptic_genus.elliptic_genus import ell_coeff
         sage: ell_coeff(5, 2)
         {[1, 1, 1, 1, 1]: 1/32 + 5/32*y + 5/16*y^2 + 5/16*y^3 + 5/32*y^4 + 1/32*y^5 + (-15/32*y^-1 - 45/32 - 15/32*y + 75/32*y^2 + 75/32*y^3 - 15/32*y^4 - 45/32*y^5 - 15/32*y^6)*q + (45/16*y^-2 + 45/32*y^-1 - 495/32 - 405/32*y + 765/32*y^2 + 765/32*y^3 - 405/32*y^4 - 495/32*y^5 + 45/32*y^6 + 45/16*y^7)*q^2 + O(q^3),
          [2, 1, 1, 1]: 1/96 + 1/96*y - 1/48*y^2 - 1/48*y^3 + 1/96*y^4 + 1/96*y^5 + (-23/96*y^-1 - 1/96 + 15/32*y - 7/32*y^2 - 7/32*y^3 + 15/32*y^4 - 1/96*y^5 - 23/96*y^6)*q + (83/48*y^-2 - 113/32*y^-1 - 77/32 + 779/96*y - 125/32*y^2 - 125/32*y^3 + 779/96*y^4 - 77/32*y^5 - 113/32*y^6 + 83/48*y^7)*q^2 + O(q^3),
@@ -277,7 +277,7 @@ def elliptic_genus_chernnum(dim: int, k: int):
 
     EXAMPLE:
 
-        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import elliptic_genus_chernnum
+        sage: from elliptic_genus.elliptic_genus import elliptic_genus_chernnum
         sage: elliptic_genus_chernnum(5, 2)
         (-1/1440*c1^3*c2 + 1/480*c1*c2^2 + 1/1440*c1^2*c3 - 1/1440*c1*c4) + (1/480*c1^3*c2 - 1/160*c1*c2^2 - 1/480*c1^2*c3 + 7/160*c1*c4 + 1/24*c5)*y + (-1/720*c1^3*c2 + 1/240*c1*c2^2 + 1/720*c1^2*c3 - 31/720*c1*c4 + 11/24*c5)*y^2 + (-1/720*c1^3*c2 + 1/240*c1*c2^2 + 1/720*c1^2*c3 - 31/720*c1*c4 + 11/24*c5)*y^3 + (1/480*c1^3*c2 - 1/160*c1*c2^2 - 1/480*c1^2*c3 + 7/160*c1*c4 + 1/24*c5)*y^4 + (-1/1440*c1^3*c2 + 1/480*c1*c2^2 + 1/1440*c1^2*c3 - 1/1440*c1*c4)*y^5 + ((-1/24*c1^5 + 187/1440*c1^3*c2 - 7/480*c1*c2^2 - 247/1440*c1^2*c3 + 187/1440*c1*c4 - 1/24*c5)*y^-1 + (5/24*c1^5 - 235/288*c1^3*c2 + 55/96*c1*c2^2 + 151/288*c1^2*c3 - 295/288*c1*c4) + (-3/8*c1^5 + 267/160*c1^3*c2 - 261/160*c1*c2^2 - 87/160*c1^2*c3 + 207/160*c1*c4 - 9/4*c5)*y + (5/24*c1^5 - 283/288*c1^3*c2 + 103/96*c1*c2^2 + 55/288*c1^2*c3 - 115/288*c1*c4 + 55/24*c5)*y^2 + (5/24*c1^5 - 283/288*c1^3*c2 + 103/96*c1*c2^2 + 55/288*c1^2*c3 - 115/288*c1*c4 + 55/24*c5)*y^3 + (-3/8*c1^5 + 267/160*c1^3*c2 - 261/160*c1*c2^2 - 87/160*c1^2*c3 + 207/160*c1*c4 - 9/4*c5)*y^4 + (5/24*c1^5 - 235/288*c1^3*c2 + 55/96*c1*c2^2 + 151/288*c1^2*c3 - 295/288*c1*c4)*y^5 + (-1/24*c1^5 + 187/1440*c1^3*c2 - 7/480*c1*c2^2 - 247/1440*c1^2*c3 + 187/1440*c1*c4 - 1/24*c5)*y^6)*q + ((1/6*c1^5 - 83/240*c1^3*c2 + 3/80*c1*c2^2 + 1/80*c1^2*c3 + 127/240*c1*c4 - 11/24*c5)*y^-2 + (-23/12*c1^5 + 3049/480*c1^3*c2 - 609/160*c1*c2^2 - 363/160*c1^2*c3 + 243/160*c1*c4 + 9/4*c5)*y^-1 + (85/12*c1^5 - 2695/96*c1^3*c2 + 735/32*c1*c2^2 + 309/32*c1^2*c3 - 405/32*c1*c4) + (-137/12*c1^5 + 23791/480*c1^3*c2 - 7431/160*c1*c2^2 - 2477/160*c1^2*c3 + 9871/480*c1*c4 - 197/12*c5)*y + (73/12*c1^5 - 13199/480*c1^3*c2 + 4359/160*c1*c2^2 + 1293/160*c1^2*c3 - 1593/160*c1*c4 + 117/8*c5)*y^2 + (73/12*c1^5 - 13199/480*c1^3*c2 + 4359/160*c1*c2^2 + 1293/160*c1^2*c3 - 1593/160*c1*c4 + 117/8*c5)*y^3 + (-137/12*c1^5 + 23791/480*c1^3*c2 - 7431/160*c1*c2^2 - 2477/160*c1^2*c3 + 9871/480*c1*c4 - 197/12*c5)*y^4 + (85/12*c1^5 - 2695/96*c1^3*c2 + 735/32*c1*c2^2 + 309/32*c1^2*c3 - 405/32*c1*c4)*y^5 + (-23/12*c1^5 + 3049/480*c1^3*c2 - 609/160*c1*c2^2 - 363/160*c1^2*c3 + 243/160*c1*c4 + 9/4*c5)*y^6 + (1/6*c1^5 - 83/240*c1^3*c2 + 3/80*c1*c2^2 + 1/80*c1^2*c3 + 127/240*c1*c4 - 11/24*c5)*y^7)*q^2 + O(q^3)
 
@@ -292,8 +292,8 @@ def elliptic_genus_chernnum(dim: int, k: int):
         )
 
 
-from sage.EllipticGenus.homogeneous_space.interfaces import IVariety
-from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
+from homogeneous_space.interfaces import IVariety
+from homogeneous_space.chern_number import chern_number
 
 
 def elliptic_genus(variety: IVariety, k: int):
@@ -315,11 +315,11 @@ def elliptic_genus(variety: IVariety, k: int):
     multiplied by `y^{dim/2}`.
 
     EXAMPLE:
-        sage: from sage.EllipticGenus.homogeneous_space.parabolic import ParabolicSubgroup
-        sage: from sage.EllipticGenus.homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
-        sage: from sage.EllipticGenus.homogeneous_space.complete_intersection import CompleteIntersection
-        sage: from sage.EllipticGenus.homogeneous_space.chern_number import chern_number
-        sage: from sage.EllipticGenus.elliptic_genus.elliptic_genus import elliptic_genus
+        sage: from homogeneous_space.parabolic import ParabolicSubgroup
+        sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
+        sage: from homogeneous_space.complete_intersection import CompleteIntersection
+        sage: from homogeneous_space.chern_number import chern_number
+        sage: from elliptic_genus.elliptic_genus import elliptic_genus
         sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
         sage: X = HomogeneousSpace(P)
         sage: E = IrreducibleEquivariantVectorBundle(X,(4, 0, 0, 0, 0))

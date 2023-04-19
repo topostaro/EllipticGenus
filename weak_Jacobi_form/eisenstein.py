@@ -6,7 +6,7 @@ This module implements a computation of Eisenstein series.
 
 EXAMPLES::
 
-    sage: from sage.EllipticGenus.weak_Jacobi_form.eisenstein import eisenstein
+    sage: from weak_Jacobi_form.eisenstein import eisenstein
     sage: eisenstein(4)
     1 + 240*q + 2160*q^2 + 6720*q^3 + 17520*q^4 + 30240*q^5 + 60480*q^6 + O(q^7)
     sage: eisenstein(6)
@@ -39,6 +39,7 @@ from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ, bernoulli
 # Base rings for calculations
 R0 = LaurentPolynomialRing(QQ, "y")
 R = LazyLaurentSeriesRing(R0, "q")
+
 
 # modified version only for negative integers
 def _zeta(s: int):
@@ -96,7 +97,7 @@ def eisenstein(k: int):
 
     EXAMPLES::
 
-        sage: from sage.EllipticGenus.weak_Jacobi_form.eisenstein import eisenstein
+        sage: from weak_Jacobi_form.eisenstein import eisenstein
         sage: eisenstein(4)
         1 + 240*q + 2160*q^2 + 6720*q^3 + 17520*q^4 + 30240*q^5 + 60480*q^6 + O(q^7)
         sage: eisenstein(6)
