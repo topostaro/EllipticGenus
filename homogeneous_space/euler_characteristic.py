@@ -37,23 +37,25 @@ REFERENCES:
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-from homogeneous_space.interfaces import IVariety, IVectorBundle
+from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
 
 
-def euler_characteristic(variety: IVariety, vector_bundle: IVectorBundle) -> int:
+def euler_characteristic(
+    manifold: AlmostComplexManifold, vector_bundle: VectorBundle
+) -> int:
     r"""
 
-    Return the Euler characteristic of ``vector_bundle`` on ``variety``
+    Return the Euler characteristic of ``vector_bundle`` on ``manifold``
 
     INPUT:
 
-    - ``variety`` -- object of ``IVariety`` -- the base space.
+    - ``manifold`` -- object of ``AlmostComplexManifold`` -- the base space.
 
-    - ``vector_bundle`` -- object of ``IVectorBundle``
+    - ``vector_bundle`` -- object of ``VectorBundle``
 
     OUTPUT:
 
-    the Euler characteristic of ``vector_bundle`` on ``variety``, that is computed as the integration of the multiplication of the Chern character of ``vector_bundle`` and the Todd genus of ``variety``.
+    the Euler characteristic of ``vector_bundle`` on ``manifold``, that is computed as the integration of the multiplication of the Chern character of ``vector_bundle`` and the Todd genus of ``manifold``.
 
     ..MATH::
 

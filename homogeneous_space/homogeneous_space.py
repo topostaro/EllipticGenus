@@ -3,8 +3,8 @@ Classes of homogeneous spaces and equivariant vector bundles
 ================================================
 
 This module contains classes:
-    - ``HomogeneousSpace`` -- a class of homogeneous spaces inherit ``IVariety``,
-    - ``EquivariantVectorBundle`` -- a class of equivariant vector bundles on homogeneous spaces, which inherit ``IVectorBundle``.
+    - ``HomogeneousSpace`` -- a class of homogeneous spaces inherit ``AlmostComplexManifold``,
+    - ``EquivariantVectorBundle`` -- a class of equivariant vector bundles on homogeneous spaces, which inherit ``VectorBundle``.
     - ``IrreducibleEquivariantVectorBundle`` -- a class of irreducible equivariant vector bundles on homogeneous spaces, which inherit ``EquivariantVectorBundle``.
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
@@ -45,7 +45,7 @@ theory, Oxford Science Publications.
 from random import random
 from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup
 from homogeneous_space.parabolic import ParabolicSubgroup
-from homogeneous_space.interfaces import IVariety, IVectorBundle
+from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
 
 # `degree`次部分を取り出す関数
 homogeneous_part = lambda F, degree: sum(
@@ -53,7 +53,7 @@ homogeneous_part = lambda F, degree: sum(
 )
 
 
-class HomogeneousSpace(IVariety):
+class HomogeneousSpace(AlmostComplexManifold):
     r"""
 
     Class representing a homogeneous space, which is the quotient by a parabolic subgroup.
@@ -115,7 +115,7 @@ class HomogeneousSpace(IVariety):
         """
         return self.dim
 
-    def tangent_bundle(self) -> IVectorBundle:
+    def tangent_bundle(self) -> VectorBundle:
         r"""
         Return the tangent bundle of this variety
         """
@@ -274,7 +274,7 @@ class HomogeneousSpace(IVariety):
             )
 
 
-class EquivariantVectorBundle(IVectorBundle):
+class EquivariantVectorBundle(VectorBundle):
     r"""
 
     Class representing a equivariant vector bundle on a homogeneous space

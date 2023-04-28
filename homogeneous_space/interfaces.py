@@ -3,8 +3,8 @@ Abstract classes of variety and vector bundles and some operations for them
 ================================================
 
 This module contains abstract classes:
-    - ``IVariety`` -- an interface of varieties,
-    - ``IVectorBundle`` -- an interface of vector bundles.
+    - ``AlmostComplexManifold`` -- an abstract class of almost complex manifold,
+    - ``VectorBundle`` -- an abstract class of vector bundles.
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
 
@@ -34,7 +34,7 @@ from sage.all import singular, PolynomialRing, TermOrder, QQ
 from abc import ABC, abstractmethod
 
 
-class IVectorBundle(ABC):
+class VectorBundle(ABC):
     r"""
 
     Dummy definition for type annotations
@@ -43,37 +43,37 @@ class IVectorBundle(ABC):
     pass
 
 
-class IVariety(ABC):
+class AlmostComplexManifold(ABC):
     r"""
 
-    Abstract class of varieties
+    Abstract class of almost complex manifolds
 
     """
 
     @abstractmethod
     def dimension(self) -> int:
         r"""
-        Return the dimension of this variety
+        Return the dimension of this almost complex manifold
         """
         pass
 
     @abstractmethod
-    def tangent_bundle(self) -> IVectorBundle:
+    def tangent_bundle(self) -> VectorBundle:
         r"""
-        Return the tangent bundle of this variety
+        Return the tangent bundle of this almost complex manifold
         """
         pass
 
-    def cotangent_bundle(self) -> IVectorBundle:
+    def cotangent_bundle(self) -> VectorBundle:
         r"""
-        Return the cotangent bundle of this variety
+        Return the cotangent bundle of this almost complex manifold
         """
         return self.tangent_bundle().dual()
 
     @abstractmethod
     def integration(self, f) -> int:
         r"""
-        Return the integration value of the cohomology class ``f`` on this variety
+        Return the integration value of the cohomology class ``f`` on this almost complex manifold
 
         INPUT:
 
@@ -81,20 +81,20 @@ class IVariety(ABC):
 
         OUTPUT:
 
-        the integration of ``f`` on this variety
+        the integration of ``f`` on this almost complex manifold
 
         """
         pass
 
     def chern_classes(self) -> list:
         r"""
-        Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
+        Return the list of homogeneous parts of Chern classes of the tangent bundle of this almost complex manifold
         """
         return self.tangent_bundle().chern_classes()
 
     def todd_classes(self) -> list:
         r"""
-        Return the todd classes of the tangent bundle of this variety
+        Return the todd classes of the tangent bundle of this almost complex manifold
         """
         return self.tangent_bundle().todd_classes()
 
@@ -104,7 +104,7 @@ import re
 singular.lib("chern.lib")
 
 
-class IVectorBundle(ABC):
+class VectorBundle(ABC):
     r"""
 
     Abstract class of vector bundle
@@ -112,7 +112,7 @@ class IVectorBundle(ABC):
     """
 
     @abstractmethod
-    def base(self) -> IVariety:
+    def base(self) -> AlmostComplexManifold:
         r"""
         Return the base space of this vector bundle
         """
@@ -133,7 +133,7 @@ class IVectorBundle(ABC):
         pass
 
     # 演算子のオーバーロード
-    def __add__(self, other) -> IVectorBundle:
+    def __add__(self, other) -> VectorBundle:
         r"""
 
         Return the direct sum of vector bundles
@@ -141,7 +141,7 @@ class IVectorBundle(ABC):
         """
         return direct_sum(self, other)
 
-    def __mul__(self, other) -> IVectorBundle:
+    def __mul__(self, other) -> VectorBundle:
         r"""
 
         Return the tensor product of vector bundles
@@ -212,17 +212,17 @@ class IVectorBundle(ABC):
             for i in (range(0, self.base().dimension() + 1))
         ]
 
-    def dual(self) -> IVectorBundle:
+    def dual(self) -> VectorBundle:
         r"""
         Return the dual vector bundle of this vector bundle
         """
         vector_bundle = self
 
-        class VB(IVectorBundle):
+        class VB(VectorBundle):
             def rank(self) -> int:
                 return vector_bundle.rank()
 
-            def base(self) -> IVariety:
+            def base(self) -> AlmostComplexManifold:
                 return vector_bundle.base()
 
             def chern_classes(self) -> list:
@@ -235,7 +235,7 @@ class IVectorBundle(ABC):
         return VB()
 
 
-def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
+def direct_sum(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
     r"""
 
     Return the direct sum of vector bundles
@@ -261,11 +261,11 @@ def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
         for i in (range(0, vector_bundle1.base().dimension() + 1))
     ]
 
-    class VB(IVectorBundle):
+    class VB(VectorBundle):
         def rank(self) -> int:
             return rank
 
-        def base(self) -> IVariety:
+        def base(self) -> AlmostComplexManifold:
             return base
 
         def chern_classes(self) -> list:
@@ -277,7 +277,7 @@ def direct_sum(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
     return VB()
 
 
-def tensor_product(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle):
+def tensor_product(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
     r"""
 
     Return the tensor product of vector bundles
@@ -317,11 +317,11 @@ def tensor_product(vector_bundle1: IVectorBundle, vector_bundle2: IVectorBundle)
     rank = vector_bundle1.rank() * vector_bundle2.rank()
     base = vector_bundle1.base()
 
-    class VB(IVectorBundle):
+    class VB(VectorBundle):
         def rank(self) -> int:
             return rank
 
-        def base(self) -> IVariety:
+        def base(self) -> AlmostComplexManifold:
             return base
 
         def chern_classes(self) -> list:

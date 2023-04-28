@@ -3,7 +3,7 @@ Class of varieties which is the zeros of a general section of an equivariant vec
 ================================================
 
 This module contains a class:
-    - ``CompleteIntersection`` -- an implementation of ``IVariety``, representing the zeros of a general section of an equivariant vector bundle of a homogeneous space
+    - ``CompleteIntersection`` -- an implementation of ``AlmostComplexManifold``, representing the zeros of a general section of an equivariant vector bundle of a homogeneous space
 This is specialized in computing Chern characters and Todd classes from Chern classes.
 
 EXAMPLE:
@@ -46,14 +46,14 @@ from homogeneous_space.homogeneous_space import (
     EquivariantVectorBundle,
     HomogeneousSpace,
 )
-from homogeneous_space.interfaces import IVariety, IVectorBundle
+from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
 
 homogeneous_part = lambda F, degree: sum(
     c * m for c, m in F if m.total_degree() == degree
 )
 
 
-class CompleteIntersection(IVariety):
+class CompleteIntersection(AlmostComplexManifold):
     r"""
 
     Class representing the zeros of a general section of an equivariant vector bundle of a homogeneous space
@@ -118,8 +118,8 @@ class CompleteIntersection(IVariety):
         """
         ci = self
 
-        class VB(IVectorBundle):
-            def base(self) -> IVariety:
+        class VB(VectorBundle):
+            def base(self) -> AlmostComplexManifold:
                 return ci
 
             def rank(self) -> int:

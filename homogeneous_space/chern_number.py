@@ -40,7 +40,7 @@ REFERENCES:
 # ****************************************************************************
 
 from sage.all import prod
-from homogeneous_space.interfaces import IVariety
+from homogeneous_space.interfaces import AlmostComplexManifold
 
 # `degree`次部分を取り出す関数
 homogeneous_part = lambda F, degree: sum(
@@ -48,20 +48,20 @@ homogeneous_part = lambda F, degree: sum(
 )
 
 
-def chern_number(variety: IVariety, degrees: list) -> int:
+def chern_number(manifold: AlmostComplexManifold, degrees: list) -> int:
     r"""
 
-    Return the Chern number of ``variety`` with degree ``degree``
+    Return the Chern number of ``manifold`` with degree ``degree``
 
     INPUT:
 
-    - ``variety`` -- ``IVariety``
+    - ``manifold`` -- ``AlmostComplexManifold``
 
     - ``degree`` -- list of integers -- this list represents the integrant. For example, ``[1,1,3]`` represents `c_1 c_1 c_3`.
 
     OUTPUT:
 
-    the Chern number of ``variety`` with degree ``degree``
+    the Chern number of ``manifold`` with degree ``degree``
 
     EXAMPLE:
         sage: from homogeneous_space.parabolic import ParabolicSubgroup
