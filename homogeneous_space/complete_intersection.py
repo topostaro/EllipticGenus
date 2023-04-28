@@ -203,10 +203,16 @@ class CompleteIntersection(IVariety):
             top_of_f * c_top
         )
 
-    def integration(self, f) -> int:
+    def integration(self, f, option="symbolic") -> int:
         r"""
 
         Implementation of the abstract method.
 
         """
-        return self.numerical_integration_by_localization(f)
+        top_of_f = homogeneous_part(f, self.dim)
+        c_top = (
+            self.vector_bundle.chern_classes()[self.vector_bundle.rank()]
+            if self.dim >= 0
+            else 0
+        )
+        return self.homogeneous_space.integration(top_of_f * c_top, option=option)

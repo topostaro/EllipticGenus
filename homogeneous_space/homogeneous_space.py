@@ -193,14 +193,85 @@ class HomogeneousSpace(IVariety):
                 ]
             ).round() / len(WeylGroup(self.parabolic_subgroup.L))
 
-    def integration(self, f) -> int:
+    def symbolic_integration_by_localization(self, f):
+        r"""
+
+        Return the symbolic computation of the integration of equivariant cohomology classes.
+
+        INPUT:
+
+        - ``f`` -- an equivariant cohomology class on this variety
+
+        OUTPUT:
+
+        the symbolic computation of the integration of the  equivariant cohomology class ``f``.
+
+        EXAMPLE:
+            sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
+            sage: from homogeneous_space.parabolic import ParabolicSubgroup
+            sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
+            sage: X = HomogeneousSpace(P)
+            sage: X.symbolic_integration_by_localization(X.chern_classes()[X.dimension()])
+            5
+
+        """
+        S_G = WeylGroup(
+            self.parabolic_subgroup.G.root_system(), implementation="permutation"
+        )
+
+        s_G = S_G.simple_reflections()
+        s_P = [
+            s_G[i]
+            for i in set(range(1, len(s_G) + 1))
+            - set(self.parabolic_subgroup.crossed_out_nodes)
+        ]
+        S_P = S_G.subgroup(s_P)
+
+        def cosetRep(G, H):
+            rep = []
+            g = set(G.list())
+            h = set(G(e) for e in H.list())
+            coset = set()
+            while g:
+                p = g.pop()
+                rep.append(p)
+                coset = set(p * e for e in h)
+                g = g - coset
+                coset.clear()
+                if len(rep) * H.order() == G.order():
+                    break
+
+            return rep
+
+        W_G = WeylGroup(self.parabolic_subgroup.G.root_system())
+        W_G_mod_W_P = [W_G(w) for w in cosetRep(S_G, S_P)]
+
+        def weyl_group_action(w, f):
+            return f(*(w.inverse() * vector(self.ring, self.ring.gens())))
+
+        return sum(
+            [
+                weyl_group_action(w, f)
+                / weyl_group_action(w, prod(self.tangent_weights))
+                for w in W_G_mod_W_P
+            ]
+        )
+
+    def integration(self, f, option="symbolic") -> int:
         r"""
 
         Implementation of the abstract method.
 
         """
 
-        return self.numerical_integration_by_localization(f)
+        if option == "symbolic":
+            return self.symbolic_integration_by_localization(f)
+        if option == "numerical":
+            return self.numerical_integration_by_localization(f)
+        else:
+            raise TypeError(
+                f"Invalid option in integration on HomogeneousSpace: {option}"
+            )
 
 
 class EquivariantVectorBundle(IVectorBundle):
