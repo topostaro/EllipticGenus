@@ -10,9 +10,9 @@ A SageMath package for computing elliptic genera of homogeneous spaces and compl
 
     - elliptic_genus.py
 
-        - `elliptic_genus(variety, k)` computes the elliptic genera of `variety` with the terms of `q`-variable up to degree `k`. The argument `variety` should be an object of `IVariety`, equivalently, the object must contain the data of Chern numbers.
+        - `elliptic_genus(manifold, k)` computes the elliptic genera of `manifold` with the terms of `q`-variable up to degree `k`. The argument `manifold` should be an object of `AlmostComplexManifold`, equivalently, the object must contain the data of Chern numbers.
 
-        - `elliptic_genus_chernnum(dim, k)` computes the elliptic genus of a variety of dimension `dim` with the terms of `q`-variable up to degree `k` represented symbolically by Chern numbers.
+        - `elliptic_genus_chernnum(dim, k)` computes the elliptic genus of a almost complex manifold of dimension `dim` with the terms of `q`-variable up to degree `k` represented symbolically by Chern numbers.
 
     - utils.py
 
@@ -34,7 +34,7 @@ A SageMath package for computing elliptic genera of homogeneous spaces and compl
 
 - homogeneous_space
 
-    This module provides various functions which compute the integrations of equivariant cohomology classes on homogeneous spaces and complete intersections of them. For example, there are functions for computation of Euler characteristic of equivariant vector bundles and for computation of Chern numbers of such varieties.
+    This module provides various functions which compute the integrations of equivariant cohomology classes on homogeneous spaces and complete intersections of them. For example, there are functions for computation of Euler characteristic of equivariant vector bundles and for computation of Chern numbers of such manifolds.
 
     - parabolic.py
 
@@ -42,13 +42,13 @@ A SageMath package for computing elliptic genera of homogeneous spaces and compl
 
     - interfaces.py
 
-        - The abstract class `IVariety` represents a variety which has the methods providing Chern classes and their integrations.
+        - The abstract class `AlmostComplexManifold` represents an almost complex manifold which has the methods providing Chern classes and their integrations.
 
-        - The abstract class `IVectorBundle` represents a vector bundle which has the methods providing Chern classes. The operators `+` and `*` are overloaded by the following functions `direct_sum` and `tensor_product` respectively.
+        - The abstract class `VectorBundle` represents a vector bundle which has the methods providing Chern classes. The operators `+` and `*` are overloaded by the following functions `direct_sum` and `tensor_product` respectively.
 
-        - `direct_sum(vector_bundle1, vector_bundle2)` returns the direct sum of vector bundles as an object implementing `IVectorBundle`.
+        - `direct_sum(vector_bundle1, vector_bundle2)` returns the direct sum of vector bundles as an object implementing `VectorBundle`.
 
-        - `tensor_product(vector_bundle1, vector_bundle2)` returns the direct sum of vector bundles as an object implementing `IVectorBundle`.
+        - `tensor_product(vector_bundle1, vector_bundle2)` returns the direct sum of vector bundles as an object implementing `VectorBundle`.
 
     - homogeneous_space.py
 
@@ -64,11 +64,11 @@ A SageMath package for computing elliptic genera of homogeneous spaces and compl
 
     - euler_characteristic.py
 
-        - `euler_characteristic(variety, vector_bundle)` computes the Euler characteristic of `vector_bundle` on `variety` by using the method `integration()` of `variety`.
+        - `euler_characteristic(manifold, vector_bundle)` computes the Euler characteristic of `vector_bundle` on `manifold` by using the method `integration()` of `manifold`.
 
     - chern_number.py
 
-        - `chern_number(variety, degrees)` provides the Chern number of `variety` with degree `degree`. The argument `degree` should be a list of positive integers. For example, `[1,1,3]` represents $c_1 c_1 c_3$.
+        - `chern_number(manifold, degrees)` provides the Chern number of `manifold` with degree `degree`. The argument `degree` should be a list of positive integers. For example, `[1,1,3]` represents $c_1 c_1 c_3$.
 
 ## Installation
 
