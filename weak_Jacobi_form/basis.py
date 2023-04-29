@@ -2,8 +2,8 @@ r"""
 Computation of a basis of weak Jacobi forms of weight `0`
 ================================================
 
-This module implements a computation of a basis of weak Jacobi forms of weight `0`
-and indices that are either integral or half-integral.
+This module implements a computation of a basis of weak Jacobi forms
+of weight `0` and indices that are either integral or half-integral.
 
 EXAMPLES::
 
@@ -37,8 +37,8 @@ REFERENCES:
 # ****************************************************************************
 
 import math
-from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ
-from weak_Jacobi_form.eisenstein import eisenstein
+from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ, bernoulli, sigma
+from weak_Jacobi_form.eisenstein import lazy_eisenstein_series_qexp
 
 _R0 = LaurentPolynomialRing(QQ, "y")
 _y = _R0.gen()
@@ -50,7 +50,8 @@ _q = _R.gen()
 def _function_t1(y):
     r"""
 
-    Return a function which is proportional to the Jacobi theta function `\theta_1`.
+    Return a function which is proportional to the Jacobi theta function 
+    `\theta_1`.
 
     .. MATH::
 
@@ -95,7 +96,8 @@ def _function_t1(y):
 def _function_t2(y):
     r"""
 
-    Return a function which is proportional to the Jacobi theta function `\theta_2`.
+    Return a function which is proportional to the Jacobi theta function 
+    `\theta_2`.
 
     .. MATH::
 
@@ -138,7 +140,8 @@ def _function_t2(y):
 def _function_t3(y):
     r"""
 
-    Return a function which is proportional to the Jacobi theta function `\theta_3`.
+    Return a function which is proportional to the Jacobi theta function 
+    `\theta_3`.
 
     .. MATH::
 
@@ -171,7 +174,8 @@ def _function_t3(y):
 def _function_t4(y):
     r"""
 
-    Return a function which is proportional to the Jacobi theta function $`\theta_4`.
+    Return a function which is proportional to the Jacobi theta function 
+    `\theta_4`.
 
      .. MATH::
 
@@ -242,7 +246,8 @@ def _phi_tilde_m2_1():
 def _phi_tilde_0_3o2():
     r"""
 
-    Return a weak Jacobi form of weight `0` and index `3/2` multiplied by `y^{1/2}`.
+    Return a weak Jacobi form of weight `0` and index `3/2`
+    multiplied by `y^{1/2}`
 
     EXAMPLE:
 
@@ -258,7 +263,8 @@ def _phi_tilde_0_3o2():
 def _decompose(n):
     r"""
 
-    Return the list of all possible decompositions of ``n`` into sums of `2` and `3`.
+    Return the list of all possible decompositions of ``n`` into sums of
+    `2` and `3`.
 
     INPUT:
 
@@ -266,8 +272,8 @@ def _decompose(n):
 
     OUTPUT:
 
-    The set of pairs of coefficient of possible decompositions of ``n`` into sums of `2` and `3`,
-    which is the set `\{(a, b) | 2a + 3b = n\}`.
+    The set of pairs of coefficient of possible decompositions of ``n`` into sums
+    of `2` and `3`, which is the set `\{(a, b) | 2a + 3b = n\}`.
 
     EXAMPLES::
 
@@ -300,7 +306,8 @@ def _decompose(n):
 def basis_integral(weight: int, index: int) -> list:
     r"""
 
-    Return a basis of the space of weak Jacobi forms of weight `weight` and index ``index``.
+    Return a basis of the space of weak Jacobi forms of weight `weight`
+    and index ``index``.
 
     INPUT:
 
@@ -330,6 +337,22 @@ def basis_integral(weight: int, index: int) -> list:
 
 
     """
+
+    def _zeta(s: int):
+        if s >= 0:
+            raise TypeError("The argument must be negative.")
+        return -bernoulli(-s + 1) / (-s + 1)
+
+    # Compute the coefficient of q^n
+    def _eisenstein_coefficient(k: int, n: int):
+        if n == 0:
+            return 1
+        else:
+            return 2 * sigma(n, k - 1) / _zeta(1 - k)
+
+    def eisenstein(k):
+        return _R(lambda n: _eisenstein_coefficient(k, n), valuation=0)
+
     result = []
     # result.append(_phi_tilde_0_1() ** index)
     for i in range(0, index + 1):
@@ -344,7 +367,8 @@ def basis_integral(weight: int, index: int) -> list:
 def basis_half_integral(weight: int, double_index: int) -> list:
     r"""
 
-    Return a basis of the space of weak Jacobi forms of weight ``weight`` and index ``double_index / 2`` for even ``double_index``,
+    Return a basis of the space of weak Jacobi forms of weight ``weight``
+    and index ``double_index / 2`` for even ``double_index``,
     otherwise return a list of a basis multiplied by by `y^{1/2}`.
 
     INPUT:
@@ -355,8 +379,10 @@ def basis_half_integral(weight: int, double_index: int) -> list:
 
     OUTPUT:
 
-    If ``double_index`` is even, the list consisting of series in a basis of weight ``weight`` and index ``double_index``.
-    Otherwise, the list consisting of series in a basis of weight ``weight`` and index ``double_index`` multiplied by `y^{1/2}`.
+    If ``double_index`` is even, the list consisting of series in a basis
+    of weight ``weight`` and index ``double_index``.
+    Otherwise, the list consisting of series in a basis of weight
+    ``weight`` and index ``double_index`` multiplied by `y^{1/2}`.
 
     EXAMPLE:
 
