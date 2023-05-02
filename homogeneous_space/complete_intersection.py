@@ -13,7 +13,7 @@ EXAMPLE:
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
     sage: X = HomogeneousSpace(P)
     sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-    sage: quintic = CompleteIntersection(X, E)
+    sage: quintic = CompleteIntersection(E)
     sage: quintic.numerical_integration_by_localization(quintic.chern_classes()[3])
     -200
 
@@ -62,7 +62,6 @@ class CompleteIntersection(AlmostComplexManifold):
 
     def __init__(
         self,
-        homogeneous_space: HomogeneousSpace,
         vector_bundle: EquivariantVectorBundle,
     ) -> None:
         r"""
@@ -83,11 +82,11 @@ class CompleteIntersection(AlmostComplexManifold):
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-            sage: CompleteIntersection(X, E)
+            sage: CompleteIntersection(E)
             a complete intersection of a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1] and an equivariant vector bundle on a homogeneous_space associated to the parabolic subgroup of ['A', 4] with crossed-out nodes [1] associated to (5, 0, 0, 0, 0)
 
         """
-        self.homogeneous_space = homogeneous_space
+        self.homogeneous_space = vector_bundle.base()
         self.vector_bundle = vector_bundle
         self.dim = self.homogeneous_space.dimension() - self.vector_bundle.rank()
 
@@ -105,7 +104,7 @@ class CompleteIntersection(AlmostComplexManifold):
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic = CompleteIntersection(E)
             sage: quintic.dimension()
             3
         """
@@ -141,7 +140,7 @@ class CompleteIntersection(AlmostComplexManifold):
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic = CompleteIntersection(E)
             sage: quintic.chern_classes()
             [1,
              -x0 - x1 - x2 - x3 - x4,
@@ -188,7 +187,7 @@ class CompleteIntersection(AlmostComplexManifold):
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
             sage: X = HomogeneousSpace(P)
             sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-            sage: quintic = CompleteIntersection(X, E)
+            sage: quintic = CompleteIntersection(E)
             sage: quintic.numerical_integration_by_localization(quintic.chern_classes()[3])
             -200
 

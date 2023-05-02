@@ -314,6 +314,8 @@ def tensor_product(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
         for cp in ch_prod
     ]
 
+    cc.extend([0] * (vector_bundle1.base().dimension() + 1 - len(cc)))
+
     rank = vector_bundle1.rank() * vector_bundle2.rank()
     base = vector_bundle1.base()
 

@@ -12,7 +12,7 @@ EXAMPLE:
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
     sage: X = HomogeneousSpace(P)
     sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-    sage: quintic = CompleteIntersection(X, E)
+    sage: quintic = CompleteIntersection(E)
     sage: chern_number(quintic, [1, 1, 1])
     0
     sage: chern_number(quintic, [3])
@@ -71,15 +71,15 @@ def chern_number(manifold: AlmostComplexManifold, degrees: list) -> int:
         sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
         sage: X = HomogeneousSpace(P)
         sage: E = IrreducibleEquivariantVectorBundle(X,(5, 0, 0, 0, 0))
-        sage: quintic = CompleteIntersection(X, E)
+        sage: quintic = CompleteIntersection(E)
         sage: chern_number(quintic, [1, 1, 1])
         0
         sage: chern_number(quintic, [3])
         -200
 
     """
-    if sum(d for d in degrees) != variety.dimension():
+    if sum(d for d in degrees) != manifold.dimension():
         return 0
     else:
-        chern_classes = variety.chern_classes()
-        return variety.integration(prod([chern_classes[d] for d in degrees]))
+        chern_classes = manifold.chern_classes()
+        return manifold.integration(prod([chern_classes[d] for d in degrees]))

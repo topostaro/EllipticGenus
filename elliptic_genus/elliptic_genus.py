@@ -44,6 +44,7 @@ from sage.all import (
     prod,
 )
 from elliptic_genus.utils import *
+from homogeneous_space.interfaces import AlmostComplexManifold
 
 
 # qのk次までに必要な係数の計算
@@ -292,25 +293,25 @@ def elliptic_genus_chernnum(dim: int, k: int):
         )
 
 
-from homogeneous_space.interfaces import IVariety
+from homogeneous_space.interfaces import AlmostComplexManifold
 from homogeneous_space.chern_number import chern_number
 
 
-def elliptic_genus(variety: IVariety, k: int):
+def elliptic_genus(manifold: AlmostComplexManifold, k: int):
     r"""
-    Return the elliptic genus of the argument ``variety``
+    Return the elliptic genus of the argument ``manifold``
     with the terms of q variable up to degree ``k``
     multiplied by `y^{dim/2}`.
 
     INPUT:
 
-    - ``variety`` -- object of ``IVariety`` -- this function returns the elliptic genus of ``variety``
+    - ``manifold`` -- object of ``AlmostComplexManifold`` -- this function returns the elliptic genus of ``manifold``
 
     - ``k`` -- integer
 
     OUTPUT:
 
-    the elliptic genus of the argument ``variety``
+    the elliptic genus of the argument ``manifold``
     with the terms of q variable up to degree ``k``
     multiplied by `y^{dim/2}`.
 
@@ -323,7 +324,7 @@ def elliptic_genus(variety: IVariety, k: int):
         sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
         sage: X = HomogeneousSpace(P)
         sage: E = IrreducibleEquivariantVectorBundle(X,(4, 0, 0, 0, 0))
-        sage: Y = CompleteIntersection(X, E)
+        sage: Y = CompleteIntersection(E)
         sage: {part: chern_number(Y, part) for part in Partitions(Y.dimension())}
         {[1, 1]: 0, [2]: 24}
         sage: elliptic_genus(Y, 2)
@@ -335,13 +336,13 @@ def elliptic_genus(variety: IVariety, k: int):
         sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
         sage: Proj4 = HomogeneousSpace(P)
         sage: L = IrreducibleEquivariantVectorBundle(Proj4, (5, 0, 0, 0, 0))
-        sage: Quintic = CompleteIntersection(Proj4, L)
+        sage: Quintic = CompleteIntersection(L)
         sage: elliptic_genus(Quintic, 3)
         -100*y - 100*y^2 + (100*y^-1 - 100*y - 100*y^2 + 100*y^4)*q + (100*y^-2 + 100*y^-1 - 200*y - 200*y^2 + 100*y^4 + 100*y^5)*q^2 + (100*y^-2 + 200*y^-1 - 300*y - 300*y^2 + 200*y^4 + 100*y^5)*q^3 + O(q^4)
 
     """
     chernnum = {
-        part: chern_number(variety, part) for part in Partitions(variety.dimension())
+        part: chern_number(manifold, part) for part in Partitions(manifold.dimension())
     }
 
     m = SymmetricFunctions(QQ).m()
@@ -355,7 +356,7 @@ def elliptic_genus(variety: IVariety, k: int):
             result += c * chernnum[degs]
         return result
 
-    coeff = ell_coeff(variety.dimension(), k)
+    coeff = ell_coeff(manifold.dimension(), k)
     return sum(
-        coeff[part] * from_partition(part) for part in Partitions(variety.dimension())
+        coeff[part] * from_partition(part) for part in Partitions(manifold.dimension())
     )
