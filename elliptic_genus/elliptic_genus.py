@@ -237,14 +237,14 @@ def ell_coeff(dim: int, k: int) -> dict:
          [5]: (-1/24*y^-1 + 5/24 - 3/8*y + 5/24*y^2 + 5/24*y^3 - 3/8*y^4 + 5/24*y^5 - 1/24*y^6)*q + (1/6*y^-2 - 23/12*y^-1 + 85/12 - 137/12*y + 73/12*y^2 + 73/12*y^3 - 137/12*y^4 + 85/12*y^5 - 23/12*y^6 + 1/6*y^7)*q^2 + O(q^3)}
 
     """
-    R0 = PolynomialRing(QQ, "x", dim)
-    x = R0.gens()  # Chern根の変数
+    # R0 = PolynomialRing(QQ, "x", dim)
+    # x = R0.gens()  # Chern根の変数
 
-    R1 = LaurentPolynomialRing(R0, "y")
-    y = R1.gen()
+    # R1 = LaurentPolynomialRing(R0, "y")
+    # y = R1.gen()
 
-    R = LazyLaurentSeriesRing(R1, "q")
-    q = R.gen()
+    # R = LazyLaurentSeriesRing(R1, "q")
+    # q = R.gen()
 
     efc = ell_factor_coeff(dim, k)
 
@@ -358,5 +358,6 @@ def elliptic_genus(manifold: AlmostComplexManifold, k: int):
 
     coeff = ell_coeff(manifold.dimension(), k)
     return sum(
-        coeff[part] * from_partition(part) for part in Partitions(manifold.dimension())
+        coeff[part] * QQ(from_partition(part))
+        for part in Partitions(manifold.dimension())
     )
