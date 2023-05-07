@@ -124,7 +124,7 @@ class HomogeneousSpace(AlmostComplexManifold):
             for w in set(self.parabolic_subgroup.R_G.positive_roots())
             - set(self.parabolic_subgroup.positive_roots())
         }
-        return EquivariantVectorBundle(self, tangent_weights)
+        return CompletelyReducibleEquivariantVectorBundle(self, tangent_weights)
 
     # 次数ごとのchern類
     def chern_classes(self):
@@ -274,7 +274,7 @@ class HomogeneousSpace(AlmostComplexManifold):
             )
 
 
-class EquivariantVectorBundle(VectorBundle):
+class CompletelyReducibleEquivariantVectorBundle(VectorBundle):
     r"""
 
     Class representing a equivariant vector bundle on a homogeneous space
@@ -283,7 +283,9 @@ class EquivariantVectorBundle(VectorBundle):
 
     """
 
-    def __init__(self, homogeneous_space, weight_multiplicities) -> None:
+    def __init__(
+        self, homogeneous_space: HomogeneousSpace, highest_weights: list
+    ) -> None:
         r"""
 
         Constructor of this class
@@ -306,7 +308,41 @@ class EquivariantVectorBundle(VectorBundle):
 
         """
         self.homogeneous_space = homogeneous_space
-        self.weight_multiplicities = weight_multiplicities
+        if len(highest_weights) == 1:
+            self.is_irr = True
+        else:
+            self.is_irr = False
+
+        def union_multisets(mset1, mset2):
+            result = dict(mset1)
+
+            for key, value in mset2.items():
+                if key in result:
+                    result[key] += value
+                else:
+                    result[key] = value
+
+            return result
+
+        def flatten(list_of_mset):
+            result = dict(list_of_mset[0])
+
+            for mset in list_of_mset[1:]:
+                result = union_multisets(result, mset)
+
+            return result
+
+        self.weight_multiplicities = flatten(
+            list(
+                map(
+                    lambda w: homogeneous_space.parabolic_subgroup.weight_multiplicities(
+                        w
+                    ),
+                    highest_weights,
+                )
+            )
+        )
+
         self.rk = sum(v for v in self.weight_multiplicities.values())
 
     def __repr__(self) -> str:
@@ -344,6 +380,9 @@ class EquivariantVectorBundle(VectorBundle):
         """
         return self.homogeneous_space
 
+    def is_irreducible(self) -> bool:
+        return self.is_irr
+
     def chern_classes(self):
         r"""
         Return the list of homogeneous parts of Chern classes of this vector bundle
@@ -377,7 +416,7 @@ class EquivariantVectorBundle(VectorBundle):
         ]
 
 
-class IrreducibleEquivariantVectorBundle(EquivariantVectorBundle):
+class IrreducibleEquivariantVectorBundle(CompletelyReducibleEquivariantVectorBundle):
     def __init__(self, homogeneous_space, weight) -> None:
         r"""
 
@@ -401,10 +440,10 @@ class IrreducibleEquivariantVectorBundle(EquivariantVectorBundle):
 
         """
         self.weight = weight
-        super().__init__(
-            homogeneous_space,
-            homogeneous_space.parabolic_subgroup.weight_multiplicities(weight),
-        )
+        super().__init__(homogeneous_space, [weight])
 
     def __repr__(self) -> str:
         return f"an equivariant vector bundle on {self.homogeneous_space} associated to {self.weight}"
+
+    def is_irreducible(self) -> bool:
+        return True

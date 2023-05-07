@@ -43,8 +43,7 @@ tions in exceptional grassmannians, 2022.
 
 from sage.all import prod, vector
 from homogeneous_space.homogeneous_space import (
-    EquivariantVectorBundle,
-    HomogeneousSpace,
+    CompletelyReducibleEquivariantVectorBundle,
 )
 from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
 
@@ -62,7 +61,7 @@ class CompleteIntersection(AlmostComplexManifold):
 
     def __init__(
         self,
-        vector_bundle: EquivariantVectorBundle,
+        vector_bundle: CompletelyReducibleEquivariantVectorBundle,
     ) -> None:
         r"""
 
