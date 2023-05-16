@@ -47,7 +47,10 @@ homogeneous_part = lambda F, degree: sum(
     c * m for c, m in F if m.total_degree() == degree
 )
 
+from functools import cache
 
+
+@cache
 def chern_number(
     manifold: AlmostComplexManifold, degrees: list, option="symbolic"
 ) -> int:

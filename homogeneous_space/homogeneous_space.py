@@ -46,6 +46,8 @@ from random import random
 from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup
 from homogeneous_space.parabolic import ParabolicSubgroup
 from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
+from functools import cache
+
 
 # `degree`次部分を取り出す関数
 homogeneous_part = lambda F, degree: sum(
@@ -127,6 +129,7 @@ class HomogeneousSpace(AlmostComplexManifold):
         return CompletelyReducibleEquivariantVectorBundle(self, tangent_weights)
 
     # 次数ごとのchern類
+    @cache
     def chern_classes(self):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
@@ -150,6 +153,7 @@ class HomogeneousSpace(AlmostComplexManifold):
             for i in (range(0, self.dim + 1))
         ]
 
+    @cache
     def numerical_integration_by_localization(self, f):
         r"""
 
@@ -193,6 +197,7 @@ class HomogeneousSpace(AlmostComplexManifold):
                 ]
             ).round() / len(WeylGroup(self.parabolic_subgroup.L))
 
+    @cache
     def symbolic_integration_by_localization(self, f):
         r"""
 

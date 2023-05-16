@@ -46,6 +46,8 @@ from homogeneous_space.homogeneous_space import (
     CompletelyReducibleEquivariantVectorBundle,
 )
 from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
+from functools import cache
+
 
 homogeneous_part = lambda F, degree: sum(
     c * m for c, m in F if m.total_degree() == degree
@@ -201,6 +203,7 @@ class CompleteIntersection(AlmostComplexManifold):
             top_of_f * c_top
         )
 
+    @cache
     def integration(self, f, option="symbolic") -> int:
         r"""
 

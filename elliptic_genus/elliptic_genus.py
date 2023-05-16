@@ -46,6 +46,8 @@ from sage.all import (
 from elliptic_genus.utils import *
 from homogeneous_space.interfaces import AlmostComplexManifold
 
+from functools import cache
+
 
 # qのk次までに必要な係数の計算
 def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
@@ -256,6 +258,7 @@ def ell_coeff(dim: int, k: int) -> dict:
     }
 
 
+@cache
 def elliptic_genus_chernnum(dim: int, k: int):
     r"""
     Return the elliptic genus of the manifold of dimension ``dim``
@@ -297,7 +300,8 @@ from homogeneous_space.interfaces import AlmostComplexManifold
 from homogeneous_space.chern_number import chern_number
 
 
-def elliptic_genus(manifold: AlmostComplexManifold, k: int):
+@cache
+def elliptic_genus(manifold: AlmostComplexManifold, k: int, option="symbolic"):
     r"""
     Return the elliptic genus of the argument ``manifold``
     with the terms of q variable up to degree ``k``
@@ -342,7 +346,8 @@ def elliptic_genus(manifold: AlmostComplexManifold, k: int):
 
     """
     chernnum = {
-        part: chern_number(manifold, part) for part in Partitions(manifold.dimension())
+        part: chern_number(manifold, part, option)
+        for part in Partitions(manifold.dimension())
     }
 
     m = SymmetricFunctions(QQ).m()
