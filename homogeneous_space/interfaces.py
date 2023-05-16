@@ -71,7 +71,7 @@ class AlmostComplexManifold(ABC):
         return self.tangent_bundle().dual()
 
     @abstractmethod
-    def integration(self, f) -> int:
+    def integration(self, f, option) -> int:
         r"""
         Return the integration value of the cohomology class ``f`` on this almost complex manifold
 

@@ -48,7 +48,9 @@ homogeneous_part = lambda F, degree: sum(
 )
 
 
-def chern_number(manifold: AlmostComplexManifold, degrees: list) -> int:
+def chern_number(
+    manifold: AlmostComplexManifold, degrees: list, option="symbolic"
+) -> int:
     r"""
 
     Return the Chern number of ``manifold`` with degree ``degree``
@@ -82,4 +84,4 @@ def chern_number(manifold: AlmostComplexManifold, degrees: list) -> int:
         return 0
     else:
         chern_classes = manifold.chern_classes()
-        return manifold.integration(prod([chern_classes[d] for d in degrees]))
+        return manifold.integration(prod([chern_classes[d] for d in degrees]), option)
