@@ -305,13 +305,16 @@ def elliptic_genus(manifold: AlmostComplexManifold, k: int, option="symbolic"):
     r"""
     Return the elliptic genus of the argument ``manifold``
     with the terms of q variable up to degree ``k``
-    multiplied by `y^{dim/2}`.
+    multiplied by `y^{dim/2}`
+    by integration with an option ``option``.
 
     INPUT:
 
     - ``manifold`` -- object of ``AlmostComplexManifold`` -- this function returns the elliptic genus of ``manifold``
 
     - ``k`` -- integer
+
+    - ``option`` -- string -- this specifying the integration option.
 
     OUTPUT:
 

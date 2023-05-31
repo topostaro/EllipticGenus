@@ -73,11 +73,13 @@ class AlmostComplexManifold(ABC):
     @abstractmethod
     def integration(self, f, option) -> int:
         r"""
-        Return the integration value of the cohomology class ``f`` on this almost complex manifold
+        Return the integration value of the cohomology class ``f`` on this almost complex manifold with option ``option``
 
         INPUT:
 
         - ``f`` -- a cohomology class
+
+        - ``option`` -- a string specifying the integration option. If "symbolic", it will perform precise polynomial calculations; if "numerical", it will expect to perform integral calculations using numerical computation.
 
         OUTPUT:
 
@@ -331,5 +333,95 @@ def tensor_product(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
 
         def __repr__(self) -> str:
             return f"the tensor product of {vector_bundle1} and {vector_bundle2}"
+
+    return VB()
+
+
+def symmetric_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
+    r"""
+
+    Return the symmetric product of vector bundles
+
+    """
+    chern_classes = vector_bundle.chern_classes()[1:]
+    rank = vector_bundle.rank()
+    len_cc = len(chern_classes)
+
+    ring_for_E = PolynomialRing(
+        QQ,
+        [f"c{i}_E" for i in (range(1, len_cc + 1))],
+        order=TermOrder("wdeglex", tuple(range(1, len_cc + 1))),
+    )
+
+    r = singular.ring(0, f"(c(1..{len_cc}))", "dp")
+    l = singular.list(f"c(1..{len_cc})")
+    ch_symm_str_list = singular.chSymm(k, rank, l).sage_structured_str_list()
+    ch_symm = [
+        ring_for_E(re.sub(r"c\(([0-9]+)\)", r"c\1_E", s))
+        for s in ch_symm_str_list[1][: vector_bundle.base().dimension()]
+    ]
+
+    rank = int(ch_symm_str_list[0])
+    base = vector_bundle.base()
+    cc = [1] + [cs(chern_classes) for cs in ch_symm]
+    cc.extend([0] * (vector_bundle.base().dimension() + 1 - len(cc)))
+
+    class VB(VectorBundle):
+        def rank(self) -> int:
+            return rank
+
+        def base(self) -> AlmostComplexManifold:
+            return base
+
+        def chern_classes(self) -> list:
+            return cc
+
+        def __repr__(self) -> str:
+            return f"the {k}-th symmetric product of {vector_bundle}"
+
+    return VB()
+
+
+def wedge_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
+    r"""
+
+    Return the wedge product of vector bundles
+
+    """
+    chern_classes = vector_bundle.chern_classes()[1:]
+    rank = vector_bundle.rank()
+    len_cc = len(chern_classes)
+
+    ring_for_E = PolynomialRing(
+        QQ,
+        [f"c{i}_E" for i in (range(1, len_cc + 1))],
+        order=TermOrder("wdeglex", tuple(range(1, len_cc + 1))),
+    )
+
+    r = singular.ring(0, f"(c(1..{len_cc}))", "dp")
+    l = singular.list(f"c(1..{len_cc})")
+    ch_wedge_str_list = singular.chWedge(k, rank, l).sage_structured_str_list()
+    ch_wedge = [
+        ring_for_E(re.sub(r"c\(([0-9]+)\)", r"c\1_E", s))
+        for s in ch_wedge_str_list[1][: vector_bundle.base().dimension()]
+    ]
+
+    rank = int(ch_wedge_str_list[0])
+    base = vector_bundle.base()
+    cc = [1] + [cs(chern_classes) for cs in ch_wedge]
+    cc.extend([0] * (vector_bundle.base().dimension() + 1 - len(cc)))
+
+    class VB(VectorBundle):
+        def rank(self) -> int:
+            return rank
+
+        def base(self) -> AlmostComplexManifold:
+            return base
+
+        def chern_classes(self) -> list:
+            return cc
+
+        def __repr__(self) -> str:
+            return f"the {k}-th wedge product of {vector_bundle}"
 
     return VB()

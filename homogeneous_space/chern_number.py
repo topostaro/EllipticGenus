@@ -57,12 +57,15 @@ def chern_number(
     r"""
 
     Return the Chern number of ``manifold`` with degree ``degree``
+    by integration with an option ``option``
 
     INPUT:
 
     - ``manifold`` -- ``AlmostComplexManifold``
 
     - ``degree`` -- list of integers -- this list represents the integrant. For example, ``[1,1,3]`` represents `c_1 c_1 c_3`.
+
+    - ``option`` -- string -- this specifying the integration option.
 
     OUTPUT:
 
