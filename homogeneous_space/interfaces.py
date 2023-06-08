@@ -57,18 +57,18 @@ class AlmostComplexManifold(ABC):
         """
         pass
 
-    @abstractmethod
-    def tangent_bundle(self) -> VectorBundle:
-        r"""
-        Return the tangent bundle of this almost complex manifold
-        """
-        pass
+    # @abstractmethod
+    # def tangent_bundle(self) -> VectorBundle:
+    #     r"""
+    #     Return the tangent bundle of this almost complex manifold
+    #     """
+    #     pass
 
-    def cotangent_bundle(self) -> VectorBundle:
-        r"""
-        Return the cotangent bundle of this almost complex manifold
-        """
-        return self.tangent_bundle().dual()
+    # def cotangent_bundle(self) -> VectorBundle:
+    #     r"""
+    #     Return the cotangent bundle of this almost complex manifold
+    #     """
+    #     return self.tangent_bundle().dual()
 
     @abstractmethod
     def integration(self, f, option) -> int:
@@ -92,13 +92,15 @@ class AlmostComplexManifold(ABC):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this almost complex manifold
         """
-        return self.tangent_bundle().chern_classes()
+        # return self.tangent_bundle().chern_classes()
+        pass
 
     def todd_classes(self) -> list:
         r"""
         Return the todd classes of the tangent bundle of this almost complex manifold
         """
-        return self.tangent_bundle().todd_classes()
+        # return self.tangent_bundle().todd_classes()
+        pass
 
 
 import re
@@ -337,10 +339,10 @@ def tensor_product(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
     return VB()
 
 
-def symmetric_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
+def symmetric_power(vector_bundle: VectorBundle, k: int) -> VectorBundle:
     r"""
 
-    Return the symmetric product of vector bundles
+    Return the symmetric power of vector bundles
 
     """
     chern_classes = vector_bundle.chern_classes()[1:]
@@ -377,15 +379,15 @@ def symmetric_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
             return cc
 
         def __repr__(self) -> str:
-            return f"the {k}-th symmetric product of {vector_bundle}"
+            return f"the {k}-th symmetric power of {vector_bundle}"
 
     return VB()
 
 
-def wedge_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
+def wedge_power(vector_bundle: VectorBundle, k: int) -> VectorBundle:
     r"""
 
-    Return the wedge product of vector bundles
+    Return the wedge power of vector bundles
 
     """
     chern_classes = vector_bundle.chern_classes()[1:]
@@ -422,6 +424,6 @@ def wedge_product(vector_bundle: VectorBundle, k: int) -> VectorBundle:
             return cc
 
         def __repr__(self) -> str:
-            return f"the {k}-th wedge product of {vector_bundle}"
+            return f"the {k}-th wedge power of {vector_bundle}"
 
     return VB()
