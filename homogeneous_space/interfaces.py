@@ -57,18 +57,18 @@ class AlmostComplexManifold(ABC):
         """
         pass
 
-    # @abstractmethod
-    # def tangent_bundle(self) -> VectorBundle:
-    #     r"""
-    #     Return the tangent bundle of this almost complex manifold
-    #     """
-    #     pass
+    @abstractmethod
+    def tangent_bundle(self) -> VectorBundle:
+        r"""
+        Return the tangent bundle of this almost complex manifold
+        """
+        pass
 
-    # def cotangent_bundle(self) -> VectorBundle:
-    #     r"""
-    #     Return the cotangent bundle of this almost complex manifold
-    #     """
-    #     return self.tangent_bundle().dual()
+    def cotangent_bundle(self) -> VectorBundle:
+        r"""
+        Return the cotangent bundle of this almost complex manifold
+        """
+        return self.tangent_bundle().dual()
 
     @abstractmethod
     def integration(self, f, option) -> int:
