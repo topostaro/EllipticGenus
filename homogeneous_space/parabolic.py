@@ -49,7 +49,7 @@ theory, Oxford Science Publications.
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-from sage.all import matrix, vector, WeylCharacterRing
+from sage.all import matrix, vector, WeylCharacterRing, CartanType
 
 
 # 最高ウェイト表現のウェイトを最高ウェイトとの差で表す関数。
@@ -98,16 +98,16 @@ class ParabolicSubgroup:
 
     """
 
-    def __init__(self, G, L, crossed_out_nodes) -> None:
+    def __init__(self, strG, strL, crossed_out_nodes) -> None:
         r"""
 
         Constructor of this class
 
         INPUT:
 
-        - ``G`` -- CartanType -- the Cartan type of the parent Lie group
+        - ``G`` -- string -- represents the Cartan type of the parent Lie group
 
-        - ``L`` -- CartanType -- the Cartan type of the Levi subgroup
+        - ``L`` -- string -- represents the Cartan type of the Levi subgroup
 
         - crossed_out_nodes -- list of integers -- the indices of crossed-out nodes
 
@@ -124,11 +124,17 @@ class ParabolicSubgroup:
             the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
 
         """
-        self.G = G
-        self.L = L
-        self.crossed_out_nodes = crossed_out_nodes
+        self.G = CartanType(strG)
         self.R_G = WeylCharacterRing(self.G)
-        self.R_L = WeylCharacterRing(self.L)
+
+        if strL != "":
+            self.L = CartanType(strL)
+            self.R_L = WeylCharacterRing(self.L)
+        else:
+            self.L = None
+            self.R_L = None
+
+        self.crossed_out_nodes = crossed_out_nodes
 
     def __repr__(self) -> str:
         return f"the parabolic subgroup of {self.G} with crossed-out nodes {self.crossed_out_nodes}"
@@ -231,6 +237,11 @@ class ParabolicSubgroup:
              (3, 0, 0, 2): 1}
 
         """
+        if self.L == None:
+            fws_G = [fw for fw in self.R_G.fundamental_weights()]
+            weight_for_G = sum(weight[i] * fws_G[i] for i in range(self.G.rank()))
+
+            return {weight_for_G: 1}
 
         # GとLのディンキン図の頂点のずれを補正する関数
         def correct_index(index: int) -> int:

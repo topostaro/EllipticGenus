@@ -189,15 +189,25 @@ class HomogeneousSpace(AlmostComplexManifold):
         ]
         top_of_f = homogeneous_part(f, self.dim)
         denominator_in_localization = prod(self.tangent_weights)
+
+        len_of_wg_of_L = (
+            1
+            if self.parabolic_subgroup.L == None
+            else len(WeylGroup(self.parabolic_subgroup.L))
+        )
+
         if top_of_f == 0:
             return 0
         else:
-            return sum(
-                [
-                    top_of_f(x) / denominator_in_localization(x)
-                    for x in orbit_of_random_x
-                ]
-            ).round() / len(WeylGroup(self.parabolic_subgroup.L))
+            return (
+                sum(
+                    [
+                        top_of_f(x) / denominator_in_localization(x)
+                        for x in orbit_of_random_x
+                    ]
+                ).round()
+                / len_of_wg_of_L
+            )
 
     @cache
     def symbolic_integration_by_localization(self, f):
