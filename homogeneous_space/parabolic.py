@@ -98,16 +98,16 @@ class ParabolicSubgroup:
 
     """
 
-    def __init__(self, strG, strL, crossed_out_nodes) -> None:
+    def __init__(self, G, L, crossed_out_nodes) -> None:
         r"""
 
         Constructor of this class
 
         INPUT:
 
-        - ``G`` -- string -- represents the Cartan type of the parent Lie group
+        - ``G`` -- CartanType -- the Cartan type of the parent Lie group
 
-        - ``L`` -- string -- represents the Cartan type of the Levi subgroup
+        - ``L`` -- CartanType | None -- the Cartan type of the Levi subgroup or None if the CartanType is empty
 
         - crossed_out_nodes -- list of integers -- the indices of crossed-out nodes
 
@@ -124,14 +124,14 @@ class ParabolicSubgroup:
             the parabolic subgroup of ['A', 3] with crossed-out nodes [1]
 
         """
-        self.G = CartanType(strG)
+        self.G = G
         self.R_G = WeylCharacterRing(self.G)
 
-        if strL != "":
-            self.L = CartanType(strL)
+        self.L = L
+
+        if L != None:
             self.R_L = WeylCharacterRing(self.L)
         else:
-            self.L = None
             self.R_L = None
 
         self.crossed_out_nodes = crossed_out_nodes
