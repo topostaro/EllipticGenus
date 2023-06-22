@@ -88,7 +88,7 @@ We give an example to show how to use this package. We compute the elliptic genu
 sage: from homogeneous_space import *
 sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
 sage: Proj4 = HomogeneousSpace(P)
-sage: L = IrreducibleEquivariantVectorBundle(Proj4, (5, 0, 0, 0, 0))
+sage: L = IrreducibleEquivariantVectorBundle(Proj4, (5, 0, 0, 0))
 sage: Quintic = CompleteIntersection(L)
 ```
 2. Compute the elliptic genus.
