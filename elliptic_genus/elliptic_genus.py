@@ -1,11 +1,11 @@
 r"""
 Computation of elliptic genera of manifolds by using Chern numbers
-================================================
+==================================================================
 
-This module implements a computation of elliptic genera, where the 
+This module implements a computation of elliptic genera, where the
 coefficients are expressed by Chern numbers.
 
-EXAMPLES:
+EXAMPLES::
 
     sage: from elliptic_genus.elliptic_genus import elliptic_genus_chernnum
     sage: elliptic_genus_chernnum(4, 0)
@@ -19,9 +19,9 @@ AUTHORS:
 
 REFERENCES:
 
-.. [EZ1985]  \Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh äuser Boston, Inc., Boston, MA, 1985.
+.. [EZ1985] Martin Eichler and Don Zagier. The theory of Jacobi forms, volume 55 of Progress in Mathematics. Birkh äuser Boston, Inc., Boston, MA, 1985.
 
-.. [BL2000] \Lev A. Borisov and Anatoly Libgober. Elliptic genera of toric varieties and applications to mirror symmetry. Invent. Math., 140(2):453-485, 2000.
+.. [BL2000] Lev A. Borisov and Anatoly Libgober. Elliptic genera of toric varieties and applications to mirror symmetry. Invent. Math., 140(2):453-485, 2000.
 """
 
 
@@ -57,11 +57,11 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
 
     ..MATH::
 
-    \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}{(1 - q^ne^{-x})(1 - q^ne^x)}
-    \cdot
-    (1 - ye^{-x})
-    \cdot
-    \frac{x}{1 - e^{-x}}
+        \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}{(1 - q^ne^{-x})(1 - q^ne^x)}
+        \cdot
+        (1 - ye^{-x})
+        \cdot
+        \frac{x}{1 - e^{-x}}
 
     INPUT:
 
@@ -74,7 +74,7 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
     the list which n-th component is the coefficients of `x^n q^k` of
     the above expression.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.elliptic_genus import ell_factor_coeff_degreewise
         sage: ell_factor_coeff_degreewise(5, 2)
@@ -84,7 +84,6 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
          -3*y^-1 + 3 + 3*y - 3*y^2,
          -133/80*y^-1 + 159/80 - 159/80*y + 133/80*y^2,
          -3/4*y^-1 + 3/4 + 3/4*y - 3/4*y^2]
-
     """
     R0 = PolynomialRing(QQ, "x", dim)
     x = R0.gens()  # Chern根の変数
@@ -146,12 +145,12 @@ def ell_factor_coeff(dim: int, k: int) -> list:
 
     ..MATH::
 
-    \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}
-    {(1 - q^ne^{-x})(1 - q^ne^x)}
-    \cdot
-    (1 - ye^{-x})
-    \cdot
-    \frac{x}{1 - e^{-x}}
+        \prod_{n=1}^\infty \frac{(1 - yq^ne^{-x})(1 - y^{-1}q^ne^x)}
+        {(1 - q^ne^{-x})(1 - q^ne^x)}
+        \cdot
+        (1 - ye^{-x})
+        \cdot
+        \frac{x}{1 - e^{-x}}
 
     INPUT:
 
@@ -165,7 +164,7 @@ def ell_factor_coeff(dim: int, k: int) -> list:
     above expression after taking the truncation of the terms of
     q variable up to degree ``k``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.elliptic_genus import ell_factor_coeff
         sage: ell_factor_coeff(5, 2)
@@ -206,13 +205,13 @@ def ell_coeff(dim: int, k: int) -> dict:
 
     ..MATH::
 
-    \prod_{i = 1}^{dim} \prod_{n=1}^\infty
-    \frac{(1 - yq^ne^{-x_i})(1 - y^{-1}q^ne^{x_i})}
-    {(1 - q^ne^{-x_i})(1 - q^ne^{x_i})}
-    \cdot
-    (1 - ye^{-x_i})
-    \cdot
-    \frac{x_i}{1 - e^{-x_i}}
+        \prod_{i = 1}^{dim} \prod_{n=1}^\infty
+        \frac{(1 - yq^ne^{-x_i})(1 - y^{-1}q^ne^{x_i})}
+        {(1 - q^ne^{-x_i})(1 - q^ne^{x_i})}
+        \cdot
+        (1 - ye^{-x_i})
+        \cdot
+        \frac{x_i}{1 - e^{-x_i}}
 
     INPUT:
 
@@ -226,7 +225,7 @@ def ell_coeff(dim: int, k: int) -> dict:
     and the values correspond to the coefficients of the elliptic genus
     for the monomial of the chern roots `x_i` with a multidegree matching the key.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.elliptic_genus import ell_coeff
         sage: ell_coeff(5, 2)

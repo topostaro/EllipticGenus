@@ -1,11 +1,11 @@
 r"""
 Class representing a parabolic subgroup representing a parabolic subgroup of a reductive algebraic group
-================================================
+========================================================================================================
 
 This module contains a class representing a parabolic subgroup representing a parabolic subgroup of a reductive algebraic group.
 The class provides methods to compute its simple roots, positive roots, and the weight set of its highest weight representations.
 
-EXAMPLE:
+EXAMPLES::
 
     sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
@@ -32,8 +32,8 @@ AUTHORS:
 REFERENCES:
 
 .. [BE1989] Robert J. Baston and Michael G. Eastwood, The Penrose transform, Oxford Mathematical Monographs,
-The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
-theory, Oxford Science Publications.
+   The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
+   theory, Oxford Science Publications.
 
 
 """
@@ -68,8 +68,7 @@ def root_difference_multiplicities(character_ring, highest_weight) -> dict:
 
     the dictionary, where the keys are tuples of integers and the values are the multiplicities of the weight which is the sum of ``highest_weight`` and simple roots with the coefficients of their keys.
 
-
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from homogeneous_space.parabolic import root_difference_multiplicities
         sage: root_difference_multiplicities(WeylCharacterRing("A1"), (2,1))
@@ -116,7 +115,7 @@ class ParabolicSubgroup:
 
         the initialized object
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
@@ -129,7 +128,7 @@ class ParabolicSubgroup:
 
         self.L = L
 
-        if L != None:
+        if L is not None:
             self.R_L = WeylCharacterRing(self.L)
         else:
             self.R_L = None
@@ -144,7 +143,7 @@ class ParabolicSubgroup:
 
         Return the crossed Dynkin diagram of the parabolic subgroup
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
@@ -170,7 +169,7 @@ class ParabolicSubgroup:
 
         Return the simple root of the parabolic subgroup
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
@@ -189,7 +188,7 @@ class ParabolicSubgroup:
 
         Return the positive root of the parabolic subgroup
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
@@ -224,7 +223,7 @@ class ParabolicSubgroup:
 
         - ``weight`` -- list of integers -- the list of coefficients of fundamental weights
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A3'), CartanType('A2'), [1])
