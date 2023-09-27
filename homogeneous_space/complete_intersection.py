@@ -1,12 +1,15 @@
 r"""
 Class of varieties which is the zeros of a general section of an equivariant vector bundle of a homogeneous space
-================================================
+=================================================================================================================
 
 This module contains a class:
-    - ``CompleteIntersection`` -- an implementation of ``AlmostComplexManifold``, representing the zeros of a general section of an equivariant vector bundle of a homogeneous space
+
+- ``CompleteIntersection`` -- an implementation of ``AlmostComplexManifold``, representing the zeros of a general section of an equivariant vector bundle of a homogeneous space
+
 This is specialized in computing Chern characters and Todd classes from Chern classes.
 
-EXAMPLE:
+EXAMPLES::
+
     sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
     sage: from homogeneous_space.complete_intersection import CompleteIntersection
@@ -17,15 +20,13 @@ EXAMPLE:
     sage: quintic.numerical_integration_by_localization(quintic.chern_classes()[3])
     -200
 
-
 AUTHORS:
 
 - KENTA KOBAYASHI (2023-04-04): initial version
 
 REFERENCES:
 
-.. [IMOU2022] Atsushi Ito, Makoto Miura, Shinnosuke Okawa, and Kazushi Ueda. Calabi--yau complete intersec-
-tions in exceptional grassmannians, 2022.
+.. [IMOU2022] Atsushi Ito, Makoto Miura, Shinnosuke Okawa, and Kazushi Ueda. Calabi--yau complete intersections in exceptional grassmannians, 2022.
 
 
 """
@@ -75,8 +76,8 @@ class CompleteIntersection(AlmostComplexManifold):
 
         - ``vector_bundle`` -- ``EquivariantVectorBundle``
 
+        EXAMPLES::
 
-        EXAMPLE:
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
             sage: from homogeneous_space.complete_intersection import CompleteIntersection
@@ -98,7 +99,8 @@ class CompleteIntersection(AlmostComplexManifold):
         r"""
         Return the dimension of this variety
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
             sage: from homogeneous_space.complete_intersection import CompleteIntersection
@@ -134,7 +136,8 @@ class CompleteIntersection(AlmostComplexManifold):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
             sage: from homogeneous_space.complete_intersection import CompleteIntersection
@@ -180,8 +183,8 @@ class CompleteIntersection(AlmostComplexManifold):
 
         the numerical computation of the integration of the  equivariant cohomology class ``f``.
 
+        EXAMPLES::
 
-        EXAMPLE:
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
             sage: from homogeneous_space.complete_intersection import CompleteIntersection

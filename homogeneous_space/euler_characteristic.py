@@ -1,10 +1,11 @@
 r"""
 Computation of Euler characteristic of complex vector bundles
-================================================
+=============================================================
 
 This module implements a computation of Euler characteristic of complex vector bundles.
 
-EXAMPLE:
+EXAMPLES::
+
     sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
     sage: from homogeneous_space.euler_characteristic import euler_characteristic
@@ -59,9 +60,10 @@ def euler_characteristic(
 
     ..MATH::
 
-    \chi (X, E) = \int_X ch(E) td(X)
+        \chi (X, E) = \int_X ch(E) td(X)
 
-    EXAMPLE:
+    EXAMPLES::
+
         sage: from homogeneous_space.parabolic import ParabolicSubgroup
         sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
         sage: from homogeneous_space.euler_characteristic import euler_characteristic

@@ -1,14 +1,17 @@
 r"""
 Classes of homogeneous spaces and equivariant vector bundles
-================================================
+============================================================
 
 This module contains classes:
-    - ``HomogeneousSpace`` -- a class of homogeneous spaces inherit ``AlmostComplexManifold``,
-    - ``EquivariantVectorBundle`` -- a class of equivariant vector bundles on homogeneous spaces, which inherit ``VectorBundle``.
-    - ``IrreducibleEquivariantVectorBundle`` -- a class of irreducible equivariant vector bundles on homogeneous spaces, which inherit ``EquivariantVectorBundle``.
+
+- ``HomogeneousSpace`` -- a class of homogeneous spaces inherit ``AlmostComplexManifold``,
+- ``EquivariantVectorBundle`` -- a class of equivariant vector bundles on homogeneous spaces, which inherit ``VectorBundle``.
+- ``IrreducibleEquivariantVectorBundle`` -- a class of irreducible equivariant vector bundles on homogeneous spaces, which inherit ``EquivariantVectorBundle``.
+
 These are specialized in computing Chern characters and Todd classes from Chern classes.
 
-EXAMPLE:
+EXAMPLES::
+
     sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
     sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -26,8 +29,8 @@ AUTHORS:
 
 
 .. [BE1989] Robert J. Baston and Michael G. Eastwood, The Penrose transform, Oxford Mathematical Monographs,
-The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
-theory, Oxford Science Publications.
+   The Clarendon Press, Oxford University Press, New York, 1989, Its interaction with representation
+   theory, Oxford Science Publications.
 
 """
 
@@ -71,8 +74,8 @@ class HomogeneousSpace(AlmostComplexManifold):
 
         - ``parabolic_subgroup`` -- ``ParabolicSubgroup``
 
+        EXAMPLES::
 
-        EXAMPLE:
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -106,7 +109,8 @@ class HomogeneousSpace(AlmostComplexManifold):
         r"""
         Return the dimension of this variety
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -136,8 +140,8 @@ class HomogeneousSpace(AlmostComplexManifold):
         r"""
         Return the list of homogeneous parts of Chern classes of the tangent bundle of this variety
 
+        EXAMPLES::
 
-        EXAMPLE:
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -169,7 +173,8 @@ class HomogeneousSpace(AlmostComplexManifold):
 
         the numerical computation of the integration of the  equivariant cohomology class ``f``.
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -223,7 +228,8 @@ class HomogeneousSpace(AlmostComplexManifold):
 
         the symbolic computation of the integration of the  equivariant cohomology class ``f``.
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -315,7 +321,8 @@ class EquivariantVectorBundle(VectorBundle):
 
         - ``weight_multiplicities`` -- dictionary from weights to their multiplicities
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -336,8 +343,8 @@ class EquivariantVectorBundle(VectorBundle):
         r"""
         Return the rank of this vector bundle
 
+        EXAMPLES::
 
-        EXAMPLE:
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -353,7 +360,8 @@ class EquivariantVectorBundle(VectorBundle):
         r"""
         Return the base space of this vector bundle
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -368,7 +376,8 @@ class EquivariantVectorBundle(VectorBundle):
         r"""
         Return the list of homogeneous parts of Chern classes of this vector bundle
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, EquivariantVectorBundle
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])
@@ -456,7 +465,8 @@ class IrreducibleEquivariantVectorBundle(CompletelyReducibleEquivariantVectorBun
         - ``weight`` -- list of integers -- this represents the coefficients of the fundamental weights
 
 
-        EXAMPLE:
+        EXAMPLES::
+
             sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
             sage: from homogeneous_space.parabolic import ParabolicSubgroup
             sage: P = ParabolicSubgroup(CartanType('A4'), CartanType('A3'), [1])

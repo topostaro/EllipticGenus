@@ -1,12 +1,13 @@
 r"""
 Abstract classes of variety and vector bundles and some operations for them
-================================================
+===========================================================================
 
 This module contains abstract classes:
-    - ``AlmostComplexManifold`` -- an abstract class of almost complex manifold,
-    - ``VectorBundle`` -- an abstract class of vector bundles.
-These are specialized in computing Chern characters and Todd classes from Chern classes.
 
+- ``AlmostComplexManifold`` -- an abstract class of almost complex manifold,
+- ``VectorBundle`` -- an abstract class of vector bundles.
+
+These are specialized in computing Chern characters and Todd classes from Chern classes.
 
 AUTHORS:
 

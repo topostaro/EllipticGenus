@@ -1,6 +1,6 @@
 r"""
 Computation of a basis of weak Jacobi forms of weight `0`
-================================================
+=========================================================
 
 This module implements a computation of a basis of weak Jacobi forms
 of weight `0` and indices that are either integral or half-integral.
@@ -55,14 +55,14 @@ def _function_t1(y):
 
     .. MATH::
 
-    \begin{align}
-    \theta_1(\tau, z)
-    & = -\theta_{11}(\tau, z)
-    = -i y^{1/2}q^{1/8}\sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2(n^2 + n)}\\
-    t_1(y, q) & = \sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2(n^2 + n)}
-    \end{align}
-    where
-    `q = e^{2 \pi i \tau}, y = e^{2 \pi i z}`
+        \begin{align}
+        \theta_1(\tau, z)
+        & = -\theta_{11}(\tau, z)
+        = -i y^{1/2}q^{1/8}\sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2(n^2 + n)}\\
+        t_1(y, q) & = \sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2(n^2 + n)}
+        \end{align}
+        where
+        `q = e^{2 \pi i \tau}, y = e^{2 \pi i z}`
 
     INPUT:
 
@@ -101,12 +101,12 @@ def _function_t2(y):
 
     .. MATH::
 
-    \begin{align}
-    \theta_2(\tau, z)
-    & = \theta_{10}(\tau, z)
-    = y^{1/2}q^{1/8}\sum_{n = -\infty}^\infty y^n q^{1/2(n^2 + n)} \\
-    t_2(y, q) & = \sum_{n = -\infty}^\infty y^n q^{1/2(n^2 + n)}
-    \end{align}
+        \begin{align}
+        \theta_2(\tau, z)
+        & = \theta_{10}(\tau, z)
+        = y^{1/2}q^{1/8}\sum_{n = -\infty}^\infty y^n q^{1/2(n^2 + n)} \\
+        t_2(y, q) & = \sum_{n = -\infty}^\infty y^n q^{1/2(n^2 + n)}
+        \end{align}
 
     INPUT:
 
@@ -145,12 +145,12 @@ def _function_t3(y):
 
     .. MATH::
 
-    \begin{align}
-    \theta_3(\tau, z)
-    & = \theta_{10}(\tau, z)
-    = \sum_{n = -\infty}^\infty y^n q^{1/2n^2} \\
-    t_3(y, q) & = \sum_{n = -\infty}^\infty y^n q^{n^2}
-    \end{align}
+        \begin{align}
+        \theta_3(\tau, z)
+        & = \theta_{10}(\tau, z)
+        = \sum_{n = -\infty}^\infty y^n q^{1/2n^2} \\
+        t_3(y, q) & = \sum_{n = -\infty}^\infty y^n q^{n^2}
+        \end{align}
 
     INPUT:
 
@@ -179,12 +179,12 @@ def _function_t4(y):
 
      .. MATH::
 
-    \begin{align}
-    \theta_4(\tau, z)
-    & = \theta_{10}(\tau, z)
-    = \sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2n^2} \\
-    t_4(y, q) & = \sum_{n = -\infty}^\infty (-1)^n y^n q^{n^2}
-    \end{align}
+        \begin{align}
+        \theta_4(\tau, z)
+        & = \theta_{10}(\tau, z)
+        = \sum_{n = -\infty}^\infty (-1)^n y^n q^{1/2n^2} \\
+        t_4(y, q) & = \sum_{n = -\infty}^\infty (-1)^n y^n q^{n^2}
+        \end{align}
 
     INPUT:
 
