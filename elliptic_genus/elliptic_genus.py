@@ -278,7 +278,7 @@ def elliptic_genus_chernnum(dim: int, k: int):
     where the  coefficients are expressed by Chern numbers
     multiplied by `y^{dim/2}`.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.elliptic_genus import elliptic_genus_chernnum
         sage: elliptic_genus_chernnum(5, 2)
@@ -321,7 +321,8 @@ def elliptic_genus(manifold: AlmostComplexManifold, k: int, option="symbolic"):
     with the terms of q variable up to degree ``k``
     multiplied by `y^{dim/2}`.
 
-    EXAMPLE:
+    EXAMPLES::
+
         sage: from homogeneous_space.parabolic import ParabolicSubgroup
         sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
         sage: from homogeneous_space.complete_intersection import CompleteIntersection

@@ -197,7 +197,7 @@ class HomogeneousSpace(AlmostComplexManifold):
 
         len_of_wg_of_L = (
             1
-            if self.parabolic_subgroup.L == None
+            if self.parabolic_subgroup.L is None
             else len(WeylGroup(self.parabolic_subgroup.L))
         )
 

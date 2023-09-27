@@ -234,9 +234,8 @@ class ParabolicSubgroup:
              (3, 0, 1, 1): 1,
              (3, 0, 2, 0): 1,
              (3, 0, 0, 2): 1}
-
         """
-        if self.L == None:
+        if self.L is None:
             fws_G = [fw for fw in self.R_G.fundamental_weights()]
             weight_for_G = sum(weight[i] * fws_G[i] for i in range(self.G.rank()))
 
