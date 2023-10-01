@@ -41,7 +41,7 @@ def todd_cut(x, m):  # mでカットオフ
 
     the truncation of todd class `\frac{x}{1 - e^{-x}}` at degree ``m``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import todd_cut
         sage: R.<z> = LazyLaurentSeriesRing(QQ)
@@ -68,7 +68,7 @@ def exp_cut(x, m):  # mでカットオフ
 
     the truncation of todd class `e^x` at degree ``m``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import exp_cut
         sage: R.<z> = LazyLaurentSeriesRing(QQ)
@@ -94,7 +94,7 @@ def cutoff_for_coeff(m):  # xの式に対するcutoff
 
     a function which returns the truncation of the argument function at degree ``m``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import cutoff_for_coeff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
@@ -123,7 +123,7 @@ def cutoff(f, m):  # x, y, qの式に対して, xの上の字数をcutoffする
     the truncation of the argument truncating only the coefficients
     of the coefficients.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import cutoff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
@@ -152,7 +152,7 @@ def homogeneous_for_coeff(m):  # xの式に対するhomogeneous part
     a function which returns the homogeneous part of the argument function
     at degree ``m``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import homogeneous_for_coeff
         sage: R0.<x0, x1> = PolynomialRing(QQ)
@@ -179,7 +179,7 @@ def homogeneous_part(f, m):  # x, y, qの式に対して, xの上の字数をhom
 
     the homogeneous part of the coefficients of the coefficients at degree ``m``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import homogeneous_part
         sage: R0.<x0, x1> = PolynomialRing(QQ)
@@ -218,7 +218,7 @@ def chernnum_from_partition(dim: int, part):
 
     the combination of elementary symmetric functions equals to the monomial with multidegree ``part``.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from elliptic_genus.utils import chernnum_from_partition
         sage: chernnum_from_partition(5, [5])

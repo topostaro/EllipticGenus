@@ -49,8 +49,7 @@ _q = _R.gen()
 
 def _function_t1(y):
     r"""
-
-    Return a function which is proportional to the Jacobi theta function 
+    Return a function which is proportional to the Jacobi theta function
     `\theta_1`.
 
     .. MATH::
@@ -84,7 +83,7 @@ def _function_t1(y):
     # Return the n-th coefficient.
     def coeff(n):
         s = sol(2 * n)
-        if s == None:
+        if s is None:
             return 0
         else:
             s1, s2 = s
@@ -96,7 +95,7 @@ def _function_t1(y):
 def _function_t2(y):
     r"""
 
-    Return a function which is proportional to the Jacobi theta function 
+    Return a function which is proportional to the Jacobi theta function
     `\theta_2`.
 
     .. MATH::
@@ -128,7 +127,7 @@ def _function_t2(y):
     # Return the n-th coefficient.
     def coeff(n):
         s = sol(2 * n)
-        if s == None:
+        if s is None:
             return 0
         else:
             s1, s2 = s
@@ -139,8 +138,7 @@ def _function_t2(y):
 
 def _function_t3(y):
     r"""
-
-    Return a function which is proportional to the Jacobi theta function 
+    Return a function which is proportional to the Jacobi theta function
     `\theta_3`.
 
     .. MATH::
@@ -173,8 +171,7 @@ def _function_t3(y):
 
 def _function_t4(y):
     r"""
-
-    Return a function which is proportional to the Jacobi theta function 
+    Return a function which is proportional to the Jacobi theta function
     `\theta_4`.
 
      .. MATH::
@@ -207,10 +204,9 @@ def _function_t4(y):
 
 def _phi_tilde_0_1():
     r"""
-
     Return a weak Jacobi form of weight `0` and index `1`.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from weak_Jacobi_form.basis import _phi_tilde_0_1
         sage: _phi_tilde_0_1()
@@ -228,10 +224,9 @@ def _phi_tilde_0_1():
 
 def _phi_tilde_m2_1():
     r"""
-
     Return a weak Jacobi form of weight `-2` and index `1`.
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from weak_Jacobi_form.basis import _phi_tilde_m2_1
         sage: _phi_tilde_m2_1()
@@ -245,11 +240,10 @@ def _phi_tilde_m2_1():
 
 def _phi_tilde_0_3o2():
     r"""
-
     Return a weak Jacobi form of weight `0` and index `3/2`
     multiplied by `y^{1/2}`
 
-    EXAMPLE:
+    EXAMPLES::
 
         sage: from weak_Jacobi_form.basis import _phi_tilde_0_3o2
         sage: _phi_tilde_0_3o2()
@@ -384,27 +378,26 @@ def basis_half_integral(weight: int, double_index: int) -> list:
     Otherwise, the list consisting of series in a basis of weight
     ``weight`` and index ``double_index`` multiplied by `y^{1/2}`.
 
-    EXAMPLE:
+    EXAMPLES:
 
-    For the case ``double_index`` is even, the output is equal to ``basis_integral(int(double_index / 2))``
+    For the case ``double_index`` is even, the output is equal to ``basis_integral(int(double_index / 2))``::
 
         sage: from weak_Jacobi_form.basis import basis_half_integral
         sage: basis_half_integral(0, 4)
         [(y^-2 + 20*y^-1 + 102 + 20*y + y^2) + (20*y^-3 + 72*y^-2 - 1044*y^-1 + 1904 - 1044*y + 72*y^2 + 20*y^3)*q + (102*y^-4 - 1044*y^-3 + 7392*y^-2 - 23532*y^-1 + 34164 - 23532*y + 7392*y^2 - 1044*y^3 + 102*y^4)*q^2 + (20*y^-5 + 1904*y^-4 - 23532*y^-3 + 115552*y^-2 - 283688*y^-1 + 379488 - 283688*y + 115552*y^2 - 23532*y^3 + 1904*y^4 + 20*y^5)*q^3 + (y^-6 - 1044*y^-5 + 34164*y^-4 - 283688*y^-3 + 1107711*y^-2 - 2402244*y^-1 + 3090200 - 2402244*y + 1107711*y^2 - 283688*y^3 + 34164*y^4 - 1044*y^5 + y^6)*q^4 + (72*y^-6 - 23532*y^-5 + 379488*y^-4 - 2402244*y^-3 + 8066472*y^-2 - 16135248*y^-1 + 20229984 - 16135248*y + 8066472*y^2 - 2402244*y^3 + 379488*y^4 - 23532*y^5 + 72*y^6)*q^5 + (20*y^-7 + 7392*y^-6 - 283688*y^-5 + 3090200*y^-4 - 16135248*y^-3 + 48552352*y^-2 - 91617180*y^-1 + 112772304 - 91617180*y + 48552352*y^2 - 16135248*y^3 + 3090200*y^4 - 283688*y^5 + 7392*y^6 + 20*y^7)*q^6 + O(q^7),
         (y^-2 - 4*y^-1 + 6 - 4*y + y^2) + (-4*y^-3 + 264*y^-2 - 1020*y^-1 + 1520 - 1020*y + 264*y^2 - 4*y^3)*q + (6*y^-4 - 1020*y^-3 + 8160*y^-2 - 23556*y^-1 + 32820 - 23556*y + 8160*y^2 - 1020*y^3 + 6*y^4)*q^2 + (-4*y^-5 + 1520*y^-4 - 23556*y^-3 + 117856*y^-2 - 283640*y^-1 + 375648 - 283640*y + 117856*y^2 - 23556*y^3 + 1520*y^4 - 4*y^5)*q^3 + (y^-6 - 1020*y^-5 + 32820*y^-4 - 283640*y^-3 + 1113855*y^-2 - 2402316*y^-1 + 3080600 - 2402316*y + 1113855*y^2 - 283640*y^3 + 32820*y^4 - 1020*y^5 + y^6)*q^4 + (264*y^-6 - 23556*y^-5 + 375648*y^-4 - 2402316*y^-3 + 8081256*y^-2 - 16135152*y^-1 + 20207712 - 16135152*y + 8081256*y^2 - 2402316*y^3 + 375648*y^4 - 23556*y^5 + 264*y^6)*q^5 + (-4*y^-7 + 8160*y^-6 - 283640*y^-5 + 3080600*y^-4 - 16135152*y^-3 + 48585376*y^-2 - 91617300*y^-1 + 112723920 - 91617300*y + 48585376*y^2 - 16135152*y^3 + 3080600*y^4 - 283640*y^5 + 8160*y^6 - 4*y^7)*q^6 + O(q^7)]
 
-    For the case ``double_index`` is odd, the output multiplied by `y^{-1/2}` is the correct basis.
+    For the case ``double_index`` is odd, the output multiplied by `y^{-1/2}` is the correct basis.::
 
         sage: basis_half_integral(0, 3)
         [(1 + y) + (-y^-2 + 1 + y - y^3)*q + (-y^-3 - y^-2 + 2 + 2*y - y^3 - y^4)*q^2 + (-y^-3 - 2*y^-2 + 3 + 3*y - 2*y^3 - y^4)*q^3 + (-2*y^-3 - 3*y^-2 + 5 + 5*y - 3*y^3 - 2*y^4)*q^4 + (y^-5 - 3*y^-3 - 5*y^-2 + 7 + 7*y - 5*y^3 - 3*y^4 + y^6)*q^5 + (y^-5 - 5*y^-3 - 7*y^-2 + 11 + 11*y - 7*y^3 - 5*y^4 + y^6)*q^6 + O(q^7)]
         sage: basis_half_integral(0, 5)
         [(y^-1 + 11 + 11*y + y^2) + (-y^-3 - 54*y^-1 + 55 + 55*y - 54*y^2 - y^4)*q + (-11*y^-4 + 54*y^-3 - 394*y^-1 + 351 + 351*y - 394*y^2 + 54*y^4 - 11*y^5)*q^2 + (-11*y^-5 - 55*y^-4 + 394*y^-3 - 1889*y^-1 + 1561 + 1561*y - 1889*y^2 + 394*y^4 - 55*y^5 - 11*y^6)*q^3 + (-y^-6 - 55*y^-5 - 351*y^-4 + 1889*y^-3 - 7398*y^-1 + 5916 + 5916*y - 7398*y^2 + 1889*y^4 - 351*y^5 - 55*y^6 - y^7)*q^4 + (54*y^-6 - 351*y^-5 - 1561*y^-4 + 7398*y^-3 - 25007*y^-1 + 19467 + 19467*y - 25007*y^2 + 7398*y^4 - 1561*y^5 - 351*y^6 + 54*y^7)*q^5 + (394*y^-6 - 1561*y^-5 - 5916*y^-4 + 25007*y^-3 - 76461*y^-1 + 58537 + 58537*y - 76461*y^2 + 25007*y^4 - 5916*y^5 - 1561*y^6 + 394*y^7)*q^6 + O(q^7)]
 
-        For the case ``double_index`` is `1`, the output is empty.
+    For the case ``double_index`` is `1`, the output is empty.::
 
         sage: basis_half_integral(0, 1)
         []
-
     """
     if double_index == 1:
         return []

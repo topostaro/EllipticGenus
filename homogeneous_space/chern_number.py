@@ -4,7 +4,8 @@ Computation of Chern numbers of varieties
 
 This module implements a computation of Chern numbers of varieties.
 
-EXAMPLE:
+EXAMPLES::
+
     sage: from homogeneous_space.parabolic import ParabolicSubgroup
     sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
     sage: from homogeneous_space.complete_intersection import CompleteIntersection
@@ -68,7 +69,8 @@ def chern_number(
 
     the Chern number of ``manifold`` with degree ``degree``
 
-    EXAMPLE:
+    EXAMPLES::
+
         sage: from homogeneous_space.parabolic import ParabolicSubgroup
         sage: from homogeneous_space.homogeneous_space import HomogeneousSpace, IrreducibleEquivariantVectorBundle
         sage: from homogeneous_space.complete_intersection import CompleteIntersection
