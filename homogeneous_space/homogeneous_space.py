@@ -253,12 +253,12 @@ class HomogeneousSpace(AlmostComplexManifold):
         def cosetRep(G, H):
             rep = []
             g = set(G.list())
-            h = set(G(e) for e in H.list())
+            h = {G(e) for e in H.list()}
             coset = set()
             while g:
                 p = g.pop()
                 rep.append(p)
-                coset = set(p * e for e in h)
+                coset = {p * e for e in h}
                 g = g - coset
                 coset.clear()
                 if len(rep) * H.order() == G.order():
@@ -402,7 +402,7 @@ class EquivariantVectorBundle(VectorBundle):
         )
 
         return [
-            homogeneous_part(cc, i) for i in (range(0, self.homogeneous_space.dim + 1))
+            homogeneous_part(cc, i) for i in range(self.homogeneous_space.dim + 1)
         ]
 
 
@@ -435,15 +435,8 @@ class CompletelyReducibleEquivariantVectorBundle(EquivariantVectorBundle):
             return result
 
         weight_multiplicities = flatten(
-            list(
-                map(
-                    lambda w: homogeneous_space.parabolic_subgroup.weight_multiplicities(
-                        w
-                    ),
-                    highest_weights,
-                )
-            )
-        )
+            [homogeneous_space.parabolic_subgroup.weight_multiplicities(w)
+             for w in highest_weights])
 
         self.highest_weights = highest_weights
         super().__init__(homogeneous_space, weight_multiplicities)
