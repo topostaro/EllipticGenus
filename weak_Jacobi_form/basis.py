@@ -405,6 +405,4 @@ def basis_half_integral(weight: int, double_index: int) -> list:
         return basis_integral(weight, int(double_index / 2))
     else:
         index = int((double_index - 3) / 2)
-        return list(
-            map(lambda f: f * _phi_tilde_0_3o2(), basis_integral(weight, index))
-        )
+        return [f * _phi_tilde_0_3o2() for f in basis_integral(weight, index)]

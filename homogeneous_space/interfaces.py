@@ -29,7 +29,7 @@ REFERENCES:
 # (at your option) any later version.
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
-
+import re
 
 from sage.all import singular, PolynomialRing, TermOrder, QQ
 from abc import ABC, abstractmethod
@@ -103,8 +103,6 @@ class AlmostComplexManifold(ABC):
         # return self.tangent_bundle().todd_classes()
         pass
 
-
-import re
 
 singular.lib("chern.lib")
 
