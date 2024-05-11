@@ -200,7 +200,7 @@ class ParabolicSubgroup:
         L = self.ambient_space()
 
         # positive rootからcutoutされるsimple rootを引き, positiveでなければuncrossed nodeから生成されると判定
-        roots = [pr for pr in self.G.root_system().root_lattice().positive_roots()]
+        roots = list(self.G.root_system().root_lattice().positive_roots())
         for i in self.crossed_out_nodes:
             roots = [
                 pr
@@ -236,7 +236,7 @@ class ParabolicSubgroup:
              (3, 0, 0, 2): 1}
         """
         if self.L is None:
-            fws_G = [fw for fw in self.R_G.fundamental_weights()]
+            fws_G = list(self.R_G.fundamental_weights())
             weight_for_G = sum(weight[i] * fws_G[i] for i in range(self.G.rank()))
 
             return {weight_for_G: 1}
@@ -248,16 +248,14 @@ class ParabolicSubgroup:
                     return index + i
             return index + len(self.crossed_out_nodes)
 
-        fws_L = [
-            fw for fw in self.R_L.fundamental_weights()
-        ]  # conversion from 1-index to 0-index
+        fws_L = list(self.R_L.fundamental_weights())  # conversion from 1-index to 0-index
         weight_for_L = [
             weight[i - 1]
             for i in set(range(1, len(weight) + 1)) - set(self.crossed_out_nodes)
         ]
         weight_for_L = sum(weight_for_L[i] * fws_L[i] for i in range(self.L.rank()))
 
-        fws_G = [fw for fw in self.R_G.fundamental_weights()]
+        fws_G = list(self.R_G.fundamental_weights())
         weight_for_G = sum(weight[i] * fws_G[i] for i in range(self.G.rank()))
 
         mul_set = root_difference_multiplicities(self.R_L, weight_for_L)
