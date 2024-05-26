@@ -49,7 +49,7 @@ REFERENCES:
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-from sage.all import matrix, vector, WeylCharacterRing, CartanType
+from sage.all import matrix, vector, WeylCharacterRing
 
 
 # 最高ウェイト表現のウェイトを最高ウェイトとの差で表す関数。

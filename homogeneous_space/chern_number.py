@@ -43,10 +43,12 @@ REFERENCES:
 from sage.all import prod
 from homogeneous_space.interfaces import AlmostComplexManifold
 
+
 # `degree`次部分を取り出す関数
-homogeneous_part = lambda F, degree: sum(
-    c * m for c, m in F if m.total_degree() == degree
-)
+def homogeneous_part(F, degree):
+    return sum(
+        c * m for c, m in F if m.total_degree() == degree
+    )
 
 
 def chern_number(

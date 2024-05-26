@@ -13,10 +13,8 @@ Module contains common functions used in intermediate calculations
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
 
-import math
 from sage.all import (
     PolynomialRing,
-    LaurentPolynomialRing,
     LazyLaurentSeriesRing,
     QQ,
     SymmetricFunctions,
@@ -33,7 +31,7 @@ def todd_cut(x, m):  # mでカットオフ
 
     INPUT:
 
-    - ``x`` -- the variable of the todd genus for a line bundle.
+    - ``x`` -- the variable of the Todd genus for a line bundle.
 
     - ``m`` -- integer.
 
