@@ -75,11 +75,11 @@ def euler_characteristic(
 
     """
     chern_character = vector_bundle.chern_character()
-    todd_classes = variety.todd_classes()
+    todd_classes = manifold.todd_classes()
 
-    return variety.integration(
+    return manifold.integration(
         sum(
-            chern_character[i] * todd_classes[variety.dimension() - i]
-            for i in range(0, variety.dimension() + 1)
+            chern_character[i] * todd_classes[manifold.dimension() - i]
+            for i in range(manifold.dimension() + 1)
         )
     )

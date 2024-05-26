@@ -37,8 +37,8 @@ REFERENCES:
 # ****************************************************************************
 
 import math
+
 from sage.all import LaurentPolynomialRing, LazyLaurentSeriesRing, QQ, bernoulli, sigma
-from weak_Jacobi_form.eisenstein import lazy_eisenstein_series_qexp
 
 _R0 = LaurentPolynomialRing(QQ, "y")
 _y = _R0.gen()
@@ -349,7 +349,7 @@ def basis_integral(weight: int, index: int) -> list:
 
     result = []
     # result.append(_phi_tilde_0_1() ** index)
-    for i in range(0, index + 1):
+    for i in range(index + 1):
         phi = _phi_tilde_0_1() ** (index - i) * _phi_tilde_m2_1() ** i
         for i, j in _decompose(i + int(weight / 2)):
             e = eisenstein(4) ** i * eisenstein(6) ** j

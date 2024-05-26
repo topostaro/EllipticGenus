@@ -34,6 +34,7 @@ REFERENCES:
 # (at your option) any later version.
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
+from functools import cache
 
 from sage.all import (
     PolynomialRing,
@@ -42,11 +43,11 @@ from sage.all import (
     QQ,
     Partitions,
     prod,
+    SymmetricFunctions,
 )
-from elliptic_genus.utils import *
+from elliptic_genus.utils import exp_cut, cutoff, todd_cut, chernnum_from_partition
 from homogeneous_space.interfaces import AlmostComplexManifold
-
-from functools import cache
+from homogeneous_space.chern_number import chern_number
 
 
 # qのk次までに必要な係数の計算
@@ -94,7 +95,7 @@ def ell_factor_coeff_degreewise(dim: int, k: int) -> list:
     q_ = R.gen()
 
     S0 = PolynomialRing(QQ, "c", dim + 1)
-    c = S0.gens()  # Chern根の変数
+    # c = S0.gens()  # Chern根の変数
 
     S1 = LaurentPolynomialRing(S0, "y")
     y = S1.gen()
@@ -176,19 +177,19 @@ def ell_factor_coeff(dim: int, k: int) -> list:
          (-1/24*y^-1 + 1/24 + 1/24*y - 1/24*y^2)*q + (-3/4*y^-1 + 3/4 + 3/4*y - 3/4*y^2)*q^2]
 
     """
-    R0 = PolynomialRing(QQ, "x", dim)
-    x = R0.gens()  # Chern根の変数
+    # R0 = PolynomialRing(QQ, "x", dim)
+    # x = R0.gens()  # Chern根の変数
 
-    R1 = LaurentPolynomialRing(R0, "y_")
-    y_ = R1.gen()
-    R = LazyLaurentSeriesRing(R1, "q_")
-    q_ = R.gen()
+    # R1 = LaurentPolynomialRing(R0, "y_")
+    # y_ = R1.gen()
+    # R = LazyLaurentSeriesRing(R1, "q_")
+    # q_ = R.gen()
 
     S0 = PolynomialRing(QQ, "c", dim + 1)
-    c = S0.gens()  # Chern根の変数
+    # c = S0.gens()  # Chern根の変数
 
     S1 = LaurentPolynomialRing(S0, "y")
-    y = S1.gen()
+    # y = S1.gen()
     S = LazyLaurentSeriesRing(S1, "q")
     q = S.gen()
 
@@ -293,10 +294,6 @@ def elliptic_genus_chernnum(dim: int, k: int):
         return sum(
             coeff[part] * chernnum_from_partition(dim, part) for part in Partitions(dim)
         )
-
-
-from homogeneous_space.interfaces import AlmostComplexManifold
-from homogeneous_space.chern_number import chern_number
 
 
 @cache

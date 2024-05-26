@@ -164,7 +164,7 @@ class VectorBundle(ABC):
             order=TermOrder("wdeglex", tuple(range(1, len_cc + 1))),
         )
 
-        # Using Singular, calculate universal formula of chern character
+        # Using Singular, calculate universal formula of Chern character
         singular.lib("chern.lib")
         r = singular.ring(0, f"(c(1..{len_cc}))", "dp")
         l = singular.list(f"c(1..{len_cc})")
@@ -179,14 +179,14 @@ class VectorBundle(ABC):
 
         return [
             chern_character[i](chern_classes)
-            for i in (range(0, self.base().dimension() + 1))
+            for i in range(self.base().dimension() + 1)
         ]
 
     def chern_character_total(self):
         r"""
         Return the Chern characters of this vector bundle
         """
-        return sum(c for c in self.chern_character())
+        return sum(self.chern_character())
 
     def todd_classes(self) -> list:
         r"""
@@ -212,7 +212,7 @@ class VectorBundle(ABC):
 
         return [
             todd_classes[i](chern_classes)
-            for i in (range(0, self.base().dimension() + 1))
+            for i in range(self.base().dimension() + 1)
         ]
 
     def dual(self) -> VectorBundle:
@@ -250,18 +250,19 @@ def direct_sum(vector_bundle1: VectorBundle, vector_bundle2: VectorBundle):
     rank = vector_bundle1.rank() + vector_bundle2.rank()
     base = vector_bundle1.base()
 
-    cc = sum(c1 for c1 in vector_bundle1.chern_classes()) * sum(
-        c2 for c2 in vector_bundle2.chern_classes()
+    cc = sum(vector_bundle1.chern_classes()) * sum(
+        vector_bundle2.chern_classes()
     )
 
     # `degree`次部分を取り出す関数
-    homogeneous_part = lambda F, degree: sum(
-        c * m for c, m in F if m.total_degree() == degree
-    )
+    def homogeneous_part(F, degree):
+        return sum(
+            c * m for c, m in F if m.total_degree() == degree
+        )
 
     chern_classes = [
         homogeneous_part(cc, i)
-        for i in (range(0, vector_bundle1.base().dimension() + 1))
+        for i in (range(vector_bundle1.base().dimension() + 1))
     ]
 
     class VB(VectorBundle):

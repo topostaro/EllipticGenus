@@ -44,18 +44,20 @@ AUTHORS:
 # (at your option) any later version.
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
-
+from functools import cache
 from random import random
-from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup, Matrix
+
+from sage.all import PolynomialRing, QQ, prod, RealField, vector, WeylGroup
+
 from homogeneous_space.parabolic import ParabolicSubgroup
 from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
-from functools import cache
 
 
 # `degree`次部分を取り出す関数
-homogeneous_part = lambda F, degree: sum(
-    c * m for c, m in F if m.total_degree() == degree
-)
+def homogeneous_part(F, degree):
+    return sum(
+        c * m for c, m in F if m.total_degree() == degree
+    )
 
 
 class HomogeneousSpace(AlmostComplexManifold):
@@ -156,7 +158,7 @@ class HomogeneousSpace(AlmostComplexManifold):
         """
         return [
             homogeneous_part(prod(1 + x for x in self.tangent_weights), i)
-            for i in (range(0, self.dim + 1))
+            for i in range(self.dim + 1)
         ]
 
     @cache

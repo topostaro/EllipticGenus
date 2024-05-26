@@ -41,18 +41,20 @@ REFERENCES:
 # (at your option) any later version.
 #                  https://www.gnu.org/licenses/
 # ****************************************************************************
+from functools import cache
 
 from sage.all import prod, vector
+
 from homogeneous_space.homogeneous_space import (
     CompletelyReducibleEquivariantVectorBundle,
 )
 from homogeneous_space.interfaces import AlmostComplexManifold, VectorBundle
-from functools import cache
 
 
-homogeneous_part = lambda F, degree: sum(
-    c * m for c, m in F if m.total_degree() == degree
-)
+def homogeneous_part(F, degree):
+    return sum(
+        c * m for c, m in F if m.total_degree() == degree
+    )
 
 
 class CompleteIntersection(AlmostComplexManifold):
@@ -161,18 +163,17 @@ class CompleteIntersection(AlmostComplexManifold):
             )
 
         def geometric_sequence(n, x):
-            return sum(x**i for i in range(0, n + 1))
+            return sum(x**i for i in range(n + 1))
 
         cc = prod(1 + x for x in self.homogeneous_space.tangent_weights) * prod(
             geometric_sequence(self.dim, -class_from_weight(vector(w))) ** i
             for w, i in self.vector_bundle.weight_multiplicities.items()
         )
 
-        return [homogeneous_part(cc, i) for i in range(0, self.dim + 1)]
+        return [homogeneous_part(cc, i) for i in range(self.dim + 1)]
 
     def numerical_integration_by_localization(self, f):
         r"""
-
         Return the numerical computation of the integration of equivariant cohomology classes.
 
         INPUT:
